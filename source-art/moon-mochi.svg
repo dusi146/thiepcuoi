@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="115" y1="78" x2="1430" y2="947" gradientUnits="userSpaceOnUse"><stop stop-color="#F8F2EF"/><stop offset="1" stop-color="#DED0EB"/></linearGradient>
+    <linearGradient id="pouch" x1="583" y1="164" x2="1012" y2="852" gradientUnits="userSpaceOnUse"><stop stop-color="#59266D"/><stop offset=".58" stop-color="#3C174E"/><stop offset="1" stop-color="#241133"/></linearGradient>
+    <linearGradient id="mochi" x1="293" y1="589" x2="483" y2="763" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF9EF"/><stop offset="1" stop-color="#DCC7DB"/></linearGradient>
+    <filter id="shadow" x="526" y="145" width="575" height="786" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="24"/></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".55" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 .035"/></feComponentTransfer></filter>
+  </defs>
+  <path fill="url(#bg)" d="M0 0h1600v1000H0z"/>
+  <circle cx="172" cy="174" r="244" fill="#FFF9F3" fill-opacity=".42"/>
+  <circle cx="1487" cy="834" r="328" fill="#C6AFD6" fill-opacity=".26"/>
+  <path d="M256 819c201-267 356-432 576-436 199-4 344 163 559 432" stroke="#F8EEDB" stroke-width="30" stroke-linecap="round" opacity=".72"/>
+  <path d="M251 841c192-246 370-382 582-386 174-3 329 125 507 321" stroke="#AB84B8" stroke-width="2" opacity=".28"/>
+  <ellipse cx="811" cy="868" rx="291" ry="48" fill="#34203D" opacity=".16" filter="url(#shadow)"/>
+  <path d="M621 193c0-21 17-38 38-38h315c21 0 38 17 38 38l23 70-12 534-35 72H610l-35-72-12-534 23-70Z" fill="url(#pouch)" stroke="#E6CBEA" stroke-opacity=".63" stroke-width="3"/>
+  <path d="M611 192h360M582 253h435M579 789h445" stroke="#C49BCF" stroke-opacity=".45" stroke-width="5"/>
+  <path d="m625 193 14 58m319-58-15 58" stroke="#EDCFF1" stroke-opacity=".52" stroke-width="2"/>
+  <path d="M656 298c43 25 59 62 64 105m246-105c-46 25-61 62-66 105" stroke="#D9B6DF" stroke-opacity=".55" stroke-width="3" stroke-linecap="round"/>
+  <g fill="#F0D7E8" opacity=".7"><path d="M690 331c-16 23-17 41-2 52 15-11 16-29 2-52Zm231-1c14 22 14 40-1 52-14-12-14-30 1-52Z"/><path d="M670 396c-11 16-11 28 0 37 11-9 11-21 0-37Zm272 0c11 16 11 28 0 37-11-9-11-21 0-37Z"/></g>
+  <circle cx="808" cy="302" r="28" fill="#EEDCF1"/>
+  <path d="M817 279c-18 2-29 17-26 33 3 13 15 22 28 20-11-5-17-15-15-26 2-12 7-20 13-27Z" fill="#714480"/>
+  <text x="808" y="359" fill="#F0DDF0" font-family="Arial,sans-serif" font-size="22" letter-spacing="2" text-anchor="middle">moon mochi</text>
+  <text x="808" y="472" fill="#FFF2E8" font-family="Georgia,serif" font-size="90" letter-spacing="-4" text-anchor="middle">MOCHI</text>
+  <path d="M676 495h264" stroke="#B98DC8" stroke-width="2"/>
+  <text x="808" y="535" fill="#DDC2E0" font-family="Arial,sans-serif" font-size="23" letter-spacing="3" text-anchor="middle">KHOAI LANG TÍM</text>
+  <circle cx="808" cy="654" r="77" fill="#754285" stroke="#B98DC8" stroke-opacity=".7" stroke-width="2"/>
+  <circle cx="808" cy="654" r="61" fill="#45244F"/>
+  <circle cx="808" cy="654" r="39" fill="#D7B8DD"/>
+  <path d="M826 629c-24 5-38 28-30 49 5 13 18 21 32 21-19-14-20-35-10-49 3-6 6-13 8-21Z" fill="#7B4A83"/>
+  <text x="808" y="762" fill="#CBA9D3" font-family="Arial,sans-serif" font-size="15" letter-spacing="4" text-anchor="middle">A LITTLE MOON OF SOFTNESS</text>
+  <ellipse cx="393" cy="826" rx="180" ry="30" fill="#6E486E" opacity=".17"/>
+  <path d="M290 690c-6-43 19-82 61-97 54-20 109 12 131 65 17 42 8 95-26 120-36 27-93 19-130-6-20-14-32-43-36-82Z" fill="url(#mochi)" stroke="#FFFDF8" stroke-width="7"/>
+  <path d="M398 645c33 2 64 25 75 58 12 36-5 67-32 79-21 9-45 4-58-11 22 2 39-8 43-26 4-20-11-40-36-46-20-5-41 4-49 19-1-35 22-71 57-73Z" fill="#A85585"/>
+  <path d="M415 668c20 4 37 18 42 37" stroke="#DB9ABA" stroke-width="8" stroke-linecap="round" opacity=".68"/>
+  <circle cx="294" cy="625" r="8" fill="#866095"/><circle cx="505" cy="768" r="6" fill="#866095"/><circle cx="1125" cy="335" r="9" fill="#FFF7F0" opacity=".8"/>
+  <text x="130" y="154" fill="#553B61" font-family="Arial,sans-serif" font-size="18" letter-spacing="5">MOON MOCHI / 01</text>
+  <text x="1465" y="884" fill="#553B61" font-family="Georgia,serif" font-size="20" text-anchor="end">softness, in orbit</text>
+  <path fill="#fff" opacity=".5" filter="url(#grain)" d="M0 0h1600v1000H0z"/>
+</svg>

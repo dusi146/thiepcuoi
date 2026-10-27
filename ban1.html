@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thiệp Mời Cưới | [TÊN CÔ DÂU] & [TÊN CHÚ RỂ]</title>
+
+  <!-- Google Fonts: Cormorant Garamond (Serif cổ điển), Be Vietnam Pro (Sans dễ đọc), IBM Plex Mono (Mono nhỏ) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Bảng màu Retro thập niên 60-70 */
+      --bg-ivory: #F6F1E6;
+      --bg-card: #EFE8D8;
+      --vermilion: #B44332;       /* Đỏ gạch dấu son */
+      --vermilion-dark: #8E3122;
+      --olive: #556446;           /* Xanh olive */
+      --ink-brown: #2D231E;       /* Nâu mực */
+      --ink-muted: #65564E;
+      --sun-gold: #D99B26;        /* Vàng nắng điểm sáng */
+      --border-line: rgba(45, 35, 30, 0.18);
+
+      /* Typography */
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+
+      /* Chuyển động */
+      --ease-paper: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: clip;
+      background-color: var(--bg-ivory);
+      color: var(--ink-brown);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      overflow-x: clip;
+      min-height: 100vh;
+      position: relative;
+      background-color: var(--bg-ivory);
+      /* Vân giấy rất nhẹ bằng radial-gradient tinh giản, không làm nặng trang hay mờ chữ */
+      background-image:
+        radial-gradient(rgba(45, 35, 30, 0.03) 1px, transparent 0),
+        radial-gradient(rgba(85, 100, 70, 0.025) 1px, transparent 0);
+      background-size: 24px 24px;
+      background-position: 0 0, 12px 12px;
+    }
+
+    /* Khung ưu tiên điện thoại (360-430px) nhưng hiển thị đẹp trên màn hình lớn */
+    .invitation-shell {
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 0 18px 64px;
+      position: relative;
+    }
+
+    /* Tiện ích Typography */
+    .mono-caption {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .serif-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      line-height: 1.18;
+      color: var(--ink-brown);
+    }
+
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-line);
+      border-radius: 4px;
+      padding: 28px 20px;
+      margin-top: 28px;
+      position: relative;
+      box-shadow: 0 6px 20px rgba(45, 35, 30, 0.04);
+      /* Hiệu ứng lật giấy nhẹ khi vào vùng nhìn */
+      opacity: 0;
+      transform: translateY(18px) rotateX(2deg);
+      transform-origin: top center;
+      transition: opacity 0.65s var(--ease-paper), transform 0.65s var(--ease-paper);
+    }
+
+    .section-card.is-visible {
+      opacity: 1;
+      transform: translateY(0) rotateX(0);
+    }
+
+    /* Viền tem thư / thiệp in cổ điển */
+    .stamp-frame {
+      border: 1px dashed var(--olive);
+      padding: 6px;
+      background: var(--bg-ivory);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-line);
+    }
+
+    .section-header h2 {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      color: var(--vermilion);
+      margin-top: 4px;
+    }
+
+    /* ================= 1. MÀN HÌNH PHONG BÌ (KHÔNG CHẶN CUỘN DỌC) ================= */
+    .envelope-stage {
+      margin-top: 20px;
+      margin-bottom: 12px;
+      perspective: 1000px;
+    }
+
+    .envelope-wrapper {
+      background: #EADEC9;
+      border: 1px solid var(--border-line);
+      border-radius: 6px;
+      padding: 28px 18px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(45, 35, 30, 0.08);
+      transition: transform 0.6s var(--ease-paper), opacity 0.5s var(--ease-paper);
+    }
+
+    /* Nắp phong bì giả lập bằng đường kẻ chéo cổ điển */
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 88px;
+      background: linear-gradient(180deg, rgba(180, 67, 50, 0.09), transparent);
+      border-bottom: 1px solid var(--border-line);
+      transform-origin: top center;
+      transition: transform 0.7s var(--ease-paper), opacity 0.5s var(--ease-paper);
+      pointer-events: none;
+    }
+
+    .envelope-stage.is-opened .envelope-flap {
+      transform: rotateX(160deg);
+      opacity: 0.25;
+    }
+
+    .letter-rising {
+      position: relative;
+      z-index: 2;
+      background: var(--bg-ivory);
+      border: 1px solid var(--border-line);
+      padding: 20px 14px;
+      margin-bottom: 18px;
+      transition: transform 0.75s var(--ease-paper), box-shadow 0.75s var(--ease-paper);
+    }
+
+    .envelope-stage.is-opened .letter-rising {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 24px rgba(45, 35, 30, 0.1);
+    }
+
+    /* Tem sáp đỏ gạch */
+    .wax-seal-btn {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--ink-brown);
+      font-family: var(--font-sans);
+      padding: 8px 16px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .wax-seal-disc {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #C85240, var(--vermilion) 65%, var(--vermilion-dark));
+      border: 2px solid #862D1F;
+      box-shadow:
+        inset 0 0 0 4px rgba(246, 241, 230, 0.18),
+        0 4px 12px rgba(180, 67, 50, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--bg-ivory);
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      transition: transform 0.25s var(--ease-paper), box-shadow 0.25s var(--ease-paper);
+    }
+
+    .wax-seal-btn:active .wax-seal-disc {
+      transform: scale(0.95);
+    }
+
+    .wax-seal-label {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--vermilion);
+      background: rgba(217, 155, 38, 0.16);
+      border: 1px solid var(--sun-gold);
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+
+    .skip-intro-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+
+    .skip-btn {
+      background: transparent;
+      border: none;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--olive);
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 6px 4px;
+    }
+
+    /* ================= 2. BÌA MỜI (HERO COVER) ================= */
+    .cover-card {
+      text-align: center;
+      border: 2px solid var(--ink-brown);
+      background: var(--bg-ivory);
+      padding: 26px 18px;
+    }
+
+    .cover-SealBadge {
+      display: inline-block;
+      border: 1px solid var(--vermilion);
+      color: var(--vermilion);
+      padding: 3px 10px;
+      margin-bottom: 14px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+    }
+
+    .couple-names {
+      font-size: clamp(1.85rem, 7vw, 2.35rem);
+      color: var(--ink-brown);
+      margin: 8px 0;
+    }
+
+    .couple-ampersand {
+      display: block;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--vermilion);
+      margin: 2px 0;
+    }
+
+    .cover-date-box {
+      display: inline-block;
+      margin: 12px 0 18px;
+      padding: 6px 14px;
+      border-top: 1px solid var(--olive);
+      border-bottom: 1px solid var(--olive);
+      color: var(--olive);
+      font-weight: 500;
+    }
+
+    /* Khung ảnh & Vector minh họa thanh nhã */
+    .media-slot {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background: #EAE2D1;
+      border: 1px solid var(--border-line);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .media-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .vector-fallback {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 10px;
+      color: var(--ink-muted);
+      padding: 12px;
+    }
+
+    .vector-fallback svg {
+      width: 96px;
+      height: 96px;
+      stroke: var(--ink-brown);
+      fill: none;
+    }
+
+    /* ================= 3. BỨC THƯ THÂN TÌNH ================= */
+    .letter-paper {
+      background: var(--bg-ivory);
+      border-left: 3px solid var(--vermilion);
+      padding: 18px 16px;
+      font-size: 0.96rem;
+      color: var(--ink-brown);
+    }
+
+    .letter-paper p + p {
+      margin-top: 12px;
+    }
+
+    .letter-sign {
+      margin-top: 18px;
+      text-align: right;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--vermilion);
+    }
+
+    /* ================= 4. ALBUM ẢNH CHUYỆN TÌNH (VUỐT NGANG) ================= */
+    .carousel-Region {
+      position: relative;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--olive) transparent;
+    }
+
+    .carousel-slide {
+      flex: 0 0 86%;
+      max-width: 86%;
+      scroll-snap-align: center;
+      background: var(--bg-ivory);
+      border: 1px solid var(--border-line);
+      padding: 10px 10px 14px;
+    }
+
+    .slide-caption {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .ctrl-btn {
+      background: var(--bg-ivory);
+      color: var(--ink-brown);
+      border: 1px solid var(--ink-brown);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      padding: 8px 14px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Phản hồi rõ khi nhấn nút điều khiển album */
+    .ctrl-btn:active,
+    .ctrl-btn.is-pressed {
+      background: var(--vermilion);
+      color: var(--bg-ivory);
+      border-color: var(--vermilion);
+      transform: scale(0.94);
+    }
+
+    .ctrl-btn:focus-visible {
+      outline: 2px solid var(--sun-gold);
+      outline-offset: 2px;
+    }
+
+    /* ================= 5. LỊCH TRÌNH & BẢN ĐỒ ================= */
+    .timeline-list {
+      list-style: none;
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      background: var(--bg-ivory);
+      border: 1px solid var(--border-line);
+      padding: 16px;
+      border-radius: 3px;
+    }
+
+    .timeline-badge {
+      display: inline-block;
+      background: var(--olive);
+      color: var(--bg-ivory);
+      padding: 2px 8px;
+      margin-bottom: 8px;
+    }
+
+    .map-link-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+      width: 100%;
+      padding: 11px 16px;
+      background: var(--vermilion);
+      color: var(--bg-ivory);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      border-radius: 3px;
+      border: 1px solid var(--vermilion-dark);
+      text-align: center;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .map-link-btn:active {
+      transform: scale(0.98);
+      background: var(--vermilion-dark);
+    }
+
+    /* ================= 6. COUNTDOWN ================= */
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      text-align: center;
+    }
+
+    .cd-cell {
+      background: var(--bg-ivory);
+      border: 1px solid var(--border-line);
+      padding: 12px 4px;
+    }
+
+    .cd-number {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--vermilion);
+      line-height: 1.1;
+    }
+
+    .cd-note {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* ================= 7. DRESS CODE ================= */
+    .palette-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 14px 0;
+      flex-wrap: wrap;
+    }
+
+    .swatch-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .swatch-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2px solid var(--ink-brown);
+    }
+
+    /* ================= 8. FORM RSVP ================= */
+    .rsvp-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .form-field {
+      display: grid;
+      gap: 5px;
+    }
+
+    .form-field label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--ink-brown);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 12px;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      color: var(--ink-brown);
+      background: var(--bg-ivory);
+      border: 1px solid var(--ink-muted);
+      border-radius: 3px;
+    }
+
+    .form-control:focus {
+      outline: 2px solid var(--sun-gold);
+      border-color: var(--ink-brown);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--ink-brown);
+      color: var(--bg-ivory);
+      border: 1px solid var(--ink-brown);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .submit-btn:active {
+      transform: scale(0.98);
+    }
+
+    .rsvp-status {
+      padding: 12px;
+      border-radius: 3px;
+      font-size: 0.88rem;
+      display: none;
+    }
+
+    .rsvp-status.is-warning {
+      display: block;
+      background: rgba(217, 155, 38, 0.15);
+      border: 1px solid var(--sun-gold);
+      color: var(--ink-brown);
+    }
+
+    .rsvp-status.is-success {
+      display: block;
+      background: rgba(85, 100, 70, 0.15);
+      border: 1px solid var(--olive);
+      color: var(--ink-brown);
+    }
+
+    /* ================= 9. LỜI CẢM ƠN & ĐẦU TRANG ================= */
+    .footer-card {
+      text-align: center;
+      margin-top: 32px;
+      padding: 24px 16px;
+      border-top: 2px double var(--border-line);
+    }
+
+    .back-top-btn {
+      margin-top: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--ink-brown);
+      color: var(--ink-brown);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    /* Hiệu ứng con trỏ chỉ bật trên máy có chuột */
+    .cursor-dot {
+      display: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .ctrl-btn:hover {
+        background: var(--olive);
+        color: var(--bg-ivory);
+        border-color: var(--olive);
+      }
+      .map-link-btn:hover {
+        background: var(--vermilion-dark);
+      }
+      .submit-btn:hover {
+        background: var(--vermilion);
+        border-color: var(--vermilion);
+      }
+      .cursor-dot {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 14px;
+        height: 14px;
+        border: 1.5px solid var(--vermilion);
+        background: rgba(217, 155, 38, 0.25);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: width 0.2s ease, height 0.2s ease;
+      }
+    }
+
+    /* Tôn trọng prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .section-card {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .cursor-dot {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+
+  <!-- Hiệu ứng con trỏ dành riêng cho thiết bị có chuột -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+  <main class="invitation-shell">
+
+    <!-- 1. MÀN HÌNH PHONG BÌ -->
+    <section class="envelope-stage" id="envelopeStage" aria-label="Phong bì thiệp cưới">
+      <div class="envelope-wrapper">
+        <div class="envelope-flap" aria-hidden="true"></div>
+
+        <div class="letter-rising" id="letterPreview">
+          <p class="mono-caption">THIỆP BÁO HỶ • ẤN BẢN LƯU NIỆM</p>
+          <p class="serif-title" style="font-size: 1.35rem; margin-top: 6px;">
+            <span data-bind="bride">[TÊN CÔ DÂU]</span> &amp; <span data-bind="groom">[TÊN CHÚ RỂ]</span>
+          </p>
+          <p class="mono-caption" style="margin-top: 4px;" data-bind="datetime">[NGÀY / GIỜ]</p>
+        </div>
+
+        <button type="button" class="wax-seal-btn" id="openEnvelopeBtn" aria-expanded="false">
+          <span class="wax-seal-disc" aria-hidden="true">囍</span>
+          <span class="wax-seal-label" id="sealActionText">Chạm để mở thiệp</span>
+        </button>
+      </div>
+
+      <div class="skip-intro-bar">
+        <button type="button" class="skip-btn" id="skipIntroBtn">Bỏ qua mở thiệp ↓</button>
+      </div>
+    </section>
+
+    <!-- 2. BÌA MỜI (HERO COVER) -->
+    <section class="section-card cover-card" id="mainInvitation" data-parallax="0.03">
+      <span class="cover-SealBadge">TRÂN TRỌNG KÍNH MỜI</span>
+
+      <h1 class="serif-title couple-names">
+        <span data-bind="bride">[TÊN CÔ DÂU]</span>
+        <span class="couple-ampersand">&amp;</span>
+        <span data-bind="groom">[TÊN CHÚ RỂ]</span>
+      </h1>
+
+      <div class="cover-date-box mono-caption" data-bind="datetime">[NGÀY / GIỜ]</div>
+
+      <!-- Khung ảnh chính: tự động dùng minh họa vector thanh nhã nếu vẫn là placeholder [ẢNH] -->
+      <div class="stamp-frame">
+        <div class="media-slot" id="heroPhotoSlot"></div>
+      </div>
+      <p class="mono-caption" style="margin-top: 8px;">HÌNH ẢNH: <span data-bind="photoPlaceholder">[ẢNH]</span></p>
+    </section>
+
+    <!-- 3. BỨC THƯ THÂN TÌNH -->
+    <section class="section-card" aria-labelledby="letterHeading">
+      <div class="section-header">
+        <p class="mono-caption">LÁ THƯ NHỎ</p>
+        <h2 id="letterHeading">Đôi lời thân tình</h2>
+      </div>
+      <div class="letter-paper">
+        <p>
+          Giữa những tháng ngày vội vã, chúng mình thật hạnh phúc khi tìm thấy nhau và cùng viết tiếp một chương mới bình yên.
+        </p>
+        <p>
+          Sự hiện diện và lời chúc phúc của bạn trong ngày vui của <strong data-bind="bride">[TÊN CÔ DÂU]</strong> và <strong data-bind="groom">[TÊN CHÚ RỂ]</strong> sẽ là kỷ niệm đẹp đẽ nhất mà chúng mình luôn trân quý.
+        </p>
+        <div class="letter-sign">
+          Thân mến,<br />
+          <span data-bind="bride">[TÊN CÔ DÂU]</span> &amp; <span data-bind="groom">[TÊN CHÚ RỂ]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ALBUM ẢNH CHUYỆN TÌNH (VUỐT NGANG) -->
+    <section class="section-card" aria-labelledby="albumHeading">
+      <div class="section-header">
+        <p class="mono-caption">CUỘN FILM KỶ NIỆM</p>
+        <h2 id="albumHeading">Album chuyện tình</h2>
+      </div>
+
+      <div class="carousel-Region">
+        <div class="carousel-track" id="albumTrack" tabindex="0" aria-label="Bộ sưu tập ảnh chuyện tình">
+          <!-- Render tự động từ cấu hình -->
+        </div>
+
+        <div class="carousel-controls">
+          <button type="button" class="ctrl-btn" id="prevSlideBtn" aria-label="Ảnh trước">← Trước</button>
+          <span class="mono-caption" id="albumCounter">01 / 03</span>
+          <button type="button" class="ctrl-btn" id="nextSlideBtn" aria-label="Ảnh tiếp theo">Tiếp →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. LỊCH TRÌNH LỄ & TIỆC + LINK BẢN ĐỒ -->
+    <section class="section-card" aria-labelledby="scheduleHeading">
+      <div class="section-header">
+        <p class="mono-caption">THỜI GIAN &amp; ĐỊA ĐIỂM</p>
+        <h2 id="scheduleHeading">Lịch trình hôn lễ</h2>
+      </div>
+
+      <ul class="timeline-list">
+        <li class="timeline-item">
+          <span class="timeline-badge mono-caption">LỄ THÀNH HÔN &amp; TIỆC CƯỚI</span>
+          <p class="serif-title" style="font-size: 1.3rem; margin-bottom: 6px;" data-bind="datetime">[NGÀY / GIỜ]</p>
+          <p style="font-size: 0.95rem;"><strong>Địa điểm:</strong> <span data-bind="venue">[ĐỊA ĐIỂM]</span></p>
+          <p class="mono-caption" style="margin-top: 6px;">Bản đồ: <span data-bind="mapLinkText">[LINK BẢN ĐỒ]</span></p>
+          <a href="#" class="map-link-btn" id="mapAnchor" target="_blank" rel="noopener noreferrer">
+            Mở chỉ đường trên Bản đồ ↗
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 6. COUNTDOWN -->
+    <section class="section-card" aria-labelledby="countdownHeading">
+      <div class="section-header">
+        <p class="mono-caption">ĐẾM NGƯỢC NGÀY VUI</p>
+        <h2 id="countdownHeading">Cùng đếm thời gian</h2>
+      </div>
+
+      <div class="countdown-grid" aria-live="polite">
+        <div class="cd-cell">
+          <span class="cd-number" id="cdDays">--</span>
+          <span class="mono-caption">Ngày</span>
+        </div>
+        <div class="cd-cell">
+          <span class="cd-number" id="cdHours">--</span>
+          <span class="mono-caption">Giờ</span>
+        </div>
+        <div class="cd-cell">
+          <span class="cd-number" id="cdMins">--</span>
+          <span class="mono-caption">Phút</span>
+        </div>
+        <div class="cd-cell">
+          <span class="cd-number" id="cdSecs">--</span>
+          <span class="mono-caption">Giây</span>
+        </div>
+      </div>
+      <p class="mono-caption cd-note" id="countdownNote">Mốc thời gian: <span data-bind="datetime">[NGÀY / GIỜ]</span></p>
+    </section>
+
+    <!-- 7. DRESS CODE -->
+    <section class="section-card" aria-labelledby="dresscodeHeading">
+      <div class="section-header">
+        <p class="mono-caption">TRANG PHỤC GỢI Ý</p>
+        <h2 id="dresscodeHeading">Dress Code</h2>
+      </div>
+
+      <p style="text-align: center; font-size: 0.95rem;">
+        Gợi ý trang phục từ cô dâu &amp; chú rể: <strong data-bind="dressCode">[DRESS CODE]</strong>
+      </p>
+
+      <div class="palette-row" aria-label="Bảng màu gợi ý">
+        <div class="swatch-item">
+          <span class="swatch-circle" style="background: #F6F1E6;"></span>
+          <span class="mono-caption">Kem ngà</span>
+        </div>
+        <div class="swatch-item">
+          <span class="swatch-circle" style="background: #556446;"></span>
+          <span class="mono-caption">Olive</span>
+        </div>
+        <div class="swatch-item">
+          <span class="swatch-circle" style="background: #B44332;"></span>
+          <span class="mono-caption">Đỏ gạch</span>
+        </div>
+        <div class="swatch-item">
+          <span class="swatch-circle" style="background: #D99B26;"></span>
+          <span class="mono-caption">Vàng nắng</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. FORM RSVP -->
+    <section class="section-card" aria-labelledby="rsvpHeading">
+      <div class="section-header">
+        <p class="mono-caption">XÁC NHẬN THAM DỰ</p>
+        <h2 id="rsvpHeading">Hồi âm (RSVP)</h2>
+      </div>
+
+      <p class="mono-caption" style="text-align: center; margin-bottom: 14px;">
+        Vui lòng phản hồi trước: <strong data-bind="rsvpDeadline">[HẠN RSVP]</strong><br />
+        Email nhận hồi âm: <span data-bind="rsvpEmail">[EMAIL NHẬN HỒI ÂM]</span>
+      </p>
+
+      <form class="rsvp-form" id="rsvpForm" novalidate>
+        <div class="form-field">
+          <label for="guestName">Tên của bạn *</label>
+          <input type="text" id="guestName" name="guestName" class="form-control" required placeholder="Nhập họ và tên..." />
+        </div>
+
+        <div class="form-field">
+          <label for="attendance">Bạn sẽ tham dự cùng chúng mình chứ? *</label>
+          <select id="attendance" name="attendance" class="form-control" required>
+            <option value="yes">Mình chắc chắn sẽ tham dự</option>
+            <option value="no">Rất tiếc, mình bận mất rồi</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="guestCount">Số người đi cùng</label>
+          <select id="guestCount" name="guestCount" class="form-control">
+            <option value="1">Đi 1 mình</option>
+            <option value="2">2 người</option>
+            <option value="3">3 người</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="guestWish">Lời nhắn gửi đôi uyên ương</label>
+          <textarea id="guestWish" name="guestWish" rows="3" class="form-control" placeholder="Gửi lời chúc tốt đẹp..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Gửi xác nhận tham dự</button>
+        <div class="rsvp-status" id="rsvpStatusBox" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <!-- 9. LỜI CẢM ƠN & QUAY LẠI ĐẦU TRANG -->
+    <footer class="footer-card">
+      <p class="mono-caption">TRÂN TRỌNG CẢM ƠN</p>
+      <p class="serif-title" style="font-size: 1.5rem; margin-top: 6px; color: var(--vermilion);">
+        Hẹn gặp bạn trong ngày vui!
+      </p>
+      <p style="font-size: 0.9rem; margin-top: 6px; color: var(--ink-muted);">
+        <span data-bind="bride">[TÊN CÔ DÂU]</span> &amp; <span data-bind="groom">[TÊN CHÚ RỂ]</span>
+      </p>
+
+      <button type="button" class="back-top-btn" id="backToTopBtn">
+        ↑ Quay lại đầu trang
+      </button>
+    </footer>
+
+  </main>
+
+  <script>
+    /**
+     * ============================================================================
+     * CẤU HÌNH TRUNG TÂM - THAY THẾ CÁC GIÁ TRỊ PLACEHOLDER TẠI ĐÂY
+     * Không tự bịa dữ liệu khi chưa được cung cấp.
+     * ============================================================================
+     */
+    const WEDDING_CONFIG = {
+      brideName: "[TÊN CÔ DÂU]",
+      groomName: "[TÊN CHÚ RỂ]",
+      dateTimeText: "[NGÀY / GIỜ]",
+      // Điền chuẩn ISO (ví dụ: "2026-12-20T18:00:00+07:00") khi đã có ngày cưới thật để chạy Countdown
+      dateTimeISO: "[NGÀY / GIỜ]",
+      venue: "[ĐỊA ĐIỂM]",
+      mapLink: "[LINK BẢN ĐỒ]",
+      rsvpDeadline: "[HẠN RSVP]",
+      rsvpEmail: "[EMAIL NHẬN HỒI ÂM]",
+      // URL endpoint thật (Formspree / Web3Forms / Custom Backend). Để trống nếu chưa nối backend thật.
+      rsvpBackendEndpoint: "",
+      dressCode: "[DRESS CODE]",
+      heroPhoto: {
+        avif: "[ẢNH]",
+        webp: "[ẢNH]",
+        fallback: "[ẢNH]",
+        alt: "Ảnh cưới của [TÊN CÔ DÂU] và [TÊN CHÚ RỂ]"
+      },
+      albumPhotos: [
+        { avif: "[ẢNH]", webp: "[ẢNH]", fallback: "[ẢNH]", caption: "Kỷ niệm 01 • [ẢNH]" },
+        { avif: "[ẢNH]", webp: "[ẢNH]", fallback: "[ẢNH]", caption: "Kỷ niệm 02 • [ẢNH]" },
+        { avif: "[ẢNH]", webp: "[ẢNH]", fallback: "[ẢNH]", caption: "Kỷ niệm 03 • [ẢNH]" }
+      ]
+    };
+
+    // Kiểm tra xem một trường còn đang ở trạng thái placeholder chưa thay thế hay không
+    function isPlaceholder(val) {
+      return !val || typeof val !== "string" || val.trim().startsWith("[");
+    }
+
+    // Vector minh họa thanh nhã khi chưa có ảnh thật (tuyệt đối không giả ảnh thật)
+    function getElegantVectorMarkup(label) {
+      return `
+        <div class="vector-fallback">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="52" stroke-width="1.2" stroke-dasharray="3 3"/>
+            <path d="M38 78 C38 56, 82 56, 82 78" stroke-width="1.5"/>
+            <circle cx="48" cy="46" r="10" stroke-width="1.5"/>
+            <circle cx="72" cy="46" r="10" stroke-width="1.5"/>
+            <path d="M55 30 L60 22 L65 30" stroke="#B44332" stroke-width="1.5"/>
+            <path d="M30 92 H90" stroke="#556446" stroke-width="1.2"/>
+          </svg>
+          <span class="mono-caption">Minh họa Vector • Chờ cập nhật ${label}</span>
+        </div>
+      `;
+    }
+
+    // Render thẻ <picture> tối ưu WebP/AVIF hoặc Vector thanh nhã
+    function renderMediaSlot(photoObj, isLazy = true) {
+      if (isPlaceholder(photoObj.fallback)) {
+        return getElegantVectorMarkup(photoObj.fallback || "[ẢNH]");
+      }
+      const loadingAttr = isLazy ? 'loading="lazy" decoding="async"' : 'decoding="async"';
+      return `
+        <picture>
+          ${!isPlaceholder(photoObj.avif) ? `<source srcset="${photoObj.avif}" type="image/avif">` : ""}
+          ${!isPlaceholder(photoObj.webp) ? `<source srcset="${photoObj.webp}" type="image/webp">` : ""}
+          <img src="${photoObj.fallback}" alt="${photoObj.alt || ''}" ${loadingAttr} />
+        </picture>
+      `;
+    }
+
+    // 1. Đổ dữ liệu cấu hình vào DOM
+    function bindConfigData() {
+      const bindings = {
+        bride: WEDDING_CONFIG.brideName,
+        groom: WEDDING_CONFIG.groomName,
+        datetime: WEDDING_CONFIG.dateTimeText,
+        venue: WEDDING_CONFIG.venue,
+        mapLinkText: WEDDING_CONFIG.mapLink,
+        rsvpDeadline: WEDDING_CONFIG.rsvpDeadline,
+        rsvpEmail: WEDDING_CONFIG.rsvpEmail,
+        dressCode: WEDDING_CONFIG.dressCode,
+        photoPlaceholder: WEDDING_CONFIG.heroPhoto.fallback
+      };
+
+      document.querySelectorAll("[data-bind]").forEach((el) => {
+        const key = el.getAttribute("data-bind");
+        if (bindings[key] !== undefined) {
+          el.textContent = bindings[key];
+        }
+      });
+
+      // Ảnh bìa đầu trang (không lazy-load vì ở màn hình đầu)
+      const heroSlot = document.getElementById("heroPhotoSlot");
+      heroSlot.innerHTML = renderMediaSlot(WEDDING_CONFIG.heroPhoto, false);
+
+      // Album ảnh phía dưới màn hình đầu (lazy-load)
+      const albumTrack = document.getElementById("albumTrack");
+      albumTrack.innerHTML = WEDDING_CONFIG.albumPhotos
+        .map((item, idx) => `
+          <article class="carousel-slide" data-index="${idx}">
+            <div class="media-slot">
+              ${renderMediaSlot(item, true)}
+            </div>
+            <div class="slide-caption">
+              <span class="mono-caption">${item.caption}</span>
+              <span class="mono-caption">0${idx + 1}</span>
+            </div>
+          </article>
+        `)
+        .join("");
+
+      // Link bản đồ
+      const mapAnchor = document.getElementById("mapAnchor");
+      if (!isPlaceholder(WEDDING_CONFIG.mapLink)) {
+        mapAnchor.href = WEDDING_CONFIG.mapLink;
+      } else {
+        mapAnchor.removeAttribute("href");
+        mapAnchor.addEventListener("click", (e) => {
+          e.preventDefault();
+          alert("Vui lòng cập nhật [LINK BẢN ĐỒ] trong cấu hình WEDDING_CONFIG.");
+        });
+      }
+    }
+
+    // 2. Xử lý mở phong bì 1 lần & nút bỏ qua
+    function setupEnvelopeInteraction() {
+      const stage = document.getElementById("envelopeStage");
+      const openBtn = document.getElementById("openEnvelopeBtn");
+      const skipBtn = document.getElementById("skipIntroBtn");
+      const sealText = document.getElementById("sealActionText");
+      const mainInvitation = document.getElementById("mainInvitation");
+      let openedOnce = false;
+
+      function triggerOpen() {
+        if (!openedOnce) {
+          openedOnce = true;
+          stage.classList.add("is-opened");
+          openBtn.setAttribute("aria-expanded", "true");
+          sealText.textContent = "Thiệp đã mở";
+        }
+        mainInvitation.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      openBtn.addEventListener("click", triggerOpen);
+      skipBtn.addEventListener("click", () => {
+        mainInvitation.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+
+    // 3. Album vuốt ngang + phản hồi nút điều khiển
+    function setupAlbumCarousel() {
+      const track = document.getElementById("albumTrack");
+      const prevBtn = document.getElementById("prevSlideBtn");
+      const nextBtn = document.getElementById("nextSlideBtn");
+      const counter = document.getElementById("albumCounter");
+      const total = WEDDING_CONFIG.albumPhotos.length;
+
+      function flashButton(btn) {
+        btn.classList.add("is-pressed");
+        setTimeout(() => btn.classList.remove("is-pressed"), 180);
+      }
+
+      function getSlideStep() {
+        const firstSlide = track.querySelector(".carousel-slide");
+        return firstSlide ? firstSlide.offsetWidth + 14 : 280;
+      }
+
+      prevBtn.addEventListener("click", () => {
+        flashButton(prevBtn);
+        track.scrollBy({ left: -getSlideStep(), behavior: "smooth" });
+      });
+
+      nextBtn.addEventListener("click", () => {
+        flashButton(nextBtn);
+        track.scrollBy({ left: getSlideStep(), behavior: "smooth" });
+      });
+
+      track.addEventListener("scroll", () => {
+        const idx = Math.round(track.scrollLeft / getSlideStep()) + 1;
+        const clamped = Math.min(Math.max(idx, 1), total);
+        counter.textContent = `0${clamped} / 0${total}`;
+      }, { passive: true });
+    }
+
+    // 4. Countdown (không tự bịa ngày nếu vẫn là [NGÀY / GIỜ])
+    function setupCountdown() {
+      const noteEl = document.getElementById("countdownNote");
+      if (isPlaceholder(WEDDING_CONFIG.dateTimeISO)) {
+        noteEl.textContent = "Đang chờ cấu hình [NGÀY / GIỜ] thực tế.";
+        return;
+      }
+
+      const targetTime = new Date(WEDDING_CONFIG.dateTimeISO).getTime();
+      if (Number.isNaN(targetTime)) {
+        noteEl.textContent = "Định dạng [NGÀY / GIỜ] chưa hợp lệ.";
+        return;
+      }
+
+      function updateClock() {
+        const now = Date.now();
+        const diff = Math.max(0, targetTime - now);
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / 1000 / 60) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+
+        document.getElementById("cdDays").textContent = String(days).padStart(2, "0");
+        document.getElementById("cdHours").textContent = String(hours).padStart(2, "0");
+        document.getElementById("cdMins").textContent = String(mins).padStart(2, "0");
+        document.getElementById("cdSecs").textContent = String(secs).padStart(2, "0");
+      }
+
+      updateClock();
+      setInterval(updateClock, 1000);
+    }
+
+    // 5. Form RSVP: Chỉ báo gửi thành công khi đã kết nối email hoặc backend thật
+    function setupRsvpForm() {
+      const form = document.getElementById("rsvpForm");
+      const statusBox = document.getElementById("rsvpStatusBox");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        statusBox.className = "rsvp-status";
+
+        const guestName = document.getElementById("guestName").value.trim();
+        const attendance = document.getElementById("attendance").value;
+        const guestCount = document.getElementById("guestCount").value;
+        const guestWish = document.getElementById("guestWish").value.trim();
+
+        if (!guestName) {
+          statusBox.classList.add("is-warning");
+          statusBox.textContent = "Vui lòng nhập tên của bạn trước khi gửi.";
+          return;
+        }
+
+        const hasBackend = Boolean(WEDDING_CONFIG.rsvpBackendEndpoint && WEDDING_CONFIG.rsvpBackendEndpoint.trim());
+        const hasRealEmail = !isPlaceholder(WEDDING_CONFIG.rsvpEmail) && WEDDING_CONFIG.rsvpEmail.includes("@");
+
+        // Nếu đã kết nối Backend thật
+        if (hasBackend) {
+          try {
+            const res = await fetch(WEDDING_CONFIG.rsvpBackendEndpoint, {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ guestName, attendance, guestCount, guestWish })
+            });
+
+            if (res.ok) {
+              statusBox.classList.add("is-success");
+              statusBox.textContent = "Đã gửi xác nhận tham dự thành công tới hệ thống!";
+              form.reset();
+            } else {
+              throw new Error("Server trả về lỗi");
+            }
+          } catch (err) {
+            statusBox.classList.add("is-warning");
+            statusBox.textContent = "Không thể kết nối tới máy chủ nhận hồi âm. Vui lòng thử lại sau.";
+          }
+          return;
+        }
+
+        // Nếu đã cấu hình Email thật (mở trình gửi mail thực tế)
+        if (hasRealEmail) {
+          const subject = encodeURIComponent(`RSVP Thiệp Cưới - ${guestName}`);
+          const body = encodeURIComponent(
+            `Họ tên: ${guestName}\nTham dự: ${attendance === "yes" ? "Có" : "Không"}\nSố người: ${guestCount}\nLời nhắn: ${guestWish}`
+          );
+          window.location.href = `mailto:${WEDDING_CONFIG.rsvpEmail}?subject=${subject}&body=${body}`;
+          statusBox.classList.add("is-success");
+          statusBox.textContent = `Đã mở ứng dụng email kết nối tới ${WEDDING_CONFIG.rsvpEmail}. Vui lòng nhấn gửi trong hộp thư của bạn.`;
+          return;
+        }
+
+        // Tuyệt đối không báo gửi thành công ảo khi chưa cấu hình email/backend thật
+        statusBox.classList.add("is-warning");
+        statusBox.textContent =
+          "Chưa thể gửi: Hệ thống chưa được cấu hình [EMAIL NHẬN HỒI ÂM] hoặc Backend thật trong WEDDING_CONFIG.";
+      });
+    }
+
+    // 6. Chuyển động khi vào vùng nhìn, Parallax rất ít & Nút về đầu trang
+    function setupMotionAndScroll() {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const cards = document.querySelectorAll(".section-card");
+
+      if (!reducedMotion && "IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12 }
+        );
+        cards.forEach((c) => observer.observe(c));
+      } else {
+        cards.forEach((c) => c.classList.add("is-visible"));
+      }
+
+      // Hiệu ứng con trỏ chỉ hoạt động trên máy có chuột
+      const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      const cursorDot = document.getElementById("cursorDot");
+      if (hasFinePointer && !reducedMotion && cursorDot) {
+        window.addEventListener("mousemove", (e) => {
+          cursorDot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+        }, { passive: true });
+      }
+
+      // Nút quay lại đầu trang
+      document.getElementById("backToTopBtn").addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+      });
+    }
+
+    // Khởi tạo toàn bộ ứng dụng
+    document.addEventListener("DOMContentLoaded", () => {
+      bindConfigData();
+      setupEnvelopeInteraction();
+      setupAlbumCarousel();
+      setupCountdown();
+      setupRsvpForm();
+      setupMotionAndScroll();
+    });
+  </script>
+</body>
+</html>

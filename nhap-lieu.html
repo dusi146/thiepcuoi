@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Biểu Mẫu Điền Thông Tin Thiệp Cưới</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F9F5EE;
+      --card-bg: #FFFFFF;
+      --vermilion: #B83A2A;
+      --vermilion-dark: #912719;
+      --gold: #C89D66;
+      --olive: #3D5245;
+      --ink: #261812;
+      --ink-muted: #5A463C;
+      --border: rgba(166, 124, 82, 0.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Be Vietnam Pro', -apple-system, sans-serif;
+      padding: 18px 14px 100px;
+      line-height: 1.6;
+    }
+    .form-container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    header.form-header {
+      text-align: center;
+      padding: 24px 16px 20px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 24px rgba(60, 40, 30, 0.05);
+      margin-bottom: 20px;
+    }
+    .badge-top {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      color: var(--vermilion);
+      font-weight: 600;
+      text-transform: uppercase;
+      background: rgba(184, 58, 42, 0.08);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.65rem;
+      color: var(--vermilion);
+      margin-bottom: 8px;
+    }
+    .desc {
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+    }
+    .auto-save-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--olive);
+      margin-top: 10px;
+      background: rgba(61, 82, 69, 0.08);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .card-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 18px rgba(60, 40, 30, 0.04);
+    }
+    .section-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.25rem;
+      color: var(--vermilion);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-sub {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      margin-bottom: 16px;
+    }
+    .field-group {
+      margin-bottom: 14px;
+    }
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 520px) {
+      .field-row { grid-template-columns: 1fr; }
+    }
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 5px;
+    }
+    label span.opt {
+      font-weight: 400;
+      color: #8C6D58;
+      font-size: 0.75rem;
+    }
+    input[type="text"], input[type="tel"], textarea, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #DFCEBA;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      color: var(--ink);
+      background: #FAF7F2;
+      transition: all 0.2s ease;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--vermilion);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(184, 58, 42, 0.12);
+    }
+    textarea { resize: vertical; min-height: 80px; }
+    .timeline-item-box {
+      background: #FAF7F2;
+      border: 1px dashed #D6C2AC;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .timeline-head {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--olive);
+      margin-bottom: 10px;
+    }
+    .action-bar-fixed {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      padding: 12px 14px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      z-index: 100;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    }
+    .btn-main {
+      background: var(--vermilion);
+      color: #FFF;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(184, 58, 42, 0.35);
+      flex: 1;
+      max-width: 320px;
+      justify-content: center;
+    }
+    .btn-main:active { transform: scale(0.98); }
+    .btn-sub {
+      background: #EFE6D8;
+      color: var(--ink);
+      border: 1px solid var(--border);
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.86rem;
+      cursor: pointer;
+    }
+    .toast-msg {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-60px);
+      background: #261812;
+      color: #FFF;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      z-index: 999;
+      opacity: 0;
+      transition: all 0.35s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      white-space: nowrap;
+    }
+    .toast-msg.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toast-msg" id="toast">Đã sao chép nội dung thành công!</div>
+
+  <div class="form-container">
+    <header class="form-header">
+      <span class="badge-top">Biểu Mẫu Nhập Liệu</span>
+      <h1>Thông Tin Thiệp Cưới</h1>
+      <p class="desc">Anh chị điền thông tin vào các ô bên dưới. Trình duyệt sẽ tự động lưu lại, không lo bị mất chữ ạ!</p>
+      <div class="auto-save-pill">✓ Tự động lưu tiến độ vào máy</div>
+    </header>
+
+    <!-- 1. CÔ DÂU & CHÚ RỂ -->
+    <div class="card-section">
+      <h2 class="section-title">💍 1. Cô Dâu & Chú Rể</h2>
+      <p class="section-sub">Thông tin hiển thị trên bìa thiệp và toàn bộ nội dung</p>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label for="groomFullName">Họ và tên Chú Rể</label>
+          <input type="text" id="groomFullName" placeholder="Ví dụ: Nguyễn Văn Tiến" />
+        </div>
+        <div class="field-group">
+          <label for="groomShortName">Tên gọi thân mật</label>
+          <input type="text" id="groomShortName" placeholder="Ví dụ: Văn Tiến" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="groomOrder">Thứ bậc Chú Rể trong gia đình</label>
+        <input type="text" id="groomOrder" placeholder="Ví dụ: Trưởng nam / Thứ nam / Út nam" />
+      </div>
+
+      <hr style="border: 0; border-top: 1px dashed #E5D6C5; margin: 16px 0;" />
+
+      <div class="field-row">
+        <div class="field-group">
+          <label for="brideFullName">Họ và tên Cô Dâu</label>
+          <input type="text" id="brideFullName" placeholder="Ví dụ: Lê Thị Bảo Châu" />
+        </div>
+        <div class="field-group">
+          <label for="brideShortName">Tên gọi thân mật</label>
+          <input type="text" id="brideShortName" placeholder="Ví dụ: Bảo Châu" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="brideOrder">Thứ bậc Cô Dâu trong gia đình</label>
+        <input type="text" id="brideOrder" placeholder="Ví dụ: Ái nữ / Trưởng nữ / Thứ nữ / Út nữ" />
+      </div>
+    </div>
+
+    <!-- 2. GIA ĐÌNH HAI HỌ -->
+    <div class="card-section">
+      <h2 class="section-title">👨‍👩‍👧‍👦 2. Gia Đình Hai Họ</h2>
+      <p class="section-sub">Thông tin ông bà phụ mẫu hai bên</p>
+
+      <label style="color: var(--vermilion); margin-bottom: 8px;">NHÀ TRAI</label>
+      <div class="field-row">
+        <div class="field-group">
+          <label for="groomFather">Họ tên Bố</label>
+          <input type="text" id="groomFather" placeholder="Ví dụ: Ông Nguyễn Văn Hùng" />
+        </div>
+        <div class="field-group">
+          <label for="groomMother">Họ tên Mẹ</label>
+          <input type="text" id="groomMother" placeholder="Ví dụ: Bà Trần Thị Mai" />
+        </div>
+      </div>
+      <div class="field-group">
+        <label for="groomAddress">Địa chỉ / Quê quán Nhà Trai</label>
+        <input type="text" id="groomAddress" placeholder="Ví dụ: Quận Hải Châu, TP. Đà Nẵng" />
+      </div>
+
+      <hr style="border: 0; border-top: 1px dashed #E5D6C5; margin: 16px 0;" />
+
+      <label style="color: var(--vermilion); margin-bottom: 8px;">NHÀ GÁI</label>
+      <div class="field-row">
+        <div class="field-group">
+          <label for="brideFather">Họ tên Bố</label>
+          <input type="text" id="brideFather" placeholder="Ví dụ: Ông Lê Quang Đức" />
+        </div>
+        <div class="field-group">
+          <label for="brideMother">Họ tên Mẹ</label>
+          <input type="text" id="brideMother" placeholder="Ví dụ: Bà Phạm Thị Hồng" />
+        </div>
+      </div>
+      <div class="field-group">
+        <label for="brideAddress">Địa chỉ / Quê quán Nhà Gái</label>
+        <input type="text" id="brideAddress" placeholder="Ví dụ: Quận Thanh Khê, TP. Đà Nẵng" />
+      </div>
+    </div>
+
+    <!-- 3. THỜI GIAN & ĐỊA ĐIỂM -->
+    <div class="card-section">
+      <h2 class="section-title">📍 3. Lịch Trình Hôn Lễ & Địa Điểm</h2>
+      <p class="section-sub">Thông tin các buổi lễ và bản đồ</p>
+
+      <!-- Vu Quy -->
+      <div class="timeline-item-box">
+        <div class="timeline-head">🌸 1. LỄ VU QUY (NHÀ GÁI)</div>
+        <div class="field-row">
+          <div class="field-group">
+            <label for="vuQuyTime">Giờ làm lễ</label>
+            <input type="text" id="vuQuyTime" placeholder="Ví dụ: 08:30 Sáng" />
+          </div>
+          <div class="field-group">
+            <label for="vuQuyDate">Ngày Dương lịch</label>
+            <input type="text" id="vuQuyDate" placeholder="Ví dụ: Thứ Bảy, 18.12.2027" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="vuQuyLunar">Ngày Âm lịch <span class="opt">(nếu có)</span></label>
+          <input type="text" id="vuQuyLunar" placeholder="Ví dụ: 21 tháng 11 năm Đinh Mùi" />
+        </div>
+        <div class="field-group">
+          <label for="vuQuyAddress">Địa chỉ nhà gái</label>
+          <input type="text" id="vuQuyAddress" placeholder="Số nhà, đường, phường, quận..." />
+        </div>
+        <div class="field-group">
+          <label for="vuQuyMap">Link Google Maps <span class="opt">(tuỳ chọn)</span></label>
+          <input type="text" id="vuQuyMap" placeholder="https://maps.google.com/..." />
+        </div>
+      </div>
+
+      <!-- Thành Hôn -->
+      <div class="timeline-item-box">
+        <div class="timeline-head">🎉 2. LỄ THÀNH HÔN (NHÀ TRAI)</div>
+        <div class="field-row">
+          <div class="field-group">
+            <label for="thanhHonTime">Giờ làm lễ</label>
+            <input type="text" id="thanhHonTime" placeholder="Ví dụ: 10:30 Trưa" />
+          </div>
+          <div class="field-group">
+            <label for="thanhHonDate">Ngày Dương lịch</label>
+            <input type="text" id="thanhHonDate" placeholder="Ví dụ: Thứ Bảy, 18.12.2027" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="thanhHonAddress">Địa chỉ nhà trai</label>
+          <input type="text" id="thanhHonAddress" placeholder="Số nhà, đường, phường, quận..." />
+        </div>
+        <div class="field-group">
+          <label for="thanhHonMap">Link Google Maps <span class="opt">(tuỳ chọn)</span></label>
+          <input type="text" id="thanhHonMap" placeholder="https://maps.google.com/..." />
+        </div>
+      </div>
+
+      <!-- Tiệc Cưới -->
+      <div class="timeline-item-box">
+        <div class="timeline-head">🥂 3. TIỆC MỪNG CHUNG ĐÔI (TIỆC CƯỚI)</div>
+        <div class="field-row">
+          <div class="field-group">
+            <label for="tiecDonKhach">Giờ đón khách</label>
+            <input type="text" id="tiecDonKhach" placeholder="Ví dụ: 17:30" />
+          </div>
+          <div class="field-group">
+            <label for="tiecKhaiTiec">Giờ khai tiệc</label>
+            <input type="text" id="tiecKhaiTiec" placeholder="Ví dụ: 18:30" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label for="tiecVenue">Tên Trung tâm tiệc cưới</label>
+            <input type="text" id="tiecVenue" placeholder="Ví dụ: Vườn Trong Nắng" />
+          </div>
+          <div class="field-group">
+            <label for="tiecHall">Tên Sảnh tiệc</label>
+            <input type="text" id="tiecHall" placeholder="Ví dụ: Sảnh Hoa Sen" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="tiecAddress">Địa chỉ nhà hàng</label>
+          <input type="text" id="tiecAddress" placeholder="Số nhà, đường, quận, thành phố..." />
+        </div>
+        <div class="field-group">
+          <label for="tiecMap">Link Google Maps nhà hàng</label>
+          <input type="text" id="tiecMap" placeholder="https://maps.google.com/..." />
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. THƯ NGỎ -->
+    <div class="card-section">
+      <h2 class="section-title">💌 4. Thư Ngỏ Thân Tình</h2>
+      <p class="section-sub">Đôi lời gửi gắm tới bạn bè và người thương quý</p>
+
+      <div class="field-group">
+        <label for="letterContent">Nội dung thư <span class="opt">(có thể dùng mẫu có sẵn hoặc viết mới)</span></label>
+        <textarea id="letterContent" rows="5">Có những chuyện tình bắt đầu rất khẽ. Không hoa mỹ rộn ràng, chỉ là một chiều nắng nhẹ, một tách cà phê thơm và ánh mắt người đối diện bỗng trở thành bến đỗ bình yên nhất.
+
+Qua những mùa nắng mưa cùng nhau vun vén, hai đứa mình đã cùng nhau học cách sẻ chia, lắng nghe và trân trọng từng khoảnh khắc giản đơn.
+
+Chúng mình tin rằng, một ngày vui chỉ thực sự trọn vẹn khi có nụ cười, lời chúc và cái ôm ấm áp từ những người đã luôn yêu thương và đồng hành cùng hai đứa.</textarea>
+      </div>
+    </div>
+
+    <!-- 5. 5 MỐC KỶ NIỆM -->
+    <div class="card-section">
+      <h2 class="section-title">🎞️ 5. Thước Phim Chuyện Mình (5 Mốc Kỷ Niệm)</h2>
+      <p class="section-sub">5 mốc ảnh Polaroid kể câu chuyện tình yêu của hai bạn</p>
+
+      <!-- Mốc 1 -->
+      <div class="timeline-item-box">
+        <div class="timeline-head">MỐC 1</div>
+        <div class="field-row">
+          <div class="field-group">
+            <label for="m1Year">Năm</label>
+            <input type="text" id="m1Year" placeholder="2021" />
+          </div>
+          <div class="field-group">
+            <label for="m1Title">Tiêu đề mốc</label>
+            <input type="text" id="m1Title" placeholder="Khi hai thế giới chạm nhau" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="m1Story">Câu chuyện ngắn</label>
+          <textarea id="m1Story" rows="2" placeholder="Một buổi chiều tình cờ tại quán cà phê góc phố..."></textarea>
+        </div>
+      </div>
+
+      <!-- Mốc 2 -->
+      <div class="timeline-item-box">
+        <div class="timeline-head">MỐC 2</div>
+        <div class="field-row">
+          <div class="field-group">
+            <label for="m2Year">Năm</label>
+            <input type="text" id="m2Year" placeholder="2023" />
+          </div>
+          <div class="field-group">
+            <label for="m2Title">Tiêu đề mốc</label>
+            <input type="text" id="m2Title" placeholder="Khung trời của riêng ta" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="m2Story">Câu chuyện ngắn</label>
+          <textarea id="m2Story" rows="2" placeholder="Cùng nhau đi qua những con đường quanh co..."></textarea>
+        </div>
+      </div>
+
+      <!-- Mốc 3 -->
+      <div class="timeline-item-box">
+        <div class="timeline-head">MỐC 3</div>
+        <div class="field-row">
+          <div class="field-group">
+            <label for="m3Year">Năm</label>
+            <input type="text" id="m3Year" placeholder="2025" />
+          </div>
+          <div class="field-group">
+            <label for="m3Title">Tiêu đề mốc</label>
+            <input type="text" id="m3Title" placeholder="Không chỉ yêu, ta là tri kỷ" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="m3Story">Câu chuyện ngắn</label>
+          <textarea id="m3Story" rows="2" placeholder="Hai con người với những sở thích có khi rất lạ..."></textarea>
+        </div>
+      </div>
+
+      <!-- Mốc 4 -->
+      <div class="timeline-item-box">
+        <div class="timeline-head">MỐC 4</div>
+        <div class="field-row">
+          <div class="field-group">
+            <label for="m4Year">Năm</label>
+            <input type="text" id="m4Year" placeholder="2026" />
+          </div>
+          <div class="field-group">
+            <label for="m4Title">Tiêu đề mốc</label>
+            <input type="text" id="m4Title" placeholder="Lời hứa trao nhau" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="m4Story">Câu chuyện ngắn</label>
+          <textarea id="m4Story" rows="2" placeholder="Cuốn sổ nhỏ ghi lại những lời thề nguyện từ đáy lòng..."></textarea>
+        </div>
+      </div>
+
+      <!-- Mốc 5 -->
+      <div class="timeline-item-box">
+        <div class="timeline-head">MỐC 5</div>
+        <div class="field-row">
+          <div class="field-group">
+            <label for="m5Year">Năm</label>
+            <input type="text" id="m5Year" placeholder="2027" />
+          </div>
+          <div class="field-group">
+            <label for="m5Title">Tiêu đề mốc</label>
+            <input type="text" id="m5Title" placeholder="Về chung một mái nhà" />
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="m5Story">Câu chuyện ngắn</label>
+          <textarea id="m5Story" rows="2" placeholder="Hôm nay, trước sự chứng kiến và chúc phúc của mọi người..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. MỪNG CƯỚI TỪ XA -->
+    <div class="card-section">
+      <h2 class="section-title">🧧 6. Thông Tin Mừng Cưới (VietQR & Ngân Hàng)</h2>
+      <p class="section-sub">Dành cho bạn bè ở xa gửi lời chúc mừng</p>
+
+      <label style="color: var(--vermilion); margin-bottom: 8px;">TÀI KHOẢN CHÚ RỂ</label>
+      <div class="field-row">
+        <div class="field-group">
+          <label for="groomBank">Ngân hàng</label>
+          <input type="text" id="groomBank" placeholder="Ví dụ: Vietcombank" />
+        </div>
+        <div class="field-group">
+          <label for="groomAccNumber">Số tài khoản</label>
+          <input type="text" id="groomAccNumber" placeholder="Ví dụ: 1018899999" />
+        </div>
+      </div>
+      <div class="field-group">
+        <label for="groomAccName">Tên chủ tài khoản (in hoa không dấu)</label>
+        <input type="text" id="groomAccName" placeholder="Ví dụ: NGUYEN VAN TIEN" />
+      </div>
+
+      <hr style="border: 0; border-top: 1px dashed #E5D6C5; margin: 16px 0;" />
+
+      <label style="color: var(--vermilion); margin-bottom: 8px;">TÀI KHOẢN CÔ DÂU</label>
+      <div class="field-row">
+        <div class="field-group">
+          <label for="brideBank">Ngân hàng</label>
+          <input type="text" id="brideBank" placeholder="Ví dụ: MB Bank" />
+        </div>
+        <div class="field-group">
+          <label for="brideAccNumber">Số tài khoản</label>
+          <input type="text" id="brideAccNumber" placeholder="Ví dụ: 0905181227" />
+        </div>
+      </div>
+      <div class="field-group">
+        <label for="brideAccName">Tên chủ tài khoản (in hoa không dấu)</label>
+        <input type="text" id="brideAccName" placeholder="Ví dụ: LE THI BAO CHAU" />
+      </div>
+    </div>
+
+    <!-- 7. HÌNH ẢNH & NHẠC NỀN -->
+    <div class="card-section">
+      <h2 class="section-title">📷 7. Link Thư Mục Hình Ảnh & Nhạc Cưới</h2>
+      <p class="section-sub">Anh chị gom ảnh vào Google Drive và dán link vào đây nhé</p>
+
+      <div class="field-group">
+        <label for="driveLink">Đường link Google Drive chứa ảnh cưới</label>
+        <input type="text" id="driveLink" placeholder="https://drive.google.com/drive/folders/..." />
+      </div>
+
+      <div class="field-group">
+        <label for="musicChoice">Bài hát nền yêu thích <span class="opt">(mặc định: Gói Con Tim Làm Quà)</span></label>
+        <input type="text" id="musicChoice" placeholder="Tên bài hát - Ca sĩ (nếu muốn đổi bài khác)" />
+      </div>
+
+      <div class="field-group">
+        <label for="rsvpDeadline">Hạn chót gửi phản hồi tham dự (RSVP)</label>
+        <input type="text" id="rsvpDeadline" placeholder="Ví dụ: Trước ngày 01.12.2027" />
+      </div>
+    </div>
+  </div>
+
+  <!-- FIXED BOTTOM ACTION BAR -->
+  <div class="action-bar-fixed">
+    <button class="btn-sub" id="btnFillDemo" type="button">Điền mẫu</button>
+    <button class="btn-main" id="btnCopyZalo" type="button">📋 Sao chép gửi Zalo</button>
+  </div>
+
+  <script>
+    const fields = [
+      'groomFullName', 'groomShortName', 'groomOrder',
+      'brideFullName', 'brideShortName', 'brideOrder',
+      'groomFather', 'groomMother', 'groomAddress',
+      'brideFather', 'brideMother', 'brideAddress',
+      'vuQuyTime', 'vuQuyDate', 'vuQuyLunar', 'vuQuyAddress', 'vuQuyMap',
+      'thanhHonTime', 'thanhHonDate', 'thanhHonAddress', 'thanhHonMap',
+      'tiecDonKhach', 'tiecKhaiTiec', 'tiecVenue', 'tiecHall', 'tiecAddress', 'tiecMap',
+      'letterContent',
+      'm1Year', 'm1Title', 'm1Story',
+      'm2Year', 'm2Title', 'm2Story',
+      'm3Year', 'm3Title', 'm3Story',
+      'm4Year', 'm4Title', 'm4Story',
+      'm5Year', 'm5Title', 'm5Story',
+      'groomBank', 'groomAccNumber', 'groomAccName',
+      'brideBank', 'brideAccNumber', 'brideAccName',
+      'driveLink', 'musicChoice', 'rsvpDeadline'
+    ];
+
+    // Load from LocalStorage
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        const saved = localStorage.getItem('wedding_form_' + id);
+        if (saved) el.value = saved;
+        el.addEventListener('input', () => {
+          localStorage.setItem('wedding_form_' + id, el.value);
+        });
+      }
+    });
+
+    const toast = document.getElementById('toast');
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    // Nút Điền Thử Mẫu
+    document.getElementById('btnFillDemo').addEventListener('click', () => {
+      const demoData = {
+        groomFullName: 'Nguyễn Văn Tiến',
+        groomShortName: 'Văn Tiến',
+        groomOrder: 'Trưởng nam',
+        brideFullName: 'Lê Thị Bảo Châu',
+        brideShortName: 'Bảo Châu',
+        brideOrder: 'Ái nữ',
+        groomFather: 'Ông Nguyễn Văn Hùng',
+        groomMother: 'Bà Trần Thị Mai',
+        groomAddress: 'Quận Hải Châu, TP. Đà Nẵng',
+        brideFather: 'Ông Lê Quang Đức',
+        brideMother: 'Bà Phạm Thị Hồng',
+        brideAddress: 'Quận Thanh Khê, TP. Đà Nẵng',
+        vuQuyTime: '08:30 Sáng',
+        vuQuyDate: 'Thứ Bảy, 18.12.2027',
+        vuQuyLunar: '21 tháng 11 năm Đinh Mùi',
+        vuQuyAddress: '128 Nguyễn Tri Phương, Thanh Khê, Đà Nẵng',
+        vuQuyMap: 'https://maps.google.com/?q=128+Nguyen+Tri+Phuong+Da+Nang',
+        thanhHonTime: '10:30 Trưa',
+        thanhHonDate: 'Thứ Bảy, 18.12.2027',
+        thanhHonAddress: '45 Võ Văn Tần, Thanh Khê, Đà Nẵng',
+        thanhHonMap: 'https://maps.google.com/?q=45+Vo+Van+Tan+Da+Nang',
+        tiecDonKhach: '17:30',
+        tiecKhaiTiec: '18:30',
+        tiecVenue: 'Trung tâm Tiệc cưới Vườn Trong Nắng',
+        tiecHall: 'Sảnh Hoa Sen',
+        tiecAddress: '02 Đường 2 Tháng 9, Hải Châu, Đà Nẵng',
+        tiecMap: 'https://maps.google.com/?q=2+Thang+9+Da+Nang',
+        groomBank: 'Vietcombank',
+        groomAccNumber: '1018899999',
+        groomAccName: 'NGUYEN VAN TIEN',
+        brideBank: 'MB Bank',
+        brideAccNumber: '0905181227',
+        brideAccName: 'LE THI BAO CHAU',
+        driveLink: 'https://drive.google.com/drive/folders/vi-du-link-anh',
+        musicChoice: 'Gói Con Tim Làm Quà - Nguyễn Hùng',
+        rsvpDeadline: 'Trước ngày 01.12.2027'
+      };
+
+      Object.entries(demoData).forEach(([k, v]) => {
+        const el = document.getElementById(k);
+        if (el) {
+          el.value = v;
+          localStorage.setItem('wedding_form_' + k, v);
+        }
+      });
+      showToast('Đã điền thử thông tin mẫu!');
+    });
+
+    // Nút Sao Chép Gửi Zalo
+    document.getElementById('btnCopyZalo').addEventListener('click', () => {
+      const g = (id) => (document.getElementById(id)?.value || '').trim();
+
+      const text = `💌 THÔNG TIN THIỆP CƯỚI CỦA ${g('groomShortName') || 'CHÚ RỂ'} & ${g('brideShortName') || 'CÔ DÂU'}
+
+1. CÔ DÂU & CHÚ RỂ:
+- Chú rể: ${g('groomFullName')} (${g('groomShortName')}) - ${g('groomOrder')}
+- Cô dâu: ${g('brideFullName')} (${g('brideShortName')}) - ${g('brideOrder')}
+
+2. GIA ĐÌNH HAI HỌ:
+- Nhà Trai: Bố: ${g('groomFather')}, Mẹ: ${g('groomMother')}. ĐC: ${g('groomAddress')}
+- Nhà Gái: Bố: ${g('brideFather')}, Mẹ: ${g('brideMother')}. ĐC: ${g('brideAddress')}
+
+3. LỊCH TRÌNH HÔN LỄ:
+* Lễ Vu Quy: ${g('vuQuyTime')} ${g('vuQuyDate')} (Âm lịch: ${g('vuQuyLunar')})
+  Địa chỉ: ${g('vuQuyAddress')}
+  Map: ${g('vuQuyMap')}
+
+* Lễ Thành Hôn: ${g('thanhHonTime')} ${g('thanhHonDate')}
+  Địa chỉ: ${g('thanhHonAddress')}
+  Map: ${g('thanhHonMap')}
+
+* Tiệc Cưới: Đón khách ${g('tiecDonKhach')} - Khai tiệc ${g('tiecKhaiTiec')}
+  Tại: ${g('tiecVenue')} (${g('tiecHall')})
+  Địa chỉ: ${g('tiecAddress')}
+  Map: ${g('tiecMap')}
+
+4. TÀI KHOẢN MỪNG CƯỚI:
+- Chú rể: ${g('groomBank')} - ${g('groomAccNumber')} - ${g('groomAccName')}
+- Cô dâu: ${g('brideBank')} - ${g('brideAccNumber')} - ${g('brideAccName')}
+
+5. HÌNH ẢNH & NHẠC:
+- Link Drive ảnh: ${g('driveLink')}
+- Nhạc nền: ${g('musicChoice')}
+- Hạn RSVP: ${g('rsvpDeadline')}
+
+6. THƯ NGỎ:
+${g('letterContent')}
+`;
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast('✓ Đã sao chép! Mở Zalo dán gửi ngay nhé');
+        }).catch(() => {
+          prompt('Hãy sao chép nội dung bên dưới:', text);
+        });
+      } else {
+        prompt('Hãy sao chép nội dung bên dưới:', text);
+      }
+    });
+  </script>
+</body>
+</html>

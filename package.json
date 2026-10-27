@@ -1,0 +1,20 @@
+{
+  "name": "thiep-cuoi-retro",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5176 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4175"
+  },
+  "dependencies": {
+    "gsap": "^3.12.7",
+    "lenis": "^1.1.20",
+    "three": "^0.177.0"
+  },
+  "devDependencies": {
+    "localtunnel": "^2.0.2",
+    "vite": "^6.4.3"
+  }
+}
