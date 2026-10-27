@@ -1,0 +1,1179 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f5efdf" />
+  <meta name="description" content="Thước phim cưới hoài niệm của Văn Tiến & Bảo Châu — 18.12.2027 · Đà Nẵng." />
+  <title>Văn Tiến & Bảo Châu — Thước Phim Ngày Chung Đôi · 18.12.2027</title>
+
+  <!-- Typography nghệ thuật điện ảnh Retro, 100% bản quyền Google Fonts hỗ trợ tiếng Việt hoàn mỹ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&family=Marck+Script&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&family=Xanh+Mono:ital@0;1&display=swap" rel="stylesheet" />
+
+  <script type="module" crossorigin src="./assets/main-DkKY9udz.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/motion-C8IefbVz.js">
+  <link rel="stylesheet" crossorigin href="./assets/main-BM8ks2aQ.css">
+</head>
+<body class="invite-closed">
+  <!-- Con trỏ chuột nghệ thuật Retro (chỉ hiển thị trên máy tính có chuột) -->
+  <div class="retro-cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="retro-cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- Vân giấy hoài niệm & hạt phim Kodak 35mm -->
+  <div class="vintage-film-grain" aria-hidden="true"></div>
+
+  <!-- Canvas cánh hoa hồng & bụi vàng bay lơ lửng cinematic toàn trang -->
+  <canvas class="ambient-romantic-canvas" id="ambientCanvas" aria-hidden="true"></canvas>
+
+  <!-- Đốm sáng chớp phim 35mm khi mở thiệp (Vintage Projector Light Leak Flash) -->
+  <div class="film-light-leak-flash" id="filmLightLeak" aria-hidden="true"></div>
+
+  <!-- Thanh tiến trình cuộn thước phim -->
+  <div class="film-scroll-bar" aria-hidden="true"><span class="film-progress"></span></div>
+
+  <!-- Nút bỏ qua phong bì dành cho trợ năng -->
+  <a class="skip-link" href="#invitation">Bỏ qua mở phong bì · Vào thẳng nội dung thiệp</a>
+
+  <!-- ========================================================================= -->
+  <!-- MÀN HÌNH PHONG BÌ RETRO 3D CHÂN THỰC & MỞ LẮP ĐẦY TOÀN MÀN HÌNH             -->
+  <!-- ========================================================================= -->
+  <section class="envelope-screen" id="envelopeScreen" aria-label="Mở phong bì thư cưới">
+    <!-- Lớp nền ảnh mờ cinematic tạo chiều sâu hoài niệm -->
+    <div class="intro-bg-photo" aria-hidden="true">
+      <img src="./photo/BEE06636.JPG" alt="" class="intro-bg-img" loading="eager" />
+    </div>
+
+    <!-- Lớp phủ tối điện ảnh ấm áp -->
+    <div class="intro-dark-overlay" aria-hidden="true"></div>
+
+    <!-- Hạt bụi vàng bay lơ lửng trong không gian điện ảnh -->
+    <div class="intro-dust-particles" id="introDustParticles" aria-hidden="true"></div>
+
+    <!-- SÂN KHẤU PHONG BÌ 3D (3D ENVELOPE STAGE) -->
+    <div class="envelope-3d-stage" id="envelope3dStage">
+
+      <!-- Dòng tiêu đề nhỏ tinh tế phía trên phong bì -->
+      <div class="env-header-badge" id="envHeaderBadge">
+        <span class="env-badge-star">✳</span>
+        <span class="env-badge-text">THƯ BÁO HỶ · A CINEMATIC WEDDING INVITATION</span>
+        <span class="env-badge-star">✳</span>
+      </div>
+
+      <!-- KHỐI PHONG BÌ 3D VẬT LÝ (THE PHYSICAL 3D ENVELOPE) -->
+      <div class="envelope-box" id="envelopeBox">
+        
+        <!-- Mặt sau bao thư (Envelope Back Wall) -->
+        <div class="env-back" aria-hidden="true"></div>
+
+        <!-- TỜ THIỆP CƯỚI BÊN TRONG — SẼ TRƯỢT LÊN VÀ PHÓNG TO LẮP ĐẦY TOÀN MÀN HÌNH -->
+        <div class="env-card env-card-closed" id="envCard" aria-label="Thiệp cưới Văn Tiến & Bảo Châu">
+          <div class="env-card-inner">
+            <!-- Viền vàng đồng nghệ thuật -->
+            <div class="env-card-gold-border"></div>
+            
+            <div class="env-card-top-row">
+              <span class="env-card-film-tag">WEDDING INVITATION</span>
+              <span class="env-card-crest-mark">囍</span>
+              <span class="env-card-date-tag">18.12.2027</span>
+            </div>
+
+            <!-- Tấm ảnh đại diện cô dâu chú rể phong cách phim Kodak -->
+            <div class="env-card-photo-wrapper">
+              <img src="./photo/BEE06636.JPG" alt="Văn Tiến và Bảo Châu trong tà áo dài cưới truyền thống bên chữ Hỷ" class="env-card-couple-img" loading="eager" />
+              <div class="env-card-photo-grain"></div>
+              <span class="env-card-photo-badge">ĐÀ NẴNG · 1970s</span>
+            </div>
+
+            <!-- Tiêu đề và lời mời trên thiệp -->
+            <div class="env-card-text-block">
+              <p class="env-card-lead">TRÂN TRỌNG BÁO HỶ VÀ KÍNH MỜI</p>
+              <h2 class="env-card-title">
+                <span class="env-name groom">Văn Tiến</span>
+                <span class="env-amp">&amp;</span>
+                <span class="env-name bride">Bảo Châu</span>
+              </h2>
+              <p class="env-card-quote">“Trăm năm tình viên mãn · Bạc đầu nghĩa phu thê”</p>
+              <div class="env-card-solar-date">
+                <span>THỨ BẢY · 18 THÁNG 12, 2027</span>
+              </div>
+            </div>
+
+            <div class="env-card-bottom-bar">
+              <span>ĐÀ NẴNG, VIỆT NAM</span>
+              <span class="env-card-code">EXP · Nº 018</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nắp phong bì tam giác 3D (Top Flap) — Lật mở 180 độ -->
+        <div class="env-flap-top" id="envFlapTop" aria-hidden="true">
+          <div class="env-flap-triangle"></div>
+        </div>
+
+        <!-- Cánh gấp hông trái & phải tạo khối bao thư thực tế -->
+        <div class="env-side-left" aria-hidden="true"></div>
+        <div class="env-side-right" aria-hidden="true"></div>
+
+        <!-- Túi trước phong bì (Front Pocket) -->
+        <div class="env-pocket-front" aria-hidden="true">
+          <!-- Viền họa tiết bưu chính Airmail cổ điển -->
+          <div class="env-airmail-strip"></div>
+
+          <!-- Con tem thư Bưu điện Đà Nẵng dán góc -->
+          <div class="env-vintage-stamp">
+            <div class="stamp-perforation">
+              <span class="stamp-num">18.12</span>
+              <span class="stamp-name">ĐÀ NẴNG</span>
+              <span class="stamp-icon">囍</span>
+            </div>
+            <div class="stamp-postmark-ring">
+              <span>POSTE · 1970</span>
+            </div>
+          </div>
+
+          <!-- Nhãn địa chỉ viết tay mực sepia vintage -->
+          <div class="env-address-label">
+            <div class="addr-line-to">
+              <span class="addr-tag">GỬI:</span>
+              <strong class="addr-recipient">Quý Khách Quý &amp; Bạn Thương Mến</strong>
+            </div>
+            <div class="addr-line-from">
+              <span>Từ: Văn Tiến &amp; Bảo Châu · TP. Đà Nẵng</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TEM SÁP SON ĐỎ 3D — TÂM ĐIỂM CHẠM MỞ (THE WAX SEAL) -->
+        <div class="env-wax-seal" id="envWaxSeal" role="button" tabindex="0" aria-label="Chạm vào con dấu sáp để mở phong bì thiệp cưới">
+          <div class="wax-shimmer-sweep" aria-hidden="true"></div>
+          <div class="wax-seal-surface">
+            <span class="seal-character">囍</span>
+            <span class="seal-orbit-text">TIẾN ✳ CHÂU</span>
+          </div>
+          <div class="wax-pulse-ring"></div>
+          <div class="wax-pulse-ring ring-2"></div>
+        </div>
+
+      </div>
+
+      <!-- Điều khiển & Lời dẫn tương tác -->
+      <div class="env-controls-group" id="envControls">
+        <button class="open-envelope-trigger" id="openEnvelopeTrigger" type="button">
+          <span class="btn-dot">✳</span> Chạm mở phong bì thiệp cưới <span class="btn-arrow">→</span>
+        </button>
+        <button class="skip-envelope-trigger" id="skipEnvelopeTrigger" type="button">
+          Xem nhanh nội dung <span class="btn-arrow">↓</span>
+        </button>
+        <p class="env-instruction-hint" id="envHintText">
+          Chạm vào con dấu sáp đỏ hoặc nút mở để khám phá thước phim
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Màn rèm chuyển tiếp mượt mà -->
+    <div class="intro-curtain-screen" id="introCurtainScreen" aria-hidden="true"></div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- THANH ĐIỀU HƯỚNG TRANG (EDITORIAL TOP BAR) — "Dark Obsidian & Marquee"    -->
+  <!-- ========================================================================= -->
+  <header class="editorial-header" id="editorialHeader">
+    <a class="header-brand" href="#invitation">
+      <span class="brand-monogram">TIẾN <i>✳</i> CHÂU</span>
+      <span class="brand-sub">ĐÀ NẴNG · 18.12.2027</span>
+    </a>
+
+    <nav class="header-nav" aria-label="Mục lục thước phim">
+      <a href="#prologue">Mở đầu</a>
+      <a href="#family">Hai họ</a>
+      <a href="#letter">Thư ngỏ</a>
+      <a href="#film-chapters">Thước phim</a>
+      <a href="#lich-trinh">Lễ & Tiệc</a>
+      <a href="#cuon-phim">Cuộn film</a>
+      <a href="#mung-cuoi">Mừng cưới</a>
+      <a href="#rsvp">Hồi âm</a>
+    </nav>
+
+    <!-- ĐĨA THAN HOÀI NIỆM & MARQUEE TICKER TỰ ĐỘNG CHẠY CHỮ -->
+    <div class="vintage-gramophone" id="vinylPlayer" aria-label="Bộ phát nhạc nền hoài niệm">
+      <button class="gramophone-btn" id="musicToggleBtn" type="button" aria-pressed="false" title="Bật/Tắt: Gói Con Tim Làm Quà - Nguyễn Hùng">
+        <div class="vinyl-record-disc">
+          <img src="./logo-nhac.jpg" alt="Logo nhạc Gói Con Tim Làm Quà" class="vinyl-center-art" />
+          <div class="vinyl-center-spindle"></div>
+          <div class="vinyl-tonearm" aria-hidden="true"></div>
+        </div>
+        <span class="gramophone-label">
+          <span class="music-wave-bars" aria-hidden="true">
+            <span class="m-bar"></span>
+            <span class="m-bar"></span>
+            <span class="m-bar"></span>
+            <span class="m-bar"></span>
+          </span>
+          <span class="music-meta-block">
+            <span class="music-marquee-track">
+              <span class="music-track-title">Gói Con Tim Làm Quà</span>
+              <span class="music-dot-sep">✦</span>
+              <span class="music-track-sub">Nguyễn Hùng (Bò Sữa Bay OST)</span>
+              <span class="music-dot-sep">✦</span>
+              <span class="music-track-title">Gói Con Tim Làm Quà</span>
+              <span class="music-dot-sep">✦</span>
+              <span class="music-track-sub">Nguyễn Hùng</span>
+            </span>
+          </span>
+        </span>
+      </button>
+      <div class="music-floating-notes" id="floatingNotes" aria-hidden="true"></div>
+      <audio id="weddingAudio" src="./music.m4a" preload="auto" loop playsinline></audio>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- THƯỚC PHIM CƯỚI CHÍNH (THE CINEMATIC WEDDING INVITATION)                  -->
+  <!-- ========================================================================= -->
+  <main id="invitation" class="cinematic-shell">
+
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- MỞ ĐẦU: TẤM ẢNH ĐẠI CẢNH TO Ở TRÊN CÙNG (GRAND OPENING HERO)             -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="hero-cinematic-banner" id="prologue" aria-labelledby="heroMainTitle">
+      <!-- Khung ảnh đại cảnh lớn tràn viền mang phong cách bìa tạp chí / poster phim -->
+      <div class="hero-stage-container">
+        <div class="hero-photo-wrapper" id="heroPhotoStage">
+          <!-- Tấm ảnh đại cảnh sang trọng của cặp đôi với trang phục retro và hoa tươi -->
+          <img src="./photo/BEE05990.JPG" alt="Khoảnh khắc đại cảnh ngày chung đôi của Văn Tiến và Bảo Châu" class="hero-img-cinematic" loading="eager" decoding="async" />
+          
+          <!-- Lớp phủ ánh sáng phim Kodak và khung phim 35mm -->
+          <div class="film-vignette-overlay" aria-hidden="true"></div>
+          <div class="hero-photo-glare" id="heroPhotoGlare" aria-hidden="true"></div>
+          
+          <!-- Băng ghi chú phim 35mm bên lề -->
+          <div class="film-sprocket-counter">
+            <span>KODAK PORTRA 400</span>
+            <span>·</span>
+            <span>ROLL Nº 18</span>
+            <span>·</span>
+            <span>EXP 27</span>
+          </div>
+
+          <!-- Huy hiệu tem thư bưu điện Đà Nẵng dán góc -->
+          <div class="hero-postal-seal" aria-hidden="true">
+            <span class="seal-country">BƯU ĐIỆN ĐÀ NẴNG</span>
+            <b class="seal-year">18.12</b>
+            <span class="seal-stamp-mark">POSTE VINTAGE</span>
+          </div>
+        </div>
+
+        <!-- Nội dung chữ nghệ thuật tích hợp ngay bên dưới và lồng ghép tinh tế -->
+        <div class="hero-typography-block">
+          <p class="hero-pretitle">A CINEMATIC WEDDING FILM · PHIM NGẮN CHUYỆN MÌNH</p>
+          
+          <h1 class="hero-couple-title" id="heroMainTitle">
+            <span class="title-word groom-word">Văn Tiến</span>
+            <span class="title-ampersand">và</span>
+            <span class="title-word bride-word">Bảo Châu</span>
+          </h1>
+
+          <!-- VINTAGE CINEMA ADMISSION TICKET (VÉ VÀO RẠP CHIẾU BÓNG) -->
+          <div class="cinema-admission-ticket" id="heroAdmissionTicket">
+            <div class="ticket-notch notch-left" aria-hidden="true"></div>
+            <div class="ticket-notch notch-right" aria-hidden="true"></div>
+            <div class="ticket-stub">
+              <span class="ticket-label">VÉ VÀO RẠP</span>
+              <span class="ticket-code">Nº 1812</span>
+            </div>
+            <div class="ticket-divider" aria-hidden="true"></div>
+            <div class="ticket-content">
+              <div class="solar-date-item">
+                <span class="date-badge">NGÀY LÀNH</span>
+                <strong class="date-string">THỨ BẢY · 18 THÁNG 12, 2027</strong>
+              </div>
+              <div class="lunar-date-item">
+                <span>Nhằm ngày 21 tháng 11 năm Đinh Mùi (Hoàng Đạo)</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="hero-poetic-quote">
+            “Giữa biển người mênh mông, chúng mình đã may mắn tìm thấy nhau. Hôm nay, chúng mình muốn giữ lại một ngày thật đẹp — và mời bạn cùng chia sẻ niềm hạnh phúc này.”
+          </p>
+
+          <div class="hero-quick-actions">
+            <a class="hero-btn primary-btn" href="#lich-trinh">Xem lịch trình hôn lễ <span class="btn-arrow">↓</span></a>
+            <a class="hero-btn secondary-btn" href="#film-chapters">Khám phá thước phim <span class="btn-arrow">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- PHÂN CẢNH 1: GIA ĐÌNH HAI HỌ (THE PARENTS & FAMILIES)                   -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="film-chapter-card family-card" id="family" aria-labelledby="familyHeading">
+      <div class="chapter-badge-line">
+        <span class="chapter-roman">PHÂN CẢNH 01</span>
+        <span class="chapter-line"></span>
+        <span class="chapter-topic">GIA ĐÌNH HAI HỌ</span>
+      </div>
+
+      <div class="card-title-group">
+        <h2 class="card-display-title" id="familyHeading">Hân Hoan Báo Tin Hôn Lễ</h2>
+        <p class="card-intro-text">Kính báo tin vui cùng thân bằng quyến thuộc và bạn hữu gần xa.</p>
+      </div>
+
+      <div class="heritage-scroll-card" id="heritageScrollCard">
+        <!-- Nhà Trai -->
+        <div class="family-side groom-family" id="groomFamilyBlock">
+          <div class="family-pillar-tag">NHÀ TRAI</div>
+          <div class="parents-names-group">
+            <span class="parent-line"><strong>Ông:</strong> Nguyễn Văn Hùng</span>
+            <span class="parent-line"><strong>Bà:</strong> Trần Thị Mai</span>
+          </div>
+          <p class="family-native-place">Quận Hải Châu, TP. Đà Nẵng</p>
+          <div class="child-designation">
+            <span class="role-italic">Trưởng nam</span>
+            <h3 class="child-formal-name">Nguyễn Văn Tiến</h3>
+          </div>
+        </div>
+
+        <!-- Dải hoa văn phân cách Song Hỷ trang trọng -->
+        <div class="family-ornamental-divider" id="familyDivider">
+          <span class="divider-gold-line line-left" aria-hidden="true"></span>
+          <div class="family-center-crest" aria-hidden="true">
+            <div class="crest-sunburst"></div>
+            <div class="crest-circle">
+              <span class="double-joy-glyph">囍</span>
+            </div>
+            <div class="crest-stamp-label">DUYÊN ĐỊNH</div>
+          </div>
+          <span class="divider-gold-line line-right" aria-hidden="true"></span>
+        </div>
+
+        <!-- Nhà Gái -->
+        <div class="family-side bride-family" id="brideFamilyBlock">
+          <div class="family-pillar-tag">NHÀ GÁI</div>
+          <div class="parents-names-group">
+            <span class="parent-line"><strong>Ông:</strong> Lê Quang Đức</span>
+            <span class="parent-line"><strong>Bà:</strong> Phạm Thị Hồng</span>
+          </div>
+          <p class="family-native-place">Quận Thanh Khê, TP. Đà Nẵng</p>
+          <div class="child-designation">
+            <span class="role-italic">Ái nữ</span>
+            <h3 class="child-formal-name">Lê Thị Bảo Châu</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="traditional-photo-stage">
+        <div class="washi-tape tape-top-center" aria-hidden="true"></div>
+        <div class="traditional-frame">
+          <img src="./photo/BEE06491.JPG" alt="Văn Tiến và Bảo Châu trong tà áo dài cưới truyền thống bên chữ Hỷ" class="traditional-ao-dai-img" loading="lazy" decoding="async" />
+        </div>
+        <div class="traditional-caption">
+          <span class="trad-tag">TRUYỀN THỐNG VIỆT NAM</span>
+          <span class="trad-title">Lễ Tơ Hồng Nên Duyên · Duyên Định Trăm Năm</span>
+        </div>
+      </div>
+
+      <div class="family-foot-blessing">
+        <p>“Trăm năm tình viên mãn · Bạc đầu nghĩa phu thê”</p>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- PHÂN CẢNH 2: BỨC THƯ THÂN TÌNH (THE LETTER)                             -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="film-chapter-card letter-card" id="letter" aria-labelledby="letterHeading">
+      <div class="chapter-badge-line">
+        <span class="chapter-roman">PHÂN CẢNH 02</span>
+        <span class="chapter-line"></span>
+        <span class="chapter-topic">LÁ THƯ TỪ ĐÔI UYÊN ƯƠNG</span>
+      </div>
+
+      <div class="letter-sheet-container">
+        <!-- Con tem cổ điển góc thư -->
+        <div class="letter-postmark-stamp" aria-hidden="true">
+          <span>THƯƠNG<br />MẾN</span>
+        </div>
+
+        <h2 class="card-display-title" id="letterHeading">Gửi Người Thương Quý</h2>
+
+        <div class="letter-body-copy">
+          <p class="letter-salutation">Bạn thân mến,</p>
+          <p>
+            Có những chuyện tình bắt đầu rất khẽ. Không hoa mỹ rộn ràng, chỉ là một chiều Đà Nẵng nắng nhẹ, một tách cà phê thơm và ánh mắt người đối diện bỗng trở thành bến đỗ bình yên nhất.
+          </p>
+          <p>
+            Qua những mùa nắng mưa cùng nhau vun vén, hai đứa mình đã cùng nhau học cách sẻ chia, lắng nghe và trân trọng từng khoảnh khắc giản đơn. Ngày 18 tháng 12 năm 2027 này, chúng mình chọn nắm tay nhau bước vào một chặng đường mới.
+          </p>
+          <p>
+            Chúng mình tin rằng, một ngày vui chỉ thực sự trọn vẹn khi có nụ cười, lời chúc và cái ôm ấm áp từ những người đã luôn yêu thương và đồng hành cùng hai đứa.
+          </p>
+
+          <div class="letter-sign-block">
+            <span class="sign-tagline">Mong được đón bạn trong ngày vui,</span>
+            <p class="sign-handwritten">Văn Tiến & Bảo Châu</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- ACT 3: DARKROOM CINEMA & STICKY STACKING POLAROIDS                      -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="film-chapter-card story-reel-card polaroid-scrapbook-mode" id="film-chapters" aria-labelledby="storyReelHeading">
+      <!-- Dải lỗ răng cưa phim 35mm dọc lề trái hoài niệm -->
+      <div class="sprocket-track-v" aria-hidden="true">
+        <span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span>
+      </div>
+
+      <div class="chapter-badge-line">
+        <span class="chapter-roman">PHÂN CẢNH 03</span>
+        <span class="chapter-line"></span>
+        <span class="chapter-topic">HÀNH TRÌNH TÌNH YÊU</span>
+      </div>
+
+      <div class="card-title-group">
+        <h2 class="card-display-title" id="storyReelHeading">Thước Phim Chuyện Mình</h2>
+        <p class="card-intro-text">Mỗi tấm ảnh là một phân đoạn nhỏ trong cuốn phim mà hai đứa cùng nhau viết tiếp.</p>
+      </div>
+
+      <!-- BỘ SƯU TẬP ẢNH POLAROID HOÀI NIỆM & TƯƠNG TÁC CHẠM NỔI BẬT -->
+      <div class="polaroid-deck-container" id="polaroidDeckContainer">
+
+        <!-- Card 1: 2021 -->
+        <article class="polaroid-scrapbook-card card-odd" data-index="0" data-year="2021">
+          <div class="polaroid-year-pill">2021</div>
+          <div class="washi-tape tape-top-left" aria-hidden="true"></div>
+          <div class="polaroid-photo-frame">
+            <div class="polaroid-img-box">
+              <img src="./photo/BEE05603.JPG" alt="Nụ cười e ấp buổi ban đầu" loading="lazy" decoding="async" />
+              <div class="photo-shimmer-sweep" aria-hidden="true"></div>
+            </div>
+            <div class="polaroid-chin">
+              <div class="chin-header-row">
+                <span class="chin-scene">CẢNH 01 · 2021</span>
+                <span class="chin-caption">Đóa hoa ban mai</span>
+              </div>
+              <h3 class="chin-title">Khi hai thế giới chạm nhau</h3>
+              <p class="chin-story">
+                Một buổi chiều tình cờ tại quán cà phê góc phố. Khi ấy, không ai trong chúng mình nghĩ rằng lời chào ngập ngừng ấy lại trở thành câu chuyện dài và đẹp nhất của cuộc đời mình.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2: 2023 -->
+        <article class="polaroid-scrapbook-card card-even" data-index="1" data-year="2023">
+          <div class="polaroid-year-pill">2023</div>
+          <div class="washi-tape tape-top-right" aria-hidden="true"></div>
+          <div class="polaroid-photo-frame">
+            <div class="polaroid-img-box">
+              <img src="./photo/BEE05727.JPG" alt="Hai bàn tay tạo hình trái tim ôm trọn nụ cười cô dâu" loading="lazy" decoding="async" />
+              <div class="photo-shimmer-sweep" aria-hidden="true"></div>
+            </div>
+            <div class="polaroid-chin">
+              <div class="chin-header-row">
+                <span class="chin-scene">CẢNH 02 · 2023</span>
+                <span class="chin-caption">Trọn vẹn trong tim</span>
+              </div>
+              <h3 class="chin-title">Khung trời của riêng ta</h3>
+              <p class="chin-story">
+                Cùng nhau đi qua những con đường quanh co, cùng lắng nghe những ước mơ nhỏ bé. Giữa bao huyên náo của đời thường, nụ cười của em luôn là điểm dừng bình yên nhất trong lòng anh.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: 2025 -->
+        <article class="polaroid-scrapbook-card card-odd" data-index="2" data-year="2025">
+          <div class="polaroid-year-pill">2025</div>
+          <div class="washi-tape tape-top-center" aria-hidden="true"></div>
+          <div class="polaroid-photo-frame">
+            <div class="polaroid-img-box">
+              <img src="./photo/BEE06018.JPG" alt="Cặp đôi cá tính đeo kính râm retro" loading="lazy" decoding="async" />
+              <div class="photo-shimmer-sweep" aria-hidden="true"></div>
+            </div>
+            <div class="polaroid-chin">
+              <div class="chin-header-row">
+                <span class="chin-scene">CẢNH 03 · 2025</span>
+                <span class="chin-caption">Đồng điệu từng nhịp thở</span>
+              </div>
+              <h3 class="chin-title">Không chỉ yêu, ta là tri kỷ</h3>
+              <p class="chin-story">
+                Hai con người với những sở thích có khi rất lạ, nhưng khi ở cạnh nhau lại trở thành một mảnh ghép vừa vặn đến hoàn hảo. Có thể cùng nhau vui đùa, cùng nhìn về một hướng.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4: 2026 -->
+        <article class="polaroid-scrapbook-card card-even" data-index="3" data-year="2026">
+          <div class="polaroid-year-pill">2026</div>
+          <div class="washi-tape tape-top-left" aria-hidden="true"></div>
+          <div class="polaroid-photo-frame">
+            <div class="polaroid-img-box">
+              <img src="./photo/BEE06042.JPG" alt="Cùng đọc lời hẹn ước yêu thương" loading="lazy" decoding="async" />
+              <div class="photo-shimmer-sweep" aria-hidden="true"></div>
+            </div>
+            <div class="polaroid-chin">
+              <div class="chin-header-row">
+                <span class="chin-scene">CẢNH 04 · 2026</span>
+                <span class="chin-caption">Lời hẹn ước trăm năm</span>
+              </div>
+              <h3 class="chin-title">Lời hứa trao nhau</h3>
+              <p class="chin-story">
+                Cuốn sổ nhỏ ghi lại những lời thề nguyện từ tận đáy lòng. Dẫu ngày mai có thăng trầm hay bình lặng, anh và em vẫn sẽ nắm chặt tay nhau đi đến cuối con đường.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5: 2027 -->
+        <article class="polaroid-scrapbook-card card-odd" data-index="4" data-year="2027">
+          <div class="polaroid-year-pill">2027</div>
+          <div class="washi-tape tape-top-right" aria-hidden="true"></div>
+          <div class="polaroid-photo-frame">
+            <div class="polaroid-img-box">
+              <img src="./photo/BEE05929.JPG" alt="Ánh mắt đong đầy hạnh phúc bên hoa cưới" loading="lazy" decoding="async" />
+              <div class="photo-shimmer-sweep" aria-hidden="true"></div>
+            </div>
+            <div class="polaroid-chin">
+              <div class="chin-header-row">
+                <span class="chin-scene">CẢNH 05 · 2027</span>
+                <span class="chin-caption">Về chung một mái nhà</span>
+              </div>
+              <h3 class="chin-title">Bắt đầu một hành trình mới</h3>
+              <p class="chin-story">
+                Hôm nay, trước sự chứng kiến và chúc phúc của những người thương quý, chúng mình chính thức về chung một mái nhà, cùng nhau đón bình minh của những tháng năm dài phía trước.
+              </p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- PHÂN CẢNH 4: ĐỒNG HỒ ĐẾM NGƯỢC (COUNTDOWN TO SHOWTIME)                  -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="film-chapter-card countdown-card" aria-labelledby="countdownTitle">
+      <div class="chapter-badge-line">
+        <span class="chapter-roman">MỐC THỜI GIAN</span>
+        <span class="chapter-line"></span>
+        <span class="chapter-topic">ĐỒNG HỒ ĐẾM NGƯỢC</span>
+      </div>
+
+      <h2 class="card-display-title" id="countdownTitle">Cùng Đếm Ngược Ngày Vui</h2>
+      <p class="card-intro-text">Mốc thời gian thiêng liêng: 10:30 Thứ Bảy, 18 tháng 12 năm 2027</p>
+
+      <div class="vintage-flip-clock" aria-live="polite">
+        <div class="clock-segment">
+          <span class="clock-digit" data-count="days">000</span>
+          <span class="clock-sub">NGÀY</span>
+        </div>
+        <span class="clock-colon">:</span>
+        <div class="clock-segment">
+          <span class="clock-digit" data-count="hours">00</span>
+          <span class="clock-sub">GIỜ</span>
+        </div>
+        <span class="clock-colon">:</span>
+        <div class="clock-segment">
+          <span class="clock-digit" data-count="minutes">00</span>
+          <span class="clock-sub">PHÚT</span>
+        </div>
+        <span class="clock-colon">:</span>
+        <div class="clock-segment">
+          <span class="clock-digit" data-count="seconds">00</span>
+          <span class="clock-sub">GIÂY</span>
+        </div>
+      </div>
+
+      <div class="calendar-action-box">
+        <button class="editorial-pill-btn" id="addToCalBtn" type="button">
+          LƯU VÀO LỊCH HẸN (GOOGLE / APPLE CALENDAR) ↗
+        </button>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- PHÂN CẢNH 5: LỊCH TRÌNH HÔN LỄ & ĐỊA ĐIỂM (THE WEDDING ITINERARY)       -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div id="lich-trinh" class="anchor-target"></div>
+    <section class="film-chapter-card itinerary-card" id="itinerary" aria-labelledby="itineraryHeading">
+      <div class="chapter-badge-line">
+        <span class="chapter-roman">PHÂN CẢNH 04</span>
+        <span class="chapter-line"></span>
+        <span class="chapter-topic">THỜI GIAN & ĐỊA ĐIỂM</span>
+      </div>
+
+      <div class="card-title-group">
+        <h2 class="card-display-title" id="itineraryHeading">Lịch Trình Hôn Lễ</h2>
+        <p class="card-intro-text">Trân trọng kính mời bạn sắp xếp thời gian đến chung vui cùng gia đình chúng mình.</p>
+      </div>
+
+      <div class="itinerary-grid">
+        <!-- Sự kiện 1: Lễ Vu Quy -->
+        <article class="event-tile">
+          <div class="event-seq">I</div>
+          <span class="event-nature">TƯ GIA NHÀ GÁI</span>
+          <h3 class="event-title">Lễ Vu Quy</h3>
+          <p class="event-datetime">
+            <strong>08:30 SÁNG</strong> · Thứ Bảy, 18.12.2027
+          </p>
+          <div class="event-location-box">
+            <span class="loc-name">Tư gia Nhà Gái</span>
+            <span class="loc-address">128 Nguyễn Tri Phương, P. Chính Gián, Q. Thanh Khê, TP. Đà Nẵng</span>
+          </div>
+          <a class="event-map-btn" href="https://maps.google.com/?q=128+Nguyen+Tri+Phuong+Thanh+Khe+Da+Nang" target="_blank" rel="noopener noreferrer">
+            MỞ BẢN ĐỒ CHỈ ĐƯỜNG ↗
+          </a>
+        </article>
+
+        <!-- Sự kiện 2: Lễ Thành Hôn -->
+        <article class="event-tile highlight-tile">
+          <div class="event-seq">II</div>
+          <span class="event-nature">TƯ GIA NHÀ TRAI</span>
+          <h3 class="event-title">Lễ Thành Hôn</h3>
+          <p class="event-datetime">
+            <strong>10:30 TRƯA</strong> · Thứ Bảy, 18.12.2027
+          </p>
+          <div class="event-location-box">
+            <span class="loc-name">Tư gia Nhà Trai</span>
+            <span class="loc-address">45 Võ Văn Tần, P. Chính Gián, Q. Thanh Khê, TP. Đà Nẵng</span>
+          </div>
+          <a class="event-map-btn" href="https://maps.google.com/?q=45+Vo+Van+Tan+Thanh+Khe+Da+Nang" target="_blank" rel="noopener noreferrer">
+            MỞ BẢN ĐỒ CHỈ ĐƯỜNG ↗
+          </a>
+        </article>
+
+        <!-- Sự kiện 3: Tiệc Cưới Thân Mật -->
+        <article class="event-tile dark-tile">
+          <div class="event-seq">III</div>
+          <span class="event-nature nature-gold">TIỆC RƯỢU THÂN MẬT</span>
+          <h3 class="event-title">Tiệc Mừng Chung Đôi</h3>
+          <p class="event-datetime">
+            <strong>17:30 ĐÓN KHÁCH · 18:30 KHAI TIỆC</strong><br />
+            Thứ Bảy, 18.12.2027
+          </p>
+          <div class="event-location-box">
+            <span class="loc-name">Trung tâm Tiệc cưới Vườn Trong Nắng</span>
+            <span class="loc-address">Sảnh Hoa Sen · 02 Đường 2 Tháng 9, P. Bình Hiên, Q. Hải Châu, TP. Đà Nẵng</span>
+          </div>
+          <a class="event-map-btn gold-map-btn" href="https://maps.google.com/?q=Duong+2+Thang+9+Hai+Chau+Da+Nang" target="_blank" rel="noopener noreferrer">
+            MỞ VỊ TRÍ TRÊN GOOGLE MAPS ↗
+          </a>
+        </article>
+      </div>
+
+      <!-- Bảng màu gợi ý trang phục Dress Code -->
+      <div class="dress-code-panel">
+        <div class="dress-code-title-row">
+          <span class="dress-badge">GỢI Ý TRANG PHỤC</span>
+          <h4 class="dress-heading">Bảng Màu Retro Ấm Áp</h4>
+        </div>
+        <p class="dress-note">Bạn mặc trang phục khiến mình cảm thấy đẹp và thoải mái nhất là niềm hạnh phúc lớn của hai đứa.</p>
+        <div class="color-palette-strip" aria-label="5 màu trang phục gợi ý">
+          <div class="color-swatch-box">
+            <span class="swatch-circle" style="background-color: #F7F3EB;"></span>
+            <span class="swatch-title">Kem ngà</span>
+          </div>
+          <div class="color-swatch-box">
+            <span class="swatch-circle" style="background-color: #526046;"></span>
+            <span class="swatch-title">Xanh olive</span>
+          </div>
+          <div class="color-swatch-box">
+            <span class="swatch-circle" style="background-color: #B84736;"></span>
+            <span class="swatch-title">Đỏ gạch</span>
+          </div>
+          <div class="color-swatch-box">
+            <span class="swatch-circle" style="background-color: #A37953;"></span>
+            <span class="swatch-title">Nâu tây</span>
+          </div>
+          <div class="color-swatch-box">
+            <span class="swatch-circle" style="background-color: #D49A32;"></span>
+            <span class="swatch-title">Vàng nắng</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- PHÂN CẢNH 6: CUỘN FILM 35MM TOÀN CẢNH (THE 35MM FILM REEL GALLERY)      -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div id="cuon-phim" class="anchor-target"></div>
+    <section class="film-chapter-card film-reel-card" id="film-reel" aria-labelledby="filmReelHeading">
+      <div class="chapter-badge-line">
+        <span class="chapter-roman">PHÂN CẢNH 05</span>
+        <span class="chapter-line"></span>
+        <span class="chapter-topic">CUỘN FILM KỶ NIỆM 35MM</span>
+      </div>
+
+      <div class="card-title-group">
+        <h2 class="card-display-title" id="filmReelHeading">Khoảnh Khắc Kỷ Niệm</h2>
+        <p class="card-intro-text">Vuốt ngang cuộn phim hoặc chạm vào ảnh bất kỳ để xem cận cảnh ở phòng chiếu ảnh.</p>
+      </div>
+
+      <!-- Khung cuộn phim 35mm với lỗ răng cưa thực tế -->
+      <div class="film-strip-viewport">
+        <!-- Viền lỗ răng cưa trên -->
+        <div class="film-sprockets-track top-sprockets" aria-hidden="true">
+          <span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span>
+        </div>
+
+        <div class="film-strip-track" id="filmStripTrack" tabindex="0" aria-label="Cuộn film ảnh cưới">
+          <!-- Frame 1 -->
+          <div class="film-frame-slide" data-index="0">
+            <div class="slide-photo-holder">
+              <img src="./photo/BEE05873.JPG" alt="Đại cảnh chung đôi hạnh phúc" loading="lazy" decoding="async" />
+              <span class="frame-code">FRAME 01 · KODAK 400</span>
+            </div>
+            <div class="slide-meta">
+              <span class="slide-title">Hạnh phúc trọn vẹn</span>
+              <span class="zoom-cue">Phóng to ↗</span>
+            </div>
+          </div>
+
+          <!-- Frame 2 -->
+          <div class="film-frame-slide" data-index="1">
+            <div class="slide-photo-holder">
+              <img src="./photo/BEE05727.JPG" alt="Bàn tay tạo hình trái tim" loading="lazy" decoding="async" />
+              <span class="frame-code">FRAME 02 · KODAK 400</span>
+            </div>
+            <div class="slide-meta">
+              <span class="slide-title">Bình yên trong đáy mắt</span>
+              <span class="zoom-cue">Phóng to ↗</span>
+            </div>
+          </div>
+
+          <!-- Frame 3 -->
+          <div class="film-frame-slide" data-index="2">
+            <div class="slide-photo-holder">
+              <img src="./photo/BEE06018.JPG" alt="Kính râm retro cá tính" loading="lazy" decoding="async" />
+              <span class="frame-code">FRAME 03 · KODAK 400</span>
+            </div>
+            <div class="slide-meta">
+              <span class="slide-title">Phong cách đồng điệu</span>
+              <span class="zoom-cue">Phóng to ↗</span>
+            </div>
+          </div>
+
+          <!-- Frame 4 -->
+          <div class="film-frame-slide" data-index="3">
+            <div class="slide-photo-holder">
+              <img src="./photo/BEE06042.JPG" alt="Lời thề Vows trăm năm" loading="lazy" decoding="async" />
+              <span class="frame-code">FRAME 04 · KODAK 400</span>
+            </div>
+            <div class="slide-meta">
+              <span class="slide-title">Lời hẹn ước trăm năm</span>
+              <span class="zoom-cue">Phóng to ↗</span>
+            </div>
+          </div>
+
+          <!-- Frame 5 -->
+          <div class="film-frame-slide" data-index="4">
+            <div class="slide-photo-holder">
+              <img src="./photo/BEE05929.JPG" alt="Ánh mắt dịu dàng trao nhau" loading="lazy" decoding="async" />
+              <span class="frame-code">FRAME 05 · KODAK 400</span>
+            </div>
+            <div class="slide-meta">
+              <span class="slide-title">Thương mến đong đầy</span>
+              <span class="zoom-cue">Phóng to ↗</span>
+            </div>
+          </div>
+
+          <!-- Frame 6 -->
+          <div class="film-frame-slide" data-index="5">
+            <div class="slide-photo-holder">
+              <img src="./photo/BEE05509.JPG" alt="Váy trắng rạng ngời cùng hoa cưới" loading="lazy" decoding="async" />
+              <span class="frame-code">FRAME 06 · KODAK 400</span>
+            </div>
+            <div class="slide-meta">
+              <span class="slide-title">Nụ cười tỏa nắng</span>
+              <span class="zoom-cue">Phóng to ↗</span>
+            </div>
+          </div>
+
+          <!-- Frame 7 -->
+          <div class="film-frame-slide" data-index="6">
+            <div class="slide-photo-holder">
+              <img src="./photo/BEE05674.JPG" alt="Trang trọng đọc lời thề" loading="lazy" decoding="async" />
+              <span class="frame-code">FRAME 07 · KODAK 400</span>
+            </div>
+            <div class="slide-meta">
+              <span class="slide-title">Khắc ghi lời hứa</span>
+              <span class="zoom-cue">Phóng to ↗</span>
+            </div>
+          </div>
+
+          <!-- Frame 8 -->
+          <div class="film-frame-slide" data-index="7">
+            <div class="slide-photo-holder">
+              <img src="./photo/BEE06457.JPG" alt="Áo dài cưới truyền thống bên chữ Hỷ" loading="lazy" decoding="async" />
+              <span class="frame-code">FRAME 08 · KODAK 400</span>
+            </div>
+            <div class="slide-meta">
+              <span class="slide-title">Chữ Hỷ Vu Quy đỏ thắm</span>
+              <span class="zoom-cue">Phóng to ↗</span>
+            </div>
+          </div>
+
+          <!-- Frame 9 -->
+          <div class="film-frame-slide" data-index="8">
+            <div class="slide-photo-holder">
+              <img src="./photo/BEE06251.JPG" alt="Nụ cười tinh nghịch đáng yêu" loading="lazy" decoding="async" />
+              <span class="frame-code">FRAME 09 · KODAK 400</span>
+            </div>
+            <div class="slide-meta">
+              <span class="slide-title">Nụ cười tinh nghịch</span>
+              <span class="zoom-cue">Phóng to ↗</span>
+            </div>
+          </div>
+
+          <!-- Frame 10 -->
+          <div class="film-frame-slide" data-index="9">
+            <div class="slide-photo-holder">
+              <img src="./photo/BEE05707.JPG" alt="Bình yên tựa vào anh" loading="lazy" decoding="async" />
+              <span class="frame-code">FRAME 10 · KODAK 400</span>
+            </div>
+            <div class="slide-meta">
+              <span class="slide-title">Tựa vào bình yên</span>
+              <span class="zoom-cue">Phóng to ↗</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Viền lỗ răng cưa dưới -->
+        <div class="film-sprockets-track bottom-sprockets" aria-hidden="true">
+          <span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span>
+        </div>
+      </div>
+
+      <!-- Điều khiển chuyển cuộn film -->
+      <div class="film-controls-row">
+        <button class="film-nav-arrow" id="filmPrevBtn" type="button" aria-label="Xem ảnh trước">← TRƯỚC</button>
+        <span class="film-counter-text" id="filmCounter">01 / 10</span>
+        <button class="film-nav-arrow" id="filmNextBtn" type="button" aria-label="Xem ảnh tiếp theo">TIẾP →</button>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- PHÂN CẢNH 7: HỘP MỪNG CƯỚI TỪ XA (WEDDING GIFTS & VIETQR)               -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div id="mung-cuoi" class="anchor-target"></div>
+    <section class="film-chapter-card gift-card" id="wedding-gift" aria-labelledby="giftHeading">
+      <div class="chapter-badge-line">
+        <span class="chapter-roman">PHÂN CẢNH 06</span>
+        <span class="chapter-line"></span>
+        <span class="chapter-topic">HỘP MỪNG CƯỚI TỪ XA</span>
+      </div>
+
+      <div class="card-title-group">
+        <h2 class="card-display-title" id="giftHeading">Gửi Chúc Mừng & Mừng Cưới</h2>
+        <p class="card-intro-text">
+          Sự hiện diện của bạn là món quà quý giá nhất đối với hai đứa. Nếu bạn muốn gửi lời chúc mừng từ xa, xin gửi qua thông tin tài khoản bên dưới.
+        </p>
+      </div>
+
+      <div class="gift-switch-track" id="giftSwitchTrack">
+        <div class="gift-slider-pill" id="giftSliderPill" aria-hidden="true"></div>
+        <button class="gift-tab-pill is-active" id="tabGroomBtn" type="button" data-target="groom">MỪNG CHÚ RỂ (VĂN TIẾN)</button>
+        <button class="gift-tab-pill" id="tabBrideBtn" type="button" data-target="bride">MỪNG CÔ DÂU (BẢO CHÂU)</button>
+      </div>
+
+      <div class="gift-cards-container" id="giftCardsContainer">
+        <!-- Thẻ tài khoản Chú Rể -->
+        <div class="gift-account-display is-active" id="panelGroom">
+          <div class="silk-hy-card">
+            <div class="silk-card-header-badge">
+              <span class="silk-badge-icon">囍</span>
+              <span class="silk-badge-text">MỪNG CƯỚI CHÚ RỂ · VĂN TIẾN</span>
+            </div>
+            <div class="silk-card-body">
+              <div class="silk-qr-holder">
+                <!-- Mã QR VietQR thiết kế cổ điển dạng tem thư -->
+                <div class="qr-vintage-frame">
+                  <svg viewBox="0 0 160 160" class="qr-svg-art" role="img" aria-label="Mã QR Chuyển khoản mừng chú rể Văn Tiến">
+                    <rect width="160" height="160" fill="#FFFDF8" rx="6" />
+                    <rect x="15" y="15" width="38" height="38" fill="#2D2420" rx="2" />
+                    <rect x="20" y="20" width="28" height="28" fill="#FFFDF8" rx="1" />
+                    <rect x="25" y="25" width="18" height="18" fill="#B83A2A" />
+
+                    <rect x="107" y="15" width="38" height="38" fill="#2D2420" rx="2" />
+                    <rect x="112" y="20" width="28" height="28" fill="#FFFDF8" rx="1" />
+                    <rect x="117" y="25" width="18" height="18" fill="#B83A2A" />
+
+                    <rect x="15" y="107" width="38" height="38" fill="#2D2420" rx="2" />
+                    <rect x="20" y="112" width="28" height="28" fill="#FFFDF8" rx="1" />
+                    <rect x="25" y="117" width="18" height="18" fill="#B83A2A" />
+
+                    <path d="M60 18h12v12H60z M80 18h8v8h-8z M60 38h16v8H60z M60 55h8v8h-8z M75 55h12v8H75z M95 55h10v10H95z M18 60h12v12H18z M35 60h15v8H35z M18 80h8v15h-8z M35 75h8v20h-8z M60 75h18v18H60z M85 75h8v8h-8z M100 75h14v8h-14z M125 60h18v12h-18z M115 80h12v12h-12z M135 80h10v18h-10z M60 100h8v18h-8z M75 100h20v8H75z M100 95h12v15h-12z M60 125h12v18H60z M80 120h15v8H80z M75 135h20v10H75z M105 120h12v12h-12z M125 110h18v15h-18z M125 135h15v10h-15z" fill="#2D2420" />
+                    <circle cx="80" cy="80" r="14" fill="#B83A2A" />
+                    <circle cx="80" cy="80" r="12" fill="#F7F3EB" />
+                    <text x="80" y="85" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="11" font-weight="700" fill="#B83A2A">囍</text>
+                  </svg>
+                </div>
+                <span class="qr-caption-text">Quét mã QR VietQR trên ứng dụng Ngân hàng</span>
+              </div>
+
+              <div class="bank-info-sheet">
+                <span class="bank-name-label">NGÂN HÀNG VIETCOMBANK</span>
+                <div class="info-row">
+                  <span class="row-label">Chủ tài khoản:</span>
+                  <strong class="row-value">NGUYEN VAN TIEN</strong>
+                </div>
+                <div class="info-row">
+                  <span class="row-label">Số tài khoản:</span>
+                  <strong class="row-value acc-number-text" id="groomAcc">1018899999</strong>
+                </div>
+                <div class="info-row">
+                  <span class="row-label">Chi nhánh:</span>
+                  <span class="row-value">Đà Nẵng</span>
+                </div>
+                <button class="copy-account-btn" data-account="1018899999" type="button">
+                  SAO CHÉP SỐ TÀI KHOẢN
+                </button>
+              </div>
+            </div>
+
+            <!-- Corner motifs & gold shimmer sweep -->
+            <div class="silk-corner-motif corner-tl" aria-hidden="true"></div>
+            <div class="silk-corner-motif corner-tr" aria-hidden="true"></div>
+            <div class="silk-corner-motif corner-bl" aria-hidden="true"></div>
+            <div class="silk-corner-motif corner-br" aria-hidden="true"></div>
+            <div class="silk-shimmer-sweep" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- Thẻ tài khoản Cô Dâu -->
+        <div class="gift-account-display" id="panelBride">
+          <div class="silk-hy-card">
+            <div class="silk-card-header-badge bride-badge">
+              <span class="silk-badge-icon">囍</span>
+              <span class="silk-badge-text">MỪNG CƯỚI CÔ DÂU · BẢO CHÂU</span>
+            </div>
+            <div class="silk-card-body">
+              <div class="silk-qr-holder">
+                <div class="qr-vintage-frame">
+                  <svg viewBox="0 0 160 160" class="qr-svg-art" role="img" aria-label="Mã QR Chuyển khoản mừng cô dâu Bảo Châu">
+                    <rect width="160" height="160" fill="#FFFDF8" rx="6" />
+                    <rect x="15" y="15" width="38" height="38" fill="#2D2420" rx="2" />
+                    <rect x="20" y="20" width="28" height="28" fill="#FFFDF8" rx="1" />
+                    <rect x="25" y="25" width="18" height="18" fill="#3D5245" />
+
+                    <rect x="107" y="15" width="38" height="38" fill="#2D2420" rx="2" />
+                    <rect x="112" y="20" width="28" height="28" fill="#FFFDF8" rx="1" />
+                    <rect x="117" y="25" width="18" height="18" fill="#3D5245" />
+
+                    <rect x="15" y="107" width="38" height="38" fill="#2D2420" rx="2" />
+                    <rect x="20" y="112" width="28" height="28" fill="#FFFDF8" rx="1" />
+                    <rect x="25" y="117" width="18" height="18" fill="#3D5245" />
+
+                    <path d="M60 18h12v12H60z M80 18h8v8h-8z M60 38h16v8H60z M60 55h8v8h-8z M75 55h12v8H75z M95 55h10v10H95z M18 60h12v12H18z M35 60h15v8H35z M18 80h8v15h-8z M35 75h8v20h-8z M60 75h18v18H60z M85 75h8v8h-8z M100 75h14v8h-14z M125 60h18v12h-18z M115 80h12v12h-12z M135 80h10v18h-10z M60 100h8v18h-8z M75 100h20v8H75z M100 95h12v15h-12z M60 125h12v18H60z M80 120h15v8H80z M75 135h20v10H75z M105 120h12v12h-12z M125 110h18v15h-18z M125 135h15v10h-15z" fill="#2D2420" />
+                    <circle cx="80" cy="80" r="14" fill="#3D5245" />
+                    <circle cx="80" cy="80" r="12" fill="#F7F3EB" />
+                    <text x="80" y="85" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="11" font-weight="700" fill="#3D5245">囍</text>
+                  </svg>
+                </div>
+                <span class="qr-caption-text">Quét mã QR VietQR trên ứng dụng Ngân hàng</span>
+              </div>
+
+              <div class="bank-info-sheet">
+                <span class="bank-name-label label-bride">NGÂN HÀNG QUÂN ĐỘI (MB BANK)</span>
+                <div class="info-row">
+                  <span class="row-label">Chủ tài khoản:</span>
+                  <strong class="row-value">LE THI BAO CHAU</strong>
+                </div>
+                <div class="info-row">
+                  <span class="row-label">Số tài khoản:</span>
+                  <strong class="row-value acc-number-text" id="brideAcc">0905181227</strong>
+                </div>
+                <div class="info-row">
+                  <span class="row-label">Chi nhánh:</span>
+                  <span class="row-value">Đà Nẵng</span>
+                </div>
+                <button class="copy-account-btn" data-account="0905181227" type="button">
+                  SAO CHÉP SỐ TÀI KHOẢN
+                </button>
+              </div>
+            </div>
+
+            <!-- Corner motifs & gold shimmer sweep -->
+            <div class="silk-corner-motif corner-tl" aria-hidden="true"></div>
+            <div class="silk-corner-motif corner-tr" aria-hidden="true"></div>
+            <div class="silk-corner-motif corner-bl" aria-hidden="true"></div>
+            <div class="silk-corner-motif corner-br" aria-hidden="true"></div>
+            <div class="silk-shimmer-sweep" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- PHÂN CẢNH 8: SỔ LƯU BÚT & PHẢN HỒI THAM DỰ (THE RSVP GUESTBOOK)         -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="film-chapter-card rsvp-guestbook-card" id="rsvp" aria-labelledby="rsvpHeading">
+      <div class="chapter-badge-line">
+        <span class="chapter-roman">PHÂN CẢNH 07</span>
+        <span class="chapter-line"></span>
+        <span class="chapter-topic">HỒI ÂM & SỔ LƯU BÚT</span>
+      </div>
+
+      <div class="card-title-group">
+        <h2 class="card-display-title" id="rsvpHeading">Xác Nhận Tham Dự & Lời Chúc</h2>
+        <p class="card-intro-text">
+          Xin bạn vui lòng gửi hồi âm trước ngày <strong>01.12.2027</strong> để gia đình chuẩn bị đón tiếp chu đáo nhất nhé.
+        </p>
+      </div>
+
+      <div class="rsvp-duo-layout">
+        <!-- Form gửi xác nhận -->
+        <div class="form-wrapper">
+          <form class="vintage-editorial-form double-editorial-frame" id="weddingRsvpForm" novalidate>
+            <div class="form-field-unit">
+              <label for="guestName">Họ và tên của bạn <span class="req">*</span></label>
+              <input type="text" id="guestName" name="name" class="field-input" placeholder="Ví dụ: Hoàng Long, Thu Hà..." required />
+            </div>
+
+            <div class="form-field-dual">
+              <div class="form-field-unit">
+                <label for="guestAttendance">Bạn sẽ tham dự chứ? <span class="req">*</span></label>
+                <select id="guestAttendance" name="attendance" class="field-select" required>
+                  <option value="yes">Chắc chắn rồi, mình sẽ đến!</option>
+                  <option value="no">Tiếc quá, mình lỡ hẹn dịp này</option>
+                </select>
+              </div>
+
+              <div class="form-field-unit">
+                <label for="guestCount">Số người đi cùng</label>
+                <select id="guestCount" name="guestCount" class="field-select">
+                  <option value="1">1 người (Đi một mình)</option>
+                  <option value="2">2 người (Cùng người thương)</option>
+                  <option value="3">3 người (Cả gia đình)</option>
+                  <option value="4">4+ người</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field-unit">
+              <label for="eventChoice">Bạn sẽ tham dự buổi nào?</label>
+              <select id="eventChoice" name="eventChoice" class="field-select">
+                <option value="party">Tiệc Cưới Chiều Tối (17:30 · Vườn Trong Nắng)</option>
+                <option value="ceremony">Lễ Thành Hôn Trưa (10:30 · Nhà Trai)</option>
+                <option value="vuquy">Lễ Vu Quy Sáng (08:30 · Nhà Gái)</option>
+                <option value="all">Tham dự trọn vẹn cả ngày</option>
+              </select>
+            </div>
+
+            <div class="form-field-unit">
+              <label for="guestWish">Lời nhắn gửi Văn Tiến & Bảo Châu</label>
+              <textarea id="guestWish" name="wish" class="field-textarea" rows="3" placeholder="Viết vài dòng chúc phúc thân tình gửi đến đôi uyên ương..."></textarea>
+            </div>
+
+            <button class="form-submit-btn" id="rsvpSubmitBtn" type="submit">
+              <span>GỬI HỒI ÂM &amp; LỜI CHÚC PHÚC</span> <span class="btn-arrow">→</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Sổ lưu bút: hiển thị realtime các lời chúc -->
+        <div class="guestbook-feed-panel">
+          <div class="guestbook-header-line">
+            <h3 class="feed-title">Sổ Lưu Bút Kỷ Niệm</h3>
+            <span class="feed-count-pill" id="wishesCounter">3 lời chúc</span>
+          </div>
+
+          <div class="guestbook-stream" id="guestbookStream" aria-live="polite">
+            <!-- Render từ JS và LocalStorage -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!-- ĐOẠN KẾT: LỜI CẢM TẠ CHÂN THÀNH (THE FINALE)                            -->
+    <!-- ----------------------------------------------------------------------- -->
+    <section class="film-chapter-card finale-card" aria-labelledby="finaleTitle">
+      <div class="finale-art-seal" aria-hidden="true">
+        <span>THE END</span>
+      </div>
+
+      <p class="finale-subtitle">TRÂN TRỌNG CẢM TẠ</p>
+      <h2 class="finale-title" id="finaleTitle">
+        Hẹn gặp bạn trong<br />
+        <em>ngày hạnh phúc nhất.</em>
+      </h2>
+
+      <p class="finale-names-tag">VĂN TIẾN <span>✳</span> BẢO CHÂU</p>
+      <p class="finale-geo-tag">18 THÁNG 12, 2027 · ĐÀ NẴNG, VIỆT NAM</p>
+
+      <div class="finale-return-anchor">
+        <a class="return-top-btn" href="#invitation">↑ QUAY LẠI ĐẦU PHIM</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- CHÂN TRANG HOÀI NIỆM (RETRO FILM FOOTER)                                  -->
+  <!-- ========================================================================= -->
+  <footer class="film-closing-footer">
+    <span>MADE WITH LOVE · ĐÀ NẴNG</span>
+    <span>A VINTAGE WEDDING FILM · Nº 018</span>
+    <span>TIẾN ✳ CHÂU © 2027</span>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- THANH ĐIỀU HƯỚNG NHANH MOBILE (EDITORIAL STICKY BOTTOM BAR)               -->
+  <!-- "iOS 26 Liquid Glass" Refractive Blur & Gooey Morphing Pill               -->
+  <!-- ========================================================================= -->
+  <nav class="editorial-sticky-bar" id="mobileStickyBar" aria-label="Lối tắt thao tác nhanh trên điện thoại">
+    <div class="liquid-active-pill" id="liquidNavPill" aria-hidden="true"></div>
+    <a class="bar-link-pill is-active" href="#lich-trinh" data-index="0" data-target="lich-trinh">
+      <span class="pill-code">I</span>
+      <span class="pill-label">Lịch trình</span>
+    </a>
+    <a class="bar-link-pill" href="#cuon-phim" data-index="1" data-target="cuon-phim">
+      <span class="pill-code">II</span>
+      <span class="pill-label">Cuộn phim</span>
+    </a>
+    <a class="bar-link-pill" href="#mung-cuoi" data-index="2" data-target="mung-cuoi">
+      <span class="pill-code">III</span>
+      <span class="pill-label">Mừng cưới</span>
+    </a>
+    <a class="bar-link-pill" href="#rsvp" data-index="3" data-target="rsvp">
+      <span class="pill-code">IV</span>
+      <span class="pill-label">RSVP</span>
+    </a>
+  </nav>
+
+  <!-- ========================================================================= -->
+  <!-- PHÒNG CHIẾU ẢNH PHÓNG TO (CINEMATIC LIGHTBOX MODAL)                       -->
+  <!-- ========================================================================= -->
+  <div class="cinematic-lightbox" id="cinematicLightbox" aria-hidden="true" role="dialog" aria-label="Xem ảnh cưới phóng to">
+    <div class="lightbox-curtain" id="lightboxCurtain"></div>
+    <div class="lightbox-frame">
+      <button class="lightbox-exit-btn" id="lightboxExitBtn" type="button" aria-label="Đóng phòng chiếu ảnh">✕</button>
+
+      <div class="lightbox-screen-holder">
+        <img id="lightboxScreenImg" src="" alt="Ảnh cưới phóng to" />
+      </div>
+
+      <div class="lightbox-caption-bar">
+        <button class="lightbox-step-btn" id="lightboxPrevBtn" type="button" aria-label="Ảnh trước">‹ TRƯỚC</button>
+        <span class="lightbox-story-text" id="lightboxStoryText">Nụ cười ngày chung đôi</span>
+        <button class="lightbox-step-btn" id="lightboxNextBtn" type="button" aria-label="Ảnh tiếp theo">TIẾP ›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flash chụp ảnh 35mm -->
+  <div class="camera-shutter-flash" id="cameraShutterFlash" aria-hidden="true"></div>
+
+  <!-- Hộp thông báo nổi Retro Toast -->
+  <div class="editorial-toast" id="editorialToast" role="status" aria-live="polite"></div>
+</body>
+</html>
