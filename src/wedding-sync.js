@@ -28,10 +28,31 @@
   }
 
   /**
-   * Lấy dữ liệu tổng hợp từ LocalStorage
+   * Lấy dữ liệu tổng hợp từ URL params hoặc LocalStorage
    */
   function getStoredData() {
     let data = {};
+
+    // 1. Ưu tiên đọc dữ liệu truyền qua link chia sẻ URL (?d=... hoặc ?data=...)
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const encoded = urlParams.get('d') || urlParams.get('data');
+      if (encoded) {
+        const jsonStr = decodeURIComponent(escape(atob(decodeURIComponent(encoded))));
+        const parsed = JSON.parse(jsonStr);
+        if (parsed && typeof parsed === 'object') {
+          data = parsed;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+          Object.entries(data).forEach(([k, v]) => {
+            if (v) localStorage.setItem('wedding_form_' + k, v);
+          });
+          return data;
+        }
+      }
+    } catch (e) {
+      console.warn('[LiveSync] Failed to parse URL param data:', e);
+    }
+
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) data = JSON.parse(raw);
@@ -469,3 +490,4 @@
     getData: getStoredData,
   };
 })();
+

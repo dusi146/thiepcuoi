@@ -654,7 +654,8 @@ Chúng mình tin rằng, một ngày vui chỉ thực sự trọn vẹn khi có 
   <!-- FIXED BOTTOM ACTION BAR -->
   <div class="action-bar-fixed">
     <button class="btn-sub" id="btnFillDemo" type="button" title="Điền dữ liệu ví dụ">Điền mẫu</button>
-    <button class="btn-live" id="btnPreviewLive" type="button">👁️ Xem Thử Thiệp Cưới</button>
+    <button class="btn-live" id="btnPreviewLive" type="button">👁️ Xem Thử Thiệp</button>
+    <button class="btn-sub" id="btnShareLink" type="button" title="Tạo link có sẵn dữ liệu này gửi cho cô dâu chú rể xem trên điện thoại">🔗 Link Chia Sẻ</button>
     <button class="btn-sub" id="btnExportJson" type="button" title="Tải file wedding-data.json để lưu vào code">💾 Tải JSON</button>
     <button class="btn-main" id="btnCopyZalo" type="button">📋 Gửi Zalo</button>
   </div>
@@ -781,6 +782,29 @@ Chúng mình tin rằng, một ngày vui chỉ thực sự trọn vẹn khi có 
       });
       broadcastLiveSync();
       showToast('Đã điền thông tin mẫu & đồng bộ sang thiệp!');
+    });
+
+    // Nút Tạo Link Chia Sẻ Có Sẵn Dữ Liệu
+    document.getElementById('btnShareLink').addEventListener('click', () => {
+      const data = getAllFormData();
+      try {
+        const jsonStr = JSON.stringify(data);
+        const b64 = btoa(unescape(encodeURIComponent(jsonStr)));
+        const baseUrl = window.location.href.split('?')[0].replace(/nhap-lieu\.html.*$/, 'index.html');
+        const shareUrl = `${baseUrl}?d=${encodeURIComponent(b64)}`;
+
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(shareUrl).then(() => {
+            showToast('✓ Đã sao chép Link chia sẻ! Gửi link này cho bạn bè mở xem thử nhé.');
+          }).catch(() => {
+            prompt('Link xem thử thiệp cưới của bạn:', shareUrl);
+          });
+        } else {
+          prompt('Link xem thử thiệp cưới của bạn:', shareUrl);
+        }
+      } catch (err) {
+        showToast('Có lỗi khi tạo link: ' + err.message);
+      }
     });
 
     // Nút Tải File JSON (Lưu trữ cấu hình)
