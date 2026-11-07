@@ -16,10 +16,13 @@ export default defineConfig({
     target: 'es2020',
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
+        wedding: resolve(__dirname, 'src/wedding.js'),
         nhaplieu: resolve(__dirname, 'nhap-lieu.html')
       },
       output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/[name].[ext]',
         manualChunks(id) {
           if (id.includes('node_modules/three')) return 'three';
           if (id.includes('node_modules/gsap')) return 'motion';
