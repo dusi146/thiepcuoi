@@ -182,6 +182,75 @@
       justify-content: center;
     }
     .btn-main:active { transform: scale(0.98); }
+    .btn-live {
+      background: linear-gradient(135deg, #059669, #10B981);
+      color: #FFF;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.90rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-live:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45);
+    }
+    .btn-live:active { transform: scale(0.98); }
+
+    .live-sync-banner {
+      background: linear-gradient(135deg, #ECFDF5, #F0FDF4);
+      border: 1px solid #A7F3D0;
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08);
+    }
+    .sync-pulse-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #10B981;
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: syncPulse 2s infinite;
+    }
+    @keyframes syncPulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .sync-banner-text {
+      flex: 1;
+      font-size: 0.84rem;
+      color: #065F46;
+      line-height: 1.45;
+    }
+    .sync-open-link {
+      background: #059669;
+      color: #FFF;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
+    }
+    .sync-open-link:hover {
+      background: #047857;
+    }
     .btn-sub {
       background: #EFE6D8;
       color: var(--ink);
@@ -225,6 +294,15 @@
       <p class="desc">Anh chị điền thông tin vào các ô bên dưới. Trình duyệt sẽ tự động lưu lại, không lo bị mất chữ ạ!</p>
       <div class="auto-save-pill">✓ Tự động lưu tiến độ vào máy</div>
     </header>
+
+    <!-- LIVE SYNC STATUS BANNER -->
+    <div class="live-sync-banner">
+      <div class="sync-pulse-dot"></div>
+      <div class="sync-banner-text">
+        <strong>Chế độ Live Sync kích hoạt:</strong> Mở trang thiệp cưới ở tab khác (hoặc chia đôi 2 màn hình). Gõ chữ bên này là bên thiệp tự load ngay lập tức!
+      </div>
+      <button type="button" class="sync-open-link" id="btnHeaderOpenLive">Mở Thiệp Cưới ↗</button>
+    </div>
 
     <!-- 1. CÔ DÂU & CHÚ RỂ -->
     <div class="card-section">
@@ -575,11 +653,17 @@ Chúng mình tin rằng, một ngày vui chỉ thực sự trọn vẹn khi có 
 
   <!-- FIXED BOTTOM ACTION BAR -->
   <div class="action-bar-fixed">
-    <button class="btn-sub" id="btnFillDemo" type="button">Điền mẫu</button>
-    <button class="btn-main" id="btnCopyZalo" type="button">📋 Sao chép gửi Zalo</button>
+    <button class="btn-sub" id="btnFillDemo" type="button" title="Điền dữ liệu ví dụ">Điền mẫu</button>
+    <button class="btn-live" id="btnPreviewLive" type="button">👁️ Xem Thử Thiệp Cưới</button>
+    <button class="btn-sub" id="btnExportJson" type="button" title="Tải file wedding-data.json để lưu vào code">💾 Tải JSON</button>
+    <button class="btn-main" id="btnCopyZalo" type="button">📋 Gửi Zalo</button>
   </div>
 
   <script>
+    const CHANNEL_NAME = 'wedding_live_sync';
+    const STORAGE_KEY = 'wedding_custom_data';
+    const syncChannel = ('BroadcastChannel' in window) ? new BroadcastChannel(CHANNEL_NAME) : null;
+
     const fields = [
       'groomFullName', 'groomShortName', 'groomOrder',
       'brideFullName', 'brideShortName', 'brideOrder',
@@ -599,6 +683,24 @@ Chúng mình tin rằng, một ngày vui chỉ thực sự trọn vẹn khi có 
       'driveLink', 'musicChoice', 'rsvpDeadline'
     ];
 
+    function getAllFormData() {
+      const data = {};
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) data[id] = el.value.trim();
+      });
+      return data;
+    }
+
+    // Phát tín hiệu đồng bộ realtime sang trang thiệp cưới
+    function broadcastLiveSync() {
+      const data = getAllFormData();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      if (syncChannel) {
+        syncChannel.postMessage({ type: 'UPDATE_FORM', payload: data });
+      }
+    }
+
     // Load from LocalStorage
     fields.forEach(id => {
       const el = document.getElementById(id);
@@ -607,6 +709,7 @@ Chúng mình tin rằng, một ngày vui chỉ thực sự trọn vẹn khi có 
         if (saved) el.value = saved;
         el.addEventListener('input', () => {
           localStorage.setItem('wedding_form_' + id, el.value);
+          broadcastLiveSync();
         });
       }
     });
@@ -617,6 +720,16 @@ Chúng mình tin rằng, một ngày vui chỉ thực sự trọn vẹn khi có 
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2800);
     }
+
+    // Mở trang thiệp cưới Live Preview
+    function openLivePreview() {
+      window.open('./index.html', 'wedding_invitation_preview');
+      showToast('👁️ Đã mở thiệp cưới! Đặt 2 tab song song để thấy tự load ngay nhé.');
+    }
+
+    document.getElementById('btnPreviewLive').addEventListener('click', openLivePreview);
+    const btnHeader = document.getElementById('btnHeaderOpenLive');
+    if (btnHeader) btnHeader.addEventListener('click', openLivePreview);
 
     // Nút Điền Thử Mẫu
     document.getElementById('btnFillDemo').addEventListener('click', () => {
@@ -666,7 +779,23 @@ Chúng mình tin rằng, một ngày vui chỉ thực sự trọn vẹn khi có 
           localStorage.setItem('wedding_form_' + k, v);
         }
       });
-      showToast('Đã điền thử thông tin mẫu!');
+      broadcastLiveSync();
+      showToast('Đã điền thông tin mẫu & đồng bộ sang thiệp!');
+    });
+
+    // Nút Tải File JSON (Lưu trữ cấu hình)
+    document.getElementById('btnExportJson').addEventListener('click', () => {
+      const data = getAllFormData();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'wedding-data.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast('💾 Đã tải file wedding-data.json!');
     });
 
     // Nút Sao Chép Gửi Zalo
