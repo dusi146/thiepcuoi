@@ -1,8 +1,10 @@
 import './wedding.css';
+import './cinematic-intro.css';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './wedding-sync.js';
+import './cinematic-intro.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,6 +29,9 @@ const lenis = new Lenis({
   touchMultiplier: 1.1,
   infinite: false,
 });
+
+window.__lenis = lenis;
+window.ScrollTrigger = ScrollTrigger;
 
 if (!body.classList.contains('invite-open')) {
   lenis.stop();

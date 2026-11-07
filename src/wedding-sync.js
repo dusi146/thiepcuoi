@@ -158,6 +158,17 @@
       if (tabGroom) tabGroom.textContent = `MỪNG CHÚ RỂ (${gShort.toUpperCase()})`;
       const badgeGroom = document.querySelector('#panelGroom .silk-badge-text');
       if (badgeGroom) badgeGroom.textContent = `MỪNG CƯỚI CHÚ RỂ · ${gShort.toUpperCase()}`;
+
+      // Cập nhật tên chú rể trên màn Cinematic Intro mới
+      const introGroom = document.querySelector('.intro-groom');
+      if (introGroom) {
+        introGroom.setAttribute('data-raw', gShort);
+        if (typeof window.__splitChars === 'function') {
+          window.__splitChars(introGroom);
+        } else {
+          introGroom.textContent = gShort;
+        }
+      }
     }
 
     // 3. Tên cô dâu thân mật
@@ -169,6 +180,17 @@
       if (tabBride) tabBride.textContent = `MỪNG CÔ DÂU (${bShort.toUpperCase()})`;
       const badgeBride = document.querySelector('#panelBride .silk-badge-text');
       if (badgeBride) badgeBride.textContent = `MỪNG CƯỚI CÔ DÂU · ${bShort.toUpperCase()}`;
+
+      // Cập nhật tên cô dâu trên màn Cinematic Intro mới
+      const introBride = document.querySelector('.intro-bride');
+      if (introBride) {
+        introBride.setAttribute('data-raw', bShort);
+        if (typeof window.__splitChars === 'function') {
+          window.__splitChars(introBride);
+        } else {
+          introBride.textContent = bShort;
+        }
+      }
     }
 
     // 4. Tên ghép Cô Dâu & Chú Rể
@@ -179,6 +201,8 @@
       });
       const addrFrom = document.querySelector('.addr-line-from span');
       if (addrFrom) addrFrom.textContent = `Từ: ${coupleStr} · TP. Đà Nẵng`;
+      const introFrom = document.querySelector('.intro-from');
+      if (introFrom) introFrom.textContent = `Từ: ${coupleStr}`;
       const finaleNames = document.querySelector('.finale-names-tag');
       if (finaleNames) {
         finaleNames.innerHTML = `${gShort.toUpperCase()} <span>✳</span> ${bShort.toUpperCase()}`;
@@ -244,14 +268,19 @@
         const parts = dateMatch[0].split(/[\.\/]/);
         if (parts.length >= 2) {
           const shortDate = `${parts[0].padStart(2, '0')}.${parts[1].padStart(2, '0')}`;
-          document.querySelectorAll('.stamp-num, .seal-year').forEach((el) => {
+          document.querySelectorAll('.stamp-num, .seal-year, .intro-date-short, .intro-stamp').forEach((el) => {
             el.textContent = shortDate;
+          });
+          document.querySelectorAll('.intro-pm').forEach((el) => {
+            el.textContent = `${parts[0].padStart(2, '0')} · ${parts[1].padStart(2, '0')}`;
           });
         }
       }
       document.querySelectorAll('.env-card-date-tag').forEach((el) => {
         el.textContent = mainDate;
       });
+      const introDateLong = document.querySelector('.intro-date-long');
+      if (introDateLong) introDateLong.textContent = mainDate;
       const ticketDate = document.querySelector('#heroAdmissionTicket .date-string');
       if (ticketDate) ticketDate.textContent = mainDate.toUpperCase();
       const envSolar = document.querySelector('.env-card-solar-date span');

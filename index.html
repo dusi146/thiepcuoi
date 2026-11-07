@@ -10,7 +10,7 @@
   <!-- Typography nghệ thuật điện ảnh Retro, 100% bản quyền Google Fonts hỗ trợ tiếng Việt hoàn mỹ -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&family=Marck+Script&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&family=Xanh+Mono:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Dancing+Script:wght@600&family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&family=IBM+Plex+Mono:wght@400;500&family=Marck+Script&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Xanh+Mono:ital@0;1&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="./assets/wedding.css" />
   <script type="module" crossorigin src="./assets/wedding.js"></script>
@@ -19,11 +19,15 @@
     window.__openEnvelope = function() {
       document.body.classList.remove('invite-closed');
       document.body.classList.add('invite-open');
-      var scr = document.getElementById('envelopeScreen');
+      var scr = document.getElementById('intro') || document.getElementById('envelopeScreen');
       if (scr) {
-        scr.classList.add('is-opening');
-        setTimeout(function() { scr.style.display = 'none'; }, 350);
+        scr.classList.add('leave');
+        setTimeout(function() { scr.remove(); }, 400);
       }
+      if (window.__lenis) window.__lenis.start();
+      if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+      var audio = document.getElementById('weddingAudio');
+      if (audio && audio.paused) audio.play().catch(function() {});
     };
   </script>
 </head>
@@ -45,148 +49,56 @@
   <div class="film-scroll-bar" aria-hidden="true"><span class="film-progress"></span></div>
 
   <!-- Nút bỏ qua phong bì dành cho trợ năng -->
-  <a class="skip-link" href="#invitation">Bỏ qua mở phong bì · Vào thẳng nội dung thiệp</a>
+  <a class="skip-link" href="#invitation" onclick="window.__openEnvelope && window.__openEnvelope()">Bỏ qua mở phong bì · Vào thẳng nội dung thiệp</a>
 
   <!-- ========================================================================= -->
-  <!-- MÀN HÌNH PHONG BÌ RETRO 3D CHÂN THỰC & MỞ LẮP ĐẦY TOÀN MÀN HÌNH             -->
+  <!-- MÀN HÌNH PHONG BÌ RETRO 3D CINEMATIC INTRO — THƯ BÁO HỶ                    -->
   <!-- ========================================================================= -->
-  <section class="envelope-screen" id="envelopeScreen" aria-label="Mở phong bì thư cưới">
-    <!-- Lớp nền ảnh mờ cinematic tạo chiều sâu hoài niệm -->
-    <div class="intro-bg-photo" aria-hidden="true">
-      <img src="./photo/BEE06636.JPG" alt="" class="intro-bg-img" loading="eager" />
+  <div class="stage" id="intro">
+    <i class="bgl"></i>
+    <div class="strip l"></div><div class="strip r"></div>
+    <header class="top"><b>Thư báo hỷ</b>a cinematic wedding invitation</header>
+    <div class="ground"></div>
+
+    <div class="rig"><div class="env">
+      <div class="back fall" style="--fd:.12s"></div>
+      <div class="flapw fall" style="--fd:.05s"><div class="flap"><div class="fr"></div><div class="bk"></div></div></div>
+      <div class="rays"></div>
+
+      <!-- LÁ THIỆP: đồng bộ dữ liệu trực tiếp -->
+      <article class="card"><div class="paper"><div class="frame"></div>
+        <div class="body">
+          <div class="xi rv" style="--d:.1s">囍</div>
+          <p class="lbl rv" style="--d:.25s">Trân trọng kính mời</p>
+          <h2 data-split class="intro-groom" style="--d:.5s">Văn Tiến</h2>
+          <span class="amp rv" style="--d:.95s">&amp;</span>
+          <h2 data-split class="intro-bride" style="--d:1s">Bảo Châu</h2>
+          <div class="orn rv" style="--d:1.5s"><u></u><s>✦</s><u></u></div>
+          <div class="date rv" style="--d:1.7s"><b class="intro-date-short">18.12</b><span class="intro-date-long">Thứ Bảy · 18.12.2027</span></div>
+          <p class="lbl film rv" style="--d:2s">Kodak Portra 400 · Roll Nº 18 · Exp 27</p>
+        </div><div class="sheen"></div>
+      </div></article>
+
+      <div class="pocketw fall"><div class="pocket">
+        <i class="pk pk1"></i><i class="pk pk2"></i><i class="pk pk3"></i><i class="pk pk0"></i>
+        <div class="addr"><p class="hand">Quý Khách Quý<br>Bạn Thương Mến</p><small class="intro-from">Từ: Văn Tiến &amp; Bảo Châu</small></div>
+        <div class="pm intro-pm">18 · 12</div>
+        <div class="stamp"><i>囍</i><small class="intro-stamp">18.12</small></div>
+      </div></div>
+
+      <button class="seal" aria-label="Mở phong bì thiệp cưới"><u class="ss"></u><i>囍</i><i>囍</i></button>
+    </div></div>
+
+    <div class="ui">
+      <button class="cta" id="open"><span>✦</span>Chạm mở phong bì thiệp cưới<span>→</span></button>
+      <p class="hint">Hoặc chạm vào con dấu sáp</p>
     </div>
+    <button class="cta enter" id="enter"><span>✦</span>Vào xem thiệp<span>→</span></button>
+    <p class="foot">Roll Nº 18 · Exp 27</p>
 
-    <!-- Lớp phủ tối điện ảnh ấm áp -->
-    <div class="intro-dark-overlay" aria-hidden="true"></div>
-
-    <!-- Hạt bụi vàng bay lơ lửng trong không gian điện ảnh -->
-    <div class="intro-dust-particles" id="introDustParticles" aria-hidden="true"></div>
-
-    <!-- SÂN KHẤU PHONG BÌ 3D (3D ENVELOPE STAGE) -->
-    <div class="envelope-3d-stage" id="envelope3dStage">
-
-      <!-- Dòng tiêu đề nhỏ tinh tế phía trên phong bì -->
-      <div class="env-header-badge" id="envHeaderBadge">
-        <span class="env-badge-star">✳</span>
-        <span class="env-badge-text">THƯ BÁO HỶ · A CINEMATIC WEDDING INVITATION</span>
-        <span class="env-badge-star">✳</span>
-      </div>
-
-      <!-- KHỐI PHONG BÌ 3D VẬT LÝ (THE PHYSICAL 3D ENVELOPE) -->
-      <div class="envelope-box" id="envelopeBox">
-        
-        <!-- Mặt sau bao thư (Envelope Back Wall) -->
-        <div class="env-back" aria-hidden="true"></div>
-
-        <!-- TỜ THIỆP CƯỚI BÊN TRONG — SẼ TRƯỢT LÊN VÀ PHÓNG TO LẮP ĐẦY TOÀN MÀN HÌNH -->
-        <div class="env-card env-card-closed" id="envCard" aria-label="Thiệp cưới Văn Tiến & Bảo Châu">
-          <div class="env-card-inner">
-            <!-- Viền vàng đồng nghệ thuật -->
-            <div class="env-card-gold-border"></div>
-            
-            <div class="env-card-top-row">
-              <span class="env-card-film-tag">WEDDING INVITATION</span>
-              <span class="env-card-crest-mark">囍</span>
-              <span class="env-card-date-tag">18.12.2027</span>
-            </div>
-
-            <!-- Tấm ảnh đại diện cô dâu chú rể phong cách phim Kodak -->
-            <div class="env-card-photo-wrapper">
-              <img src="./photo/BEE06636.JPG" alt="Văn Tiến và Bảo Châu trong tà áo dài cưới truyền thống bên chữ Hỷ" class="env-card-couple-img" loading="eager" />
-              <div class="env-card-photo-grain"></div>
-              <span class="env-card-photo-badge">ĐÀ NẴNG · 1970s</span>
-            </div>
-
-            <!-- Tiêu đề và lời mời trên thiệp -->
-            <div class="env-card-text-block">
-              <p class="env-card-lead">TRÂN TRỌNG BÁO HỶ VÀ KÍNH MỜI</p>
-              <h2 class="env-card-title">
-                <span class="env-name groom">Văn Tiến</span>
-                <span class="env-amp">&amp;</span>
-                <span class="env-name bride">Bảo Châu</span>
-              </h2>
-              <p class="env-card-quote">“Trăm năm tình viên mãn · Bạc đầu nghĩa phu thê”</p>
-              <div class="env-card-solar-date">
-                <span>THỨ BẢY · 18 THÁNG 12, 2027</span>
-              </div>
-            </div>
-
-            <div class="env-card-bottom-bar">
-              <span>ĐÀ NẴNG, VIỆT NAM</span>
-              <span class="env-card-code">EXP · Nº 018</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Nắp phong bì tam giác 3D (Top Flap) — Lật mở 180 độ -->
-        <div class="env-flap-top" id="envFlapTop" aria-hidden="true">
-          <div class="env-flap-triangle"></div>
-        </div>
-
-        <!-- Cánh gấp hông trái & phải tạo khối bao thư thực tế -->
-        <div class="env-side-left" aria-hidden="true"></div>
-        <div class="env-side-right" aria-hidden="true"></div>
-
-        <!-- Túi trước phong bì (Front Pocket) -->
-        <div class="env-pocket-front" aria-hidden="true">
-          <!-- Viền họa tiết bưu chính Airmail cổ điển -->
-          <div class="env-airmail-strip"></div>
-
-          <!-- Con tem thư Bưu điện Đà Nẵng dán góc -->
-          <div class="env-vintage-stamp">
-            <div class="stamp-perforation">
-              <span class="stamp-num">18.12</span>
-              <span class="stamp-name">ĐÀ NẴNG</span>
-              <span class="stamp-icon">囍</span>
-            </div>
-            <div class="stamp-postmark-ring">
-              <span>POSTE · 1970</span>
-            </div>
-          </div>
-
-          <!-- Nhãn địa chỉ viết tay mực sepia vintage -->
-          <div class="env-address-label">
-            <div class="addr-line-to">
-              <span class="addr-tag">GỬI:</span>
-              <strong class="addr-recipient">Quý Khách Quý &amp; Bạn Thương Mến</strong>
-            </div>
-            <div class="addr-line-from">
-              <span>Từ: Văn Tiến &amp; Bảo Châu · TP. Đà Nẵng</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- TEM SÁP SON ĐỎ 3D — TÂM ĐIỂM CHẠM MỞ (THE WAX SEAL) -->
-        <div class="env-wax-seal" id="envWaxSeal" role="button" tabindex="0" onclick="window.__openEnvelope && window.__openEnvelope()" aria-label="Chạm vào con dấu sáp để mở phong bì thiệp cưới">
-          <div class="wax-shimmer-sweep" aria-hidden="true"></div>
-          <div class="wax-seal-surface">
-            <span class="seal-character">囍</span>
-            <span class="seal-orbit-text">TIẾN ✳ CHÂU</span>
-          </div>
-          <div class="wax-pulse-ring"></div>
-          <div class="wax-pulse-ring ring-2"></div>
-        </div>
-
-      </div>
-
-      <!-- Điều khiển & Lời dẫn tương tác -->
-      <div class="env-controls-group" id="envControls">
-        <button class="open-envelope-trigger" id="openEnvelopeTrigger" type="button" onclick="window.__openEnvelope && window.__openEnvelope()">
-          <span class="btn-dot">✳</span> Chạm mở phong bì thiệp cưới <span class="btn-arrow">→</span>
-        </button>
-        <button class="skip-envelope-trigger" id="skipEnvelopeTrigger" type="button" onclick="window.__openEnvelope && window.__openEnvelope()">
-          Xem nhanh nội dung <span class="btn-arrow">↓</span>
-        </button>
-        <p class="env-instruction-hint" id="envHintText">
-          Chạm vào con dấu sáp đỏ hoặc nút mở để khám phá thước phim
-        </p>
-      </div>
-
-    </div>
-
-    <!-- Màn rèm chuyển tiếp mượt mà -->
-    <div class="intro-curtain-screen" id="introCurtainScreen" aria-hidden="true"></div>
-  </section>
+    <canvas id="fx"></canvas>
+    <div class="grain"></div><div class="scr"></div><div class="vig"></div><div class="flick"></div><div class="flash"></div>
+  </div>
 
   <!-- ========================================================================= -->
   <!-- THANH ĐIỀU HƯỚNG TRANG (EDITORIAL TOP BAR) — "Dark Obsidian & Marquee"    -->
