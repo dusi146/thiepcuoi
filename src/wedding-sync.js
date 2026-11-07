@@ -453,6 +453,15 @@
       }
     }
 
+    // 14. Bài hát nền trên đĩa than hoài niệm
+    if (d.musicChoice) {
+      document.querySelectorAll('.music-track-title').forEach((el) => {
+        el.textContent = d.musicChoice;
+      });
+      const mToggle = document.getElementById('musicToggleBtn');
+      if (mToggle) mToggle.title = `Bật/Tắt nhạc: ${d.musicChoice}`;
+    }
+
     if (isLive) {
       showSyncBadge('✨ Đã cập nhật từ trang nhập liệu');
     }

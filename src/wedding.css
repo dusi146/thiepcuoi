@@ -39,13 +39,13 @@
   --border-line: rgba(166, 124, 82, 0.22);
   --border-dashed: rgba(184, 58, 42, 0.28);
 
-  /* Typography nghệ thuật điện ảnh Retro, 100% bản quyền Google Fonts chuẩn tiếng Việt không lỗi font */
-  --font-display: 'Fraunces', 'Playfair Display', Georgia, serif;
-  --font-royal: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-script: 'Marck Script', cursive;
-  --font-mono: 'Xanh Mono', 'DM Mono', monospace;
-  --font-sans: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Typography nghệ thuật điện ảnh Retro: Dễ đọc tuyệt đối cho thông tin, quý phái nghệ thuật cho tiêu đề */
+  --font-display: 'Playfair Display', 'Fraunces', Georgia, serif;
+  --font-royal: 'Playfair Display', Georgia, serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-script: 'Dancing Script', 'Marck Script', cursive;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', Consolas, monospace;
+  --font-sans: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Easing chuyển động chậm đều, quý phái */
   --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
@@ -1066,52 +1066,89 @@ body.invite-open {
 }
 
 /* ==========================================================================
-   ĐĨA THAN HOÀI NIỆM & MARQUEE TICKER (INTEGRATED IN HEADER)
+   ĐĨA THAN HOÀI NIỆM & MARQUEE TICKER (FLOATING RETRO GRAMOPHONE)
+   Luôn nổi sang trọng góc trên bên phải — Hiển thị cả trên Intro & Trang web
    ========================================================================== */
 .vintage-gramophone {
-  position: relative;
-  flex-shrink: 0;
-  max-width: 175px;
-  overflow: hidden;
-  z-index: 2;
+  position: fixed;
+  top: calc(14px + env(safe-area-inset-top, 0px));
+  right: calc(20px + env(safe-area-inset-right, 0px));
+  z-index: 100000; /* Nổi trên cả màn Intro (#intro z-index 99999) và Header */
+  max-width: 230px;
+  overflow: visible;
+  pointer-events: auto;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .gramophone-btn {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 253, 248, 0.95);
-  border: 1px solid var(--border-line);
-  padding: 4px 10px 4px 5px;
+  background: rgba(255, 252, 246, 0.94);
+  border: 1px solid rgba(166, 124, 82, 0.32);
+  padding: 4px 12px 4px 5px;
   border-radius: 999px;
-  box-shadow: 0 4px 12px rgba(45, 36, 32, 0.08);
+  box-shadow: 0 4px 18px rgba(45, 36, 32, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   cursor: pointer;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  max-width: 175px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  max-width: 230px;
   overflow: hidden;
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease, box-shadow 0.25s ease;
 }
 
 .gramophone-btn:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
   background: #FFF;
+  box-shadow: 0 6px 22px rgba(45, 36, 32, 0.2);
 }
 
 .vinyl-record-disc {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: #141110;
+  background: radial-gradient(circle at center, #1f1b19 0%, #120f0e 100%);
   position: relative;
   box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.4),
-    inset 0 0 0 2px #26201D,
-    inset 0 0 0 3px #181514;
+    0 2px 10px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 2px #2d2622,
+    inset 0 0 0 4px #141110;
   display: grid;
   place-items: center;
   overflow: hidden;
   flex-shrink: 0;
+}
+
+/* Rãnh đĩa than vi mô đồng tâm */
+.vinyl-record-disc::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.05) 0px,
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
+
+.vinyl-fallback-center {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #D95338, #8E1A14);
+  color: #FFD9A0;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 230, 180, 0.7);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
 .vinyl-center-art {
@@ -1119,37 +1156,39 @@ body.invite-open {
   height: 22px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid rgba(255, 230, 180, 0.6);
+  border: 1px solid rgba(255, 230, 180, 0.75);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
   display: block;
+  position: relative;
+  z-index: 1;
 }
 
 .vinyl-center-spindle {
   position: absolute;
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: #181514;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  z-index: 2;
+  border: 1.5px solid rgba(255, 230, 180, 0.95);
+  z-index: 3;
   box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.8);
 }
 
 .gramophone-label {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   min-width: 0;
   overflow: hidden;
 }
 
 .music-meta-block {
-  max-width: 105px;
+  max-width: 120px;
   overflow: hidden;
   position: relative;
   white-space: nowrap;
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
 }
 
 .music-marquee-track {
@@ -1168,7 +1207,7 @@ body.invite-open {
 
 .music-track-title {
   font-family: var(--font-sans);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: var(--ink-brown);
   white-space: nowrap;
@@ -1176,7 +1215,7 @@ body.invite-open {
 
 .music-track-sub {
   font-family: var(--font-mono);
-  font-size: 0.56rem;
+  font-size: 0.62rem;
   color: var(--ink-muted);
   white-space: nowrap;
 }
@@ -1195,8 +1234,9 @@ body.invite-open {
   transition: background 0.3s;
 }
 
-.vintage-gramophone.is-playing .vinyl-record-disc {
-  animation: spinRecord 6s linear infinite;
+.vintage-gramophone.is-playing .vinyl-record-disc,
+.gramophone-btn.is-playing .vinyl-record-disc {
+  animation: spinRecord 5s linear infinite;
 }
 
 @keyframes spinRecord {
@@ -1209,7 +1249,7 @@ body.invite-open {
   position: absolute;
   top: -4px;
   right: -5px;
-  width: 14px;
+  width: 15px;
   height: 2.5px;
   background: linear-gradient(90deg, #D49A32, #F4D389);
   border-radius: 2px;
@@ -1243,7 +1283,8 @@ body.invite-open {
   border-radius: 1px;
 }
 
-.vintage-gramophone.is-playing .vinyl-tonearm {
+.vintage-gramophone.is-playing .vinyl-tonearm,
+.gramophone-btn.is-playing .vinyl-tonearm {
   transform: rotate(18deg);
 }
 
@@ -1264,24 +1305,29 @@ body.invite-open {
   transition: background 0.3s ease;
 }
 
-.vintage-gramophone.is-playing .m-bar {
+.vintage-gramophone.is-playing .m-bar,
+.gramophone-btn.is-playing .m-bar {
   background: var(--vermilion);
   animation: waveBarBounce 0.9s ease-in-out infinite alternate;
 }
 
-.vintage-gramophone.is-playing .m-bar:nth-child(1) {
+.vintage-gramophone.is-playing .m-bar:nth-child(1),
+.gramophone-btn.is-playing .m-bar:nth-child(1) {
   animation-duration: 0.65s;
   animation-delay: 0.1s;
 }
-.vintage-gramophone.is-playing .m-bar:nth-child(2) {
+.vintage-gramophone.is-playing .m-bar:nth-child(2),
+.gramophone-btn.is-playing .m-bar:nth-child(2) {
   animation-duration: 0.85s;
   animation-delay: 0.25s;
 }
-.vintage-gramophone.is-playing .m-bar:nth-child(3) {
+.vintage-gramophone.is-playing .m-bar:nth-child(3),
+.gramophone-btn.is-playing .m-bar:nth-child(3) {
   animation-duration: 0.55s;
   animation-delay: 0.05s;
 }
-.vintage-gramophone.is-playing .m-bar:nth-child(4) {
+.vintage-gramophone.is-playing .m-bar:nth-child(4),
+.gramophone-btn.is-playing .m-bar:nth-child(4) {
   animation-duration: 0.75s;
   animation-delay: 0.3s;
 }
@@ -1333,8 +1379,8 @@ body.invite-open {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
-  padding: 10px 20px;
+  gap: 1.5rem;
+  padding: 10px 220px 10px 24px; /* Chừa 220px bên phải cho đĩa than nổi */
   background: rgba(247, 241, 232, 0.94);
   border-bottom: 1px solid var(--border-line);
   backdrop-filter: blur(14px);
@@ -1366,7 +1412,7 @@ body.invite-open {
 
 .brand-sub {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   letter-spacing: 0.12em;
   color: var(--ink-muted);
 }
@@ -1378,9 +1424,10 @@ body.invite-open {
 
 .header-nav a {
   text-decoration: none;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.06em;
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   color: var(--ink-muted);
   transition: color 0.2s ease;
 }
@@ -1816,8 +1863,9 @@ body.invite-open {
   gap: 8px;
   padding: 13px 26px;
   border-radius: 999px;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 600;
   letter-spacing: 0.04em;
   text-decoration: none;
   transition: all 0.25s ease;
@@ -2769,11 +2817,11 @@ body.invite-open {
 }
 
 .event-nature {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.15em;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
   color: var(--vermilion);
-  font-weight: 500;
+  font-weight: 700;
   display: block;
   margin-bottom: 6px;
 }
@@ -2791,8 +2839,9 @@ body.invite-open {
 }
 
 .event-datetime {
-  font-family: var(--font-mono);
-  font-size: 0.88rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
   color: var(--olive);
   margin-bottom: 16px;
 }
@@ -2831,9 +2880,10 @@ body.invite-open {
 .event-map-btn {
   display: inline-flex;
   align-items: center;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  letter-spacing: 0.08em;
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   color: var(--vermilion);
   text-decoration: underline;
   transition: color 0.2s;
@@ -3165,13 +3215,13 @@ body.invite-open {
   gap: 8px;
   background: rgba(184, 58, 42, 0.08);
   border: 1px solid rgba(184, 58, 42, 0.25);
-  padding: 5px 16px;
+  padding: 6px 18px;
   border-radius: 999px;
   color: var(--vermilion);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  font-weight: 600;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  font-weight: 700;
 }
 
 .silk-card-header-badge.bride-badge {
@@ -3231,10 +3281,10 @@ body.invite-open {
 
 .bank-name-label {
   display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--vermilion);
   margin-bottom: 2px;
 }
@@ -3254,34 +3304,37 @@ body.invite-open {
 
 .info-row .row-label {
   color: var(--ink-muted);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 500;
 }
 
 .info-row .row-value {
   color: var(--ink-brown);
+  font-family: var(--font-sans);
   font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .info-row .acc-number-text {
   font-family: var(--font-mono);
-  font-size: 1.12rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--vermilion);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 }
 
 .copy-account-btn {
   margin-top: 8px;
-  padding: 10px 16px;
+  padding: 10px 18px;
   background: var(--vermilion);
   color: #FFFDF9;
   border: none;
   border-radius: 999px;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(184, 58, 42, 0.25);
   transition: all 0.25s ease;
@@ -3660,9 +3713,10 @@ body.invite-open {
 
 .return-top-btn {
   display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  letter-spacing: 0.08em;
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   color: var(--ink-brown);
   border: 1px solid var(--border-line);
   padding: 10px 22px;
@@ -3683,9 +3737,9 @@ body.invite-open {
   align-items: center;
   padding: 24px 20px calc(7.5rem + env(safe-area-inset-bottom, 20px));
   border-top: 1px solid var(--border-line);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
   color: var(--ink-muted);
   flex-wrap: wrap;
   gap: 12px;
@@ -3985,7 +4039,7 @@ body.invite-open .editorial-sticky-bar {
 @media (max-width: 860px) {
   /* Khắc phục triệt để lỗi tràn thanh điều hướng trên mobile */
   .editorial-header {
-    padding: 8px 12px;
+    padding: 8px 70px 8px 12px; /* Chừa bên phải cho đĩa than nổi */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -4013,23 +4067,23 @@ body.invite-open .editorial-sticky-bar {
     font-size: 0.56rem;
   }
 
-  /* Đĩa than co giãn mượt mà theo flexbox góc trên phải */
+  /* Đĩa than nổi cố định góc trên phải trên mobile */
   .vintage-gramophone {
-    position: relative;
-    top: auto;
-    right: auto;
+    position: fixed;
+    top: calc(8px + env(safe-area-inset-top, 0px));
+    right: calc(10px + env(safe-area-inset-right, 0px));
     max-width: 175px;
-    flex-shrink: 1;
+    z-index: 100000;
   }
 
   .gramophone-btn {
-    padding: 4px 8px 4px 4px;
+    padding: 3px 8px 3px 3px;
     gap: 6px;
   }
 
   .vinyl-record-disc {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
   }
 
   .gramophone-label {

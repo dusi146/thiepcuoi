@@ -1580,8 +1580,13 @@ function playWeddingMusic() {
     playPromise
       .then(() => {
         isAudioActive = true;
-        if (vinylPlayer) vinylPlayer.classList.add('is-playing');
-        if (musicToggleBtn) musicToggleBtn.setAttribute('aria-pressed', 'true');
+        const vp = vinylPlayer || document.getElementById('vinylPlayer');
+        const btn = musicToggleBtn || document.getElementById('musicToggleBtn');
+        if (vp) vp.classList.add('is-playing');
+        if (btn) {
+          btn.setAttribute('aria-pressed', 'true');
+          btn.classList.add('is-playing');
+        }
         if (musicLabelText) musicLabelText.textContent = 'Đang phát';
         startFloatingNotes();
 
@@ -1626,8 +1631,13 @@ function pauseWeddingMusic() {
       clearInterval(audioFadeInterval);
       audioFadeInterval = null;
       isAudioActive = false;
-      if (vinylPlayer) vinylPlayer.classList.remove('is-playing');
-      if (musicToggleBtn) musicToggleBtn.setAttribute('aria-pressed', 'false');
+      const vp = vinylPlayer || document.getElementById('vinylPlayer');
+      const btn = musicToggleBtn || document.getElementById('musicToggleBtn');
+      if (vp) vp.classList.remove('is-playing');
+      if (btn) {
+        btn.setAttribute('aria-pressed', 'false');
+        btn.classList.remove('is-playing');
+      }
       if (musicLabelText) musicLabelText.textContent = 'Giai điệu';
     } else {
       audio.volume = Number(vol.toFixed(2));
@@ -1648,6 +1658,10 @@ function toggleWeddingMusic() {
     showEditorialToast('Đang phát: Gói Con Tim Làm Quà (Bò Sữa Bay OST) — Nguyễn Hùng ♫');
   }
 }
+
+window.__playMusic = playWeddingMusic;
+window.__pauseMusic = pauseWeddingMusic;
+window.__toggleMusic = toggleWeddingMusic;
 
 if (musicToggleBtn) {
   musicToggleBtn.addEventListener('click', toggleWeddingMusic);

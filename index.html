@@ -7,10 +7,10 @@
   <meta name="description" content="Thước phim cưới hoài niệm của Văn Tiến & Bảo Châu — 18.12.2027 · Đà Nẵng." />
   <title>Văn Tiến & Bảo Châu — Thước Phim Ngày Chung Đôi · 18.12.2027</title>
 
-  <!-- Typography nghệ thuật điện ảnh Retro, 100% bản quyền Google Fonts hỗ trợ tiếng Việt hoàn mỹ -->
+  <!-- Typography nghệ thuật điện ảnh Retro: Dễ đọc tuyệt đối cho thông tin, quý phái nghệ thuật cho tiêu đề -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Dancing+Script:wght@600&family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&family=IBM+Plex+Mono:wght@400;500&family=Marck+Script&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Xanh+Mono:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@600;700&family=Fraunces:ital,opsz,wght@0,9..144,500..800;1,9..144,500..800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="./assets/wedding.css" />
   <script type="module" crossorigin src="./assets/wedding.js"></script>
@@ -26,12 +26,51 @@
       }
       if (window.__lenis) window.__lenis.start();
       if (window.ScrollTrigger) window.ScrollTrigger.refresh();
-      var audio = document.getElementById('weddingAudio');
-      if (audio && audio.paused) audio.play().catch(function() {});
+      if (window.__playMusic) {
+        window.__playMusic();
+      } else {
+        var audio = document.getElementById('weddingAudio');
+        if (audio && audio.paused) audio.play().catch(function() {});
+      }
     };
   </script>
 </head>
 <body class="invite-closed">
+  <!-- ========================================================================= -->
+  <!-- ĐĨA THAN HOÀI NIỆM & BỘ PHÁT NHẠC NỀN CỐ ĐỊNH (FLOATING RETRO GRAMOPHONE) -->
+  <!-- Luôn nổi sang trọng góc trên bên phải — Hiển thị cả trên Intro & Trang web -->
+  <!-- ========================================================================= -->
+  <aside class="vintage-gramophone" id="vinylPlayer" aria-label="Bộ phát nhạc nền hoài niệm">
+    <button class="gramophone-btn" id="musicToggleBtn" type="button" aria-pressed="false" onclick="window.__toggleMusic && window.__toggleMusic()" title="Bật/Tắt nhạc: Gói Con Tim Làm Quà - Nguyễn Hùng">
+      <div class="vinyl-record-disc">
+        <div class="vinyl-fallback-center" aria-hidden="true">囍</div>
+        <img src="./logo-nhac.jpg" alt="Logo nhạc Gói Con Tim Làm Quà" class="vinyl-center-art" onerror="this.style.opacity='0'" />
+        <div class="vinyl-center-spindle"></div>
+        <div class="vinyl-tonearm" aria-hidden="true"></div>
+      </div>
+      <span class="gramophone-label">
+        <span class="music-wave-bars" aria-hidden="true">
+          <span class="m-bar"></span>
+          <span class="m-bar"></span>
+          <span class="m-bar"></span>
+          <span class="m-bar"></span>
+        </span>
+        <span class="music-meta-block">
+          <span class="music-marquee-track">
+            <span class="music-track-title">Gói Con Tim Làm Quà</span>
+            <span class="music-dot-sep">✦</span>
+            <span class="music-track-sub">Nguyễn Hùng</span>
+            <span class="music-dot-sep">✦</span>
+            <span class="music-track-title">Gói Con Tim Làm Quà</span>
+            <span class="music-dot-sep">✦</span>
+            <span class="music-track-sub">Nguyễn Hùng</span>
+          </span>
+        </span>
+      </span>
+    </button>
+    <div class="music-floating-notes" id="floatingNotes" aria-hidden="true"></div>
+    <audio id="weddingAudio" src="./music.m4a" preload="auto" loop playsinline></audio>
+  </aside>
   <!-- Con trỏ chuột nghệ thuật Retro (chỉ hiển thị trên máy tính có chuột) -->
   <div class="retro-cursor-dot" id="cursorDot" aria-hidden="true"></div>
   <div class="retro-cursor-ring" id="cursorRing" aria-hidden="true"></div>
@@ -119,38 +158,6 @@
       <a href="#mung-cuoi">Mừng cưới</a>
       <a href="#rsvp">Hồi âm</a>
     </nav>
-
-    <!-- ĐĨA THAN HOÀI NIỆM & MARQUEE TICKER TỰ ĐỘNG CHẠY CHỮ -->
-    <div class="vintage-gramophone" id="vinylPlayer" aria-label="Bộ phát nhạc nền hoài niệm">
-      <button class="gramophone-btn" id="musicToggleBtn" type="button" aria-pressed="false" title="Bật/Tắt: Gói Con Tim Làm Quà - Nguyễn Hùng">
-        <div class="vinyl-record-disc">
-          <img src="./logo-nhac.jpg" alt="Logo nhạc Gói Con Tim Làm Quà" class="vinyl-center-art" />
-          <div class="vinyl-center-spindle"></div>
-          <div class="vinyl-tonearm" aria-hidden="true"></div>
-        </div>
-        <span class="gramophone-label">
-          <span class="music-wave-bars" aria-hidden="true">
-            <span class="m-bar"></span>
-            <span class="m-bar"></span>
-            <span class="m-bar"></span>
-            <span class="m-bar"></span>
-          </span>
-          <span class="music-meta-block">
-            <span class="music-marquee-track">
-              <span class="music-track-title">Gói Con Tim Làm Quà</span>
-              <span class="music-dot-sep">✦</span>
-              <span class="music-track-sub">Nguyễn Hùng (Bò Sữa Bay OST)</span>
-              <span class="music-dot-sep">✦</span>
-              <span class="music-track-title">Gói Con Tim Làm Quà</span>
-              <span class="music-dot-sep">✦</span>
-              <span class="music-track-sub">Nguyễn Hùng</span>
-            </span>
-          </span>
-        </span>
-      </button>
-      <div class="music-floating-notes" id="floatingNotes" aria-hidden="true"></div>
-      <audio id="weddingAudio" src="./music.m4a" preload="auto" loop playsinline></audio>
-    </div>
   </header>
 
   <!-- ========================================================================= -->

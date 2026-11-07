@@ -295,15 +295,21 @@
       }
 
       // Tự động phát nhạc nền hoài niệm nếu audio có sẵn
-      const audio = document.getElementById('weddingAudio');
-      const musicBtn = document.getElementById('musicToggleBtn');
-      if (audio && audio.paused) {
-        audio.play().then(() => {
-          if (musicBtn) {
-            musicBtn.setAttribute('aria-pressed', 'true');
-            musicBtn.classList.add('is-playing');
-          }
-        }).catch(() => {});
+      if (typeof window.__playMusic === 'function') {
+        window.__playMusic();
+      } else {
+        const audio = document.getElementById('weddingAudio');
+        const vp = document.getElementById('vinylPlayer');
+        const musicBtn = document.getElementById('musicToggleBtn');
+        if (audio && audio.paused) {
+          audio.play().then(() => {
+            if (vp) vp.classList.add('is-playing');
+            if (musicBtn) {
+              musicBtn.setAttribute('aria-pressed', 'true');
+              musicBtn.classList.add('is-playing');
+            }
+          }).catch(() => {});
+        }
       }
 
       document.dispatchEvent(new CustomEvent('intro:done'));
@@ -330,3 +336,4 @@
     initIntro();
   }
 })();
+
