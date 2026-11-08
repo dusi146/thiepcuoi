@@ -204,9 +204,9 @@
         el.textContent = gShort;
       });
       const tabGroom = document.getElementById('tabGroomBtn');
-      if (tabGroom) tabGroom.textContent = `MỪNG CHÚ RỂ (${gShort.toUpperCase()})`;
+      if (tabGroom) tabGroom.textContent = 'MỪNG CHÚ RỂ';
       const badgeGroom = document.querySelector('#panelGroom .silk-badge-text');
-      if (badgeGroom) badgeGroom.textContent = `MỪNG CƯỚI CHÚ RỂ · ${gShort.toUpperCase()}`;
+      if (badgeGroom) badgeGroom.textContent = 'MỪNG CƯỚI CHÚ RỂ';
 
       // Cập nhật tên chú rể trên màn Cinematic Intro mới
       const introGroom = document.querySelector('.intro-groom');
@@ -226,9 +226,9 @@
         el.textContent = bShort;
       });
       const tabBride = document.getElementById('tabBrideBtn');
-      if (tabBride) tabBride.textContent = `MỪNG CÔ DÂU (${bShort.toUpperCase()})`;
+      if (tabBride) tabBride.textContent = 'MỪNG CÔ DÂU';
       const badgeBride = document.querySelector('#panelBride .silk-badge-text');
-      if (badgeBride) badgeBride.textContent = `MỪNG CƯỚI CÔ DÂU · ${bShort.toUpperCase()}`;
+      if (badgeBride) badgeBride.textContent = 'MỪNG CƯỚI CÔ DÂU';
 
       // Cập nhật tên cô dâu trên màn Cinematic Intro mới
       const introBride = document.querySelector('.intro-bride');

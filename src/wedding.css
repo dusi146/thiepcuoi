@@ -1734,109 +1734,213 @@ body.invite-open {
   text-shadow: 0 0 16px rgba(212, 154, 50, 0.45);
 }
 
-/* Vintage Cinema Admission Ticket (Vé Vào Rạp Chiếu Bóng) */
+/* Vintage Cinema Admission Ticket (Vé Vào Rạp Chiếu Bóng Cao Cấp) */
 .cinema-admission-ticket {
-  display: inline-flex;
-  align-items: center;
-  background: var(--bg-card);
-  border: 1px dashed var(--vermilion);
-  border-radius: 6px;
-  margin: 0 auto 24px;
+  display: flex;
+  align-items: stretch;
+  background: linear-gradient(135deg, #FFFDF8 0%, #F9EFE4 100%);
+  border: 1.5px solid #8B2D2D;
+  border-radius: 10px;
+  margin: 0 auto 26px;
   position: relative;
-  box-shadow: 0 6px 20px rgba(45, 36, 32, 0.08);
+  box-shadow:
+    0 14px 34px -8px rgba(107, 35, 35, 0.16),
+    0 2px 8px rgba(45, 36, 32, 0.05);
   overflow: visible;
-  max-width: 100%;
+  max-width: 540px;
+  width: 100%;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.ticket-notch {
-  position: absolute;
-  top: 50%;
-  width: 16px;
-  height: 16px;
-  background: var(--bg-paper);
-  border-radius: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  border: 1px dashed var(--vermilion);
+.cinema-admission-ticket:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px -8px rgba(107, 35, 35, 0.22);
 }
 
-.ticket-notch.notch-left {
-  left: -8px;
-  clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
-}
-
-.ticket-notch.notch-right {
-  right: -8px;
-  clip-path: polygon(0% 0%, 50% 0%, 50% 100%, 0% 100%);
-}
-
+/* Cuống vé (Ticket Stub) */
 .ticket-stub {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 12px 14px;
-  background: rgba(184, 71, 54, 0.06);
-  border-right: 1px dashed var(--vermilion);
+  padding: 14px 16px;
+  background: rgba(139, 45, 45, 0.05);
+  border-right: 1.5px dashed rgba(139, 45, 45, 0.4);
   flex-shrink: 0;
+  min-width: 90px;
+  position: relative;
 }
 
 .ticket-label {
   font-family: var(--font-mono);
-  font-size: 0.58rem;
+  font-size: 0.6rem;
   letter-spacing: 0.14em;
-  color: var(--vermilion);
+  color: #8B2D2D;
   text-transform: uppercase;
+  font-weight: 700;
 }
 
 .ticket-code {
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  color: var(--ink-brown);
+  color: #5B1D1D;
+  margin: 4px 0;
 }
 
-.ticket-divider {
-  width: 1px;
+/* Mã vạch retro */
+.ticket-barcode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5px;
+  height: 22px;
+  margin: 4px 0 2px;
+}
+
+.ticket-barcode span {
+  display: inline-block;
   height: 100%;
-  border-left: 1px dashed var(--vermilion);
-  margin: 0;
+  background: #5B1D1D;
+  border-radius: 1px;
 }
 
+.ticket-barcode span:nth-child(odd) { width: 1.5px; }
+.ticket-barcode span:nth-child(even) { width: 3px; }
+.ticket-barcode span:nth-child(3n) { width: 2px; }
+
+.ticket-subtext {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  color: #8B2D2D;
+  opacity: 0.85;
+}
+
+/* Đường khuyết xé vé tròn (Perforation) */
+.ticket-perforation {
+  position: absolute;
+  left: 90px;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.ticket-notch {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: var(--bg-paper);
+  border-radius: 50%;
+  border: 1.5px solid #8B2D2D;
+  left: -8px;
+}
+
+.ticket-notch.notch-top {
+  top: -9px;
+  clip-path: polygon(0% 50%, 100% 50%, 100% 100%, 0% 100%);
+}
+
+.ticket-notch.notch-bottom {
+  bottom: -9px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
+}
+
+/* Thân vé chính (Main Ticket Content) */
 .ticket-content {
-  padding: 10px 18px;
+  padding: 12px 18px 12px 20px;
   text-align: left;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.ticket-content .solar-date-item {
+.ticket-header-strip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.ticket-star {
+  color: #D4AF37;
+  font-size: 0.65rem;
+}
+
+.ticket-series {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #8B2D2D;
+  text-transform: uppercase;
+}
+
+.ticket-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 3.2vw, 1.3rem);
+  font-weight: 700;
+  color: #5B1D1D;
+  letter-spacing: 0.02em;
+  margin: 3px 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ticket-main-title .t-amp {
+  font-size: 0.95rem;
+}
+
+.ticket-date-row {
   display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
 }
 
+.ticket-content .solar-date-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .ticket-content .date-badge {
-  background: var(--vermilion);
-  color: #FFF;
+  background: #8B2D2D;
+  color: #FFFDF9;
   font-family: var(--font-mono);
   font-size: 0.62rem;
-  letter-spacing: 0.12em;
-  padding: 2px 7px;
-  border-radius: 2px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border-radius: 4px;
 }
 
 .ticket-content .date-string {
   font-family: var(--font-serif);
-  font-size: clamp(0.9rem, 2.8vw, 1.15rem);
-  color: var(--ink-brown);
+  font-size: clamp(0.95rem, 2.6vw, 1.12rem);
+  color: #5B1D1D;
   font-weight: 700;
 }
 
 .ticket-content .lunar-date-item {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: #7A5B4C;
+}
+
+.ticket-cinema-meta {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--ink-muted);
-  margin-top: 3px;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: #7A5B4C;
+  margin-top: 6px;
+  display: flex;
+  gap: 6px;
+  opacity: 0.85;
 }
 
 .hero-poetic-quote {
@@ -2336,7 +2440,7 @@ body.invite-open {
   border: 1px solid rgba(166, 124, 82, 0.28) !important;
   box-shadow: 0 16px 40px -10px rgba(62, 39, 35, 0.09) !important;
   position: relative;
-  overflow: hidden !important;
+  overflow: visible !important;
   padding-left: clamp(24px, 5vw, 42px) !important;
 }
 
@@ -2355,33 +2459,57 @@ body.invite-open {
   z-index: 1;
 }
 
+.polaroid-deck-container,
 .polaroid-scrapbook-deck {
   display: flex;
   flex-direction: column;
-  gap: 32px;
   position: relative;
   z-index: 2;
-  margin-top: 28px;
+  margin-top: 32px;
+  padding-bottom: 50px;
 }
 
 .polaroid-scrapbook-card {
-  position: relative;
+  position: -webkit-sticky;
+  position: sticky;
+  margin-bottom: 46px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
-  will-change: transform, opacity;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+  will-change: transform;
 }
 
-/* Alternating tilts */
-.polaroid-scrapbook-card.card-odd {
-  transform: rotate(-1deg);
+/* Thứ tự tầng và độ lệch khi xếp chồng sticky */
+.polaroid-scrapbook-card[data-index="0"] {
+  top: 85px;
+  z-index: 10;
+  transform: rotate(-1.5deg);
 }
 
-.polaroid-scrapbook-card.card-even {
-  transform: rotate(1deg);
+.polaroid-scrapbook-card[data-index="1"] {
+  top: 104px;
+  z-index: 11;
+  transform: rotate(1.8deg);
 }
 
-/* User tap to focus */
+.polaroid-scrapbook-card[data-index="2"] {
+  top: 123px;
+  z-index: 12;
+  transform: rotate(-1.2deg);
+}
+
+.polaroid-scrapbook-card[data-index="3"] {
+  top: 142px;
+  z-index: 13;
+  transform: rotate(1.6deg);
+}
+
+.polaroid-scrapbook-card[data-index="4"] {
+  top: 161px;
+  z-index: 14;
+  transform: rotate(-0.5deg);
+}
+
 .polaroid-scrapbook-card.is-focused,
 .polaroid-scrapbook-card:hover {
   transform: rotate(0deg) scale(1.02) !important;
@@ -2531,13 +2659,13 @@ body.invite-open {
    ========================================================================== */
 .countdown-card {
   text-align: center;
-  background: #2A1B15 !important;
-  border: 1px solid rgba(200, 157, 102, 0.35) !important;
-  border-radius: 24px !important;
+  background: linear-gradient(145deg, #FFFDF8 0%, #F5ECE0 100%) !important;
+  border: 1.5px solid #8B2D2D !important;
+  border-radius: 20px !important;
   box-shadow:
-    0 16px 40px rgba(42, 27, 21, 0.35),
-    inset 0 1px 2px rgba(255, 235, 205, 0.15) !important;
-  color: #F7EFE6 !important;
+    0 16px 40px -10px rgba(107, 35, 35, 0.15),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+  color: var(--ink-brown) !important;
   position: relative;
   overflow: hidden;
 }
@@ -2548,30 +2676,30 @@ body.invite-open {
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #B83A2A, #C89D66, #B83A2A);
-  box-shadow: 0 0 12px rgba(200, 157, 102, 0.5);
+  height: 4px;
+  background: linear-gradient(90deg, #8B2D2D, #C89D66, #8B2D2D);
+  box-shadow: 0 0 10px rgba(139, 45, 45, 0.35);
 }
 
 .countdown-card .card-display-title {
-  color: #FFFDF9 !important;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  color: #5B1D1D !important;
+  text-shadow: none !important;
 }
 
 .countdown-card .card-intro-text {
-  color: rgba(247, 238, 226, 0.8) !important;
+  color: #6B4D3E !important;
 }
 
 .countdown-card .chapter-roman {
-  color: #C89D66 !important;
+  color: #8B2D2D !important;
 }
 
 .countdown-card .chapter-topic {
-  color: #FFFDF9 !important;
+  color: #5B1D1D !important;
 }
 
 .countdown-card .chapter-line {
-  background: linear-gradient(90deg, #C89D66, transparent) !important;
+  background: linear-gradient(90deg, #8B2D2D, transparent) !important;
 }
 
 .vintage-flip-clock {
@@ -2579,35 +2707,35 @@ body.invite-open {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin: 24px 0 16px;
+  margin: 24px 0 18px;
 }
 
 .clock-segment {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #1C110C;
-  border: 1px solid rgba(200, 157, 102, 0.35);
+  background: linear-gradient(180deg, #7A2828 0%, #541919 100%);
+  border: 1px solid rgba(212, 175, 55, 0.45);
   padding: 16px 14px;
-  min-width: 72px;
+  min-width: 74px;
   border-radius: 12px;
   box-shadow:
-    inset 0 2px 5px rgba(0, 0, 0, 0.7),
-    0 4px 14px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, border-color 0.3s ease;
+    0 8px 20px rgba(84, 25, 25, 0.28),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .clock-segment:hover {
-  transform: translateY(-2px);
-  border-color: #C89D66;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(84, 25, 25, 0.38);
 }
 
 .clock-digit {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 2.6rem);
+  font-size: clamp(2rem, 5vw, 2.7rem);
   font-weight: 700;
-  color: #FFB347;
-  text-shadow: 0 0 14px rgba(255, 179, 71, 0.45);
+  color: #FFFDF9;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   line-height: 1;
   display: inline-block;
   will-change: transform, opacity;
@@ -2757,19 +2885,19 @@ body.invite-open {
 
 .event-tile {
   background: var(--bg-card);
-  border: 1px dashed rgba(166, 124, 82, 0.3);
+  border: 1.5px solid rgba(139, 45, 45, 0.25);
   padding: 26px 22px;
-  border-radius: 12px;
+  border-radius: 14px;
   position: relative;
   overflow: visible;
-  box-shadow: 0 4px 16px rgba(62, 39, 35, 0.05);
+  box-shadow: 0 6px 20px rgba(91, 29, 29, 0.06);
   transition: transform 0.4s var(--ease-cinematic), box-shadow 0.3s ease;
   will-change: transform, opacity;
 }
 
 .event-tile:hover {
   transform: translateX(4px);
-  box-shadow: 0 8px 24px rgba(62, 39, 35, 0.1);
+  box-shadow: 0 10px 28px rgba(91, 29, 29, 0.12);
 }
 
 .event-tile::before {
@@ -2780,117 +2908,152 @@ body.invite-open {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #B83A2A;
+  background: #8B2D2D;
   border: 2px solid #FFFDF9;
-  box-shadow: 0 0 0 3px rgba(184, 58, 42, 0.35);
+  box-shadow: 0 0 0 3px rgba(139, 45, 45, 0.35);
   animation: pulseTimelineNode 2.5s infinite;
   z-index: 2;
 }
 
 @keyframes pulseTimelineNode {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 0 3px rgba(184, 58, 42, 0.35); }
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 3px rgba(139, 45, 45, 0.35); }
   50% { transform: scale(1.18); box-shadow: 0 0 0 6px rgba(200, 157, 102, 0.25); }
 }
 
-.event-tile.highlight-tile {
-  border-left: 4px solid var(--vermilion);
+.event-tile-stamp {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #8B2D2D;
+  border: 1px dashed #8B2D2D;
+  padding: 3px 8px;
+  border-radius: 4px;
+  transform: rotate(-4deg);
+  opacity: 0.85;
 }
 
+.event-tile-stamp.tiec-stamp {
+  color: #F0D59E;
+  border-color: #F0D59E;
+}
+
+.event-tile.highlight-tile {
+  border-left: 5px solid #8B2D2D;
+  background: linear-gradient(135deg, #FFFDF8 0%, #FAF3EB 100%);
+}
+
+/* Sự kiện 3: Tiệc Cưới Thân Mật ĐỎ NÂU HOÀNG GIA (Thay thế khung đen) */
 .event-tile.dark-tile {
-  background: var(--bg-dark-hall);
-  color: #F7F3EB;
-  border-color: #35402D;
+  background: linear-gradient(135deg, #6B2323 0%, #461414 100%) !important;
+  color: #FFFDF9 !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.45) !important;
+  box-shadow: 0 12px 32px rgba(70, 20, 20, 0.28) !important;
 }
 
 .event-seq {
-  position: absolute;
-  top: 18px;
-  right: 22px;
-  font-family: var(--font-display);
-  font-size: 1.8rem;
-  font-style: italic;
-  color: rgba(45, 36, 32, 0.12);
-}
-
-.dark-tile .event-seq {
-  color: rgba(255, 255, 255, 0.12);
+  display: none;
 }
 
 .event-nature {
   font-family: var(--font-sans);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   letter-spacing: 0.12em;
-  color: var(--vermilion);
+  color: #8B2D2D;
   font-weight: 700;
   display: block;
   margin-bottom: 6px;
 }
 
 .nature-gold {
-  color: var(--sun-gold-light);
+  color: #F0D59E !important;
 }
 
 .event-title {
   font-family: var(--font-display);
-  font-size: clamp(1.2rem, 4vw, 1.55rem);
+  font-size: clamp(1.25rem, 4vw, 1.6rem);
   line-height: 1.35;
   margin-bottom: 8px;
   letter-spacing: 0.01em;
+  color: var(--ink-brown);
+}
+
+.dark-tile .event-title {
+  color: #FFFDF9 !important;
 }
 
 .event-datetime {
   font-family: var(--font-sans);
   font-size: 0.95rem;
   font-weight: 500;
-  color: var(--olive);
+  color: #5D4037;
   margin-bottom: 16px;
 }
 
 .dark-tile .event-datetime {
-  color: #E2D7C5;
+  color: #F3DCB8 !important;
 }
 
 .event-location-box {
-  border-top: 1px dashed var(--border-line);
+  border-top: 1px dashed rgba(139, 45, 45, 0.2);
   padding-top: 14px;
   margin-bottom: 16px;
 }
 
 .dark-tile .event-location-box {
-  border-top-color: rgba(255, 255, 255, 0.15);
+  border-top-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 .loc-name {
   display: block;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 2px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 3px;
+  color: var(--ink-brown);
+}
+
+.dark-tile .loc-name {
+  color: #FFFDF9 !important;
 }
 
 .loc-address {
-  font-size: 0.9rem;
-  color: var(--ink-muted);
+  font-size: 0.92rem;
+  color: #6E5345;
   line-height: 1.5;
 }
 
 .dark-tile .loc-address {
-  color: #CFC4B2;
+  color: #E6D0BE !important;
 }
 
 .event-map-btn {
   display: inline-flex;
   align-items: center;
+  gap: 6px;
   font-family: var(--font-sans);
   font-size: 0.84rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.04em;
-  color: var(--vermilion);
+  color: #8B2D2D;
   text-decoration: underline;
   transition: color 0.2s;
 }
 
 .event-map-btn.gold-map-btn {
-  color: var(--sun-gold-light);
+  background: #F0D59E;
+  color: #461414 !important;
+  text-decoration: none !important;
+  padding: 8px 18px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.event-map-btn.gold-map-btn:hover {
+  background: #FFE4B5;
+  transform: translateY(-2px);
 }
 
 /* Dress Code Panel */
@@ -3116,7 +3279,7 @@ body.invite-open {
   background: #EFE4D4;
   padding: 4px;
   border-radius: 999px;
-  max-width: 440px;
+  max-width: 330px;
   width: 100%;
   margin: 0 auto 24px;
   box-shadow: inset 0 2px 5px rgba(62, 39, 35, 0.08);

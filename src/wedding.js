@@ -692,48 +692,48 @@ function initScrollTrigger3D() {
     });
   }
 
-  // B. Phân Cảnh 03: Tactile Polaroid Scrapbook Deck (3D Alternating Scroll-Tilt & Tap-to-Focus)
+  // B. Phân Cảnh 03: Tactile Polaroid Scrapbook Deck (Hiệu ứng xếp chồng Sticky Stacking Cards)
   const polaroidCards = document.querySelectorAll('.polaroid-scrapbook-card');
   if (polaroidCards.length) {
     polaroidCards.forEach((card, idx) => {
-      const isOdd = idx % 2 === 0;
-      const initialTilt = isOdd ? -2.5 : 2.5;
-      const restTilt = isOdd ? -1 : 1;
-      const initialX = isOdd ? -20 : 20;
       const yearPill = card.querySelector('.polaroid-year-pill');
 
-      gsap.fromTo(card,
-        { x: initialX, y: 30, opacity: 0, rotate: initialTilt },
-        {
-          x: 0,
-          y: 0,
-          opacity: 1,
-          rotate: restTilt,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 88%',
-            toggleActions: 'play none none none',
-          }
-        }
-      );
-
+      // Pop-in cho huy hiệu năm kỷ niệm
       if (yearPill) {
         gsap.fromTo(yearPill,
           { scale: 0, opacity: 0 },
           {
             scale: 1,
             opacity: 1,
-            duration: 0.6,
-            ease: 'back.out(1.6)',
+            duration: 0.5,
+            ease: 'back.out(1.7)',
             scrollTrigger: {
               trigger: card,
-              start: 'top 75%',
+              start: 'top 85%',
               toggleActions: 'play none none none',
             }
           }
         );
+      }
+
+      // Chiều sâu xếp chồng (Tactile Stack Depth): Khi thẻ sau cuộn lên đè lên thẻ trước,
+      // thẻ trước hơi co nhẹ (scale: 0.96) và hơi chìm sâu tạo cảm giác như xấp ảnh thật nằm trên bàn
+      if (idx < polaroidCards.length - 1) {
+        const nextCard = polaroidCards[idx + 1];
+        const innerFrame = card.querySelector('.polaroid-photo-frame');
+        if (innerFrame) {
+          gsap.to(innerFrame, {
+            scale: 0.96,
+            filter: 'brightness(0.92)',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: nextCard,
+              start: 'top 75%',
+              end: 'top 25%',
+              scrub: true,
+            }
+          });
+        }
       }
 
       // Tap-to-focus: Chạm để thẳng ảnh & quét tia sáng ấm áp

@@ -207,22 +207,55 @@
             <span class="title-word bride-word">Bảo Châu</span>
           </h1>
 
-          <!-- VINTAGE CINEMA ADMISSION TICKET (VÉ VÀO RẠP CHIẾU BÓNG) -->
+          <!-- VINTAGE CINEMA ADMISSION TICKET (VÉ VÀO RẠP CHIẾU BÓNG CAO CẤP) -->
           <div class="cinema-admission-ticket" id="heroAdmissionTicket">
-            <div class="ticket-notch notch-left" aria-hidden="true"></div>
-            <div class="ticket-notch notch-right" aria-hidden="true"></div>
+            <!-- Cuống vé bên trái (Ticket Stub) -->
             <div class="ticket-stub">
               <span class="ticket-label">VÉ VÀO RẠP</span>
               <span class="ticket-code">Nº 2411</span>
-            </div>
-            <div class="ticket-divider" aria-hidden="true"></div>
-            <div class="ticket-content">
-              <div class="solar-date-item">
-                <span class="date-badge">NGÀY LÀNH</span>
-                <strong class="date-string">THỨ BA 24.11 &amp; THỨ TƯ 25.11, 2026</strong>
+              <div class="ticket-barcode" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
               </div>
-              <div class="lunar-date-item">
-                <span>Nhằm ngày 16 &amp; 17 tháng 10 năm Bính Ngọ (Hoàng Đạo)</span>
+              <span class="ticket-subtext">ADMIT ONE</span>
+            </div>
+
+            <!-- Đường răng cưa xé vé có khuyết tròn (Perforation) -->
+            <div class="ticket-perforation" aria-hidden="true">
+              <span class="ticket-notch notch-top"></span>
+              <span class="ticket-perf-dots"></span>
+              <span class="ticket-notch notch-bottom"></span>
+            </div>
+
+            <!-- Thân vé chính bên phải (Main Ticket Body) -->
+            <div class="ticket-content">
+              <div class="ticket-header-strip">
+                <span class="ticket-star">★</span>
+                <span class="ticket-series">SUẤT CHIẾU ĐẶC BIỆT · LỄ THÀNH HÔN &amp; VU QUY</span>
+                <span class="ticket-star">★</span>
+              </div>
+
+              <div class="ticket-main-title">
+                <span class="t-groom">VĂN TIẾN</span>
+                <span class="t-amp">💍</span>
+                <span class="t-bride">BẢO CHÂU</span>
+              </div>
+
+              <div class="ticket-date-row">
+                <div class="solar-date-item">
+                  <span class="date-badge">NGÀY LÀNH</span>
+                  <strong class="date-string">24.11 &amp; 25.11 · 2026</strong>
+                </div>
+                <div class="lunar-date-item">
+                  <span>(16 &amp; 17 tháng 10 năm Bính Ngọ)</span>
+                </div>
+              </div>
+
+              <div class="ticket-cinema-meta">
+                <span>RẠP: TƯ GIA HAI HỌ</span>
+                <span>·</span>
+                <span>GHẾ: HẠNH PHÚC</span>
+                <span>·</span>
+                <span>NGHỆ AN</span>
               </div>
             </div>
           </div>
@@ -546,10 +579,11 @@
       </div>
 
       <div class="itinerary-grid">
-        <!-- Sự kiện 1: Lễ Vu Quy -->
-        <article class="event-tile">
+        <!-- Sự kiện 1: Lễ Vu Quy (Nhà Gái) -->
+        <article class="event-tile event-vuquy">
+          <div class="event-tile-stamp">24.11</div>
           <div class="event-seq">I</div>
-          <span class="event-nature">TƯ GIA NHÀ GÁI</span>
+          <span class="event-nature">💍 TƯ GIA NHÀ GÁI</span>
           <h3 class="event-title">Lễ Vu Quy</h3>
           <p class="event-datetime">
             <strong>11:30 TRƯA</strong> · Thứ Ba, 24.11.2026 (16.10 Bính Ngọ)
@@ -559,14 +593,15 @@
             <span class="loc-address">Tư gia Nhà Gái — Thôn Dùng 1, Xã Đại Đồng, Tỉnh Nghệ An</span>
           </div>
           <a class="event-map-btn" href="https://maps.google.com/?q=Dai+Dong+Thanh+Chuong+Nghe+An" target="_blank" rel="noopener noreferrer">
-            MỞ BẢN ĐỒ CHỈ ĐƯỜNG ↗
+            📍 CHỈ ĐƯỜNG ĐẾN NHÀ GÁI ↗
           </a>
         </article>
 
-        <!-- Sự kiện 2: Lễ Thành Hôn -->
-        <article class="event-tile highlight-tile">
+        <!-- Sự kiện 2: Lễ Thành Hôn (Nhà Trai) -->
+        <article class="event-tile highlight-tile event-thanhhon">
+          <div class="event-tile-stamp">25.11</div>
           <div class="event-seq">II</div>
-          <span class="event-nature">TƯ GIA NHÀ TRAI</span>
+          <span class="event-nature">💐 TƯ GIA NHÀ TRAI</span>
           <h3 class="event-title">Lễ Thành Hôn</h3>
           <p class="event-datetime">
             <strong>10:30 TRƯA</strong> · Thứ Tư, 25.11.2026 (17.10 Bính Ngọ)
@@ -576,15 +611,16 @@
             <span class="loc-address">Tư gia Nhà Trai — Thôn Dùng 2, Xã Đại Đồng, Tỉnh Nghệ An</span>
           </div>
           <a class="event-map-btn" href="https://maps.google.com/?q=Dai+Dong+Thanh+Chuong+Nghe+An" target="_blank" rel="noopener noreferrer">
-            MỞ BẢN ĐỒ CHỈ ĐƯỜNG ↗
+            📍 CHỈ ĐƯỜNG ĐẾN NHÀ TRAI ↗
           </a>
         </article>
 
-        <!-- Sự kiện 3: Tiệc Cưới Thân Mật -->
-        <article class="event-tile dark-tile">
+        <!-- Sự kiện 3: Tiệc Cưới Thân Mật (Đỏ Nâu Hoàng Gia) -->
+        <article class="event-tile dark-tile event-tieccuoi">
+          <div class="event-tile-stamp tiec-stamp">24-25.11</div>
           <div class="event-seq">III</div>
-          <span class="event-nature nature-gold">TIỆC RƯỢU THÂN MẬT</span>
-          <h3 class="event-title">Tiệc Mừng Chung Đôi</h3>
+          <span class="event-nature nature-gold">🥂 TIỆC MỪNG CHUNG ĐÔI</span>
+          <h3 class="event-title">Tiệc Rượu Thân Mật</h3>
           <p class="event-datetime">
             <strong>11:00 ĐÓN KHÁCH · 11:30 KHAI TIỆC</strong><br />
             Thứ Ba 24.11 &amp; Thứ Tư 25.11.2026
@@ -594,40 +630,9 @@
             <span class="loc-address">Hôn Trường Gia Đình · Xã Đại Đồng, Huyện Thanh Chương, Tỉnh Nghệ An</span>
           </div>
           <a class="event-map-btn gold-map-btn" href="https://maps.google.com/?q=Dai+Dong+Thanh+Chuong+Nghe+An" target="_blank" rel="noopener noreferrer">
-            MỞ VỊ TRÍ TRÊN GOOGLE MAPS ↗
+            📍 MỞ VỊ TRÍ TRÊN GOOGLE MAPS ↗
           </a>
         </article>
-      </div>
-
-      <!-- Bảng màu gợi ý trang phục Dress Code -->
-      <div class="dress-code-panel">
-        <div class="dress-code-title-row">
-          <span class="dress-badge">GỢI Ý TRANG PHỤC</span>
-          <h4 class="dress-heading">Bảng Màu Retro Ấm Áp</h4>
-        </div>
-        <p class="dress-note">Bạn mặc trang phục khiến mình cảm thấy đẹp và thoải mái nhất là niềm hạnh phúc lớn của hai đứa.</p>
-        <div class="color-palette-strip" aria-label="5 màu trang phục gợi ý">
-          <div class="color-swatch-box">
-            <span class="swatch-circle" style="background-color: #F7F3EB;"></span>
-            <span class="swatch-title">Kem ngà</span>
-          </div>
-          <div class="color-swatch-box">
-            <span class="swatch-circle" style="background-color: #526046;"></span>
-            <span class="swatch-title">Xanh olive</span>
-          </div>
-          <div class="color-swatch-box">
-            <span class="swatch-circle" style="background-color: #B84736;"></span>
-            <span class="swatch-title">Đỏ gạch</span>
-          </div>
-          <div class="color-swatch-box">
-            <span class="swatch-circle" style="background-color: #A37953;"></span>
-            <span class="swatch-title">Nâu tây</span>
-          </div>
-          <div class="color-swatch-box">
-            <span class="swatch-circle" style="background-color: #D49A32;"></span>
-            <span class="swatch-title">Vàng nắng</span>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -810,8 +815,8 @@
 
       <div class="gift-switch-track" id="giftSwitchTrack">
         <div class="gift-slider-pill" id="giftSliderPill" aria-hidden="true"></div>
-        <button class="gift-tab-pill is-active" id="tabGroomBtn" type="button" data-target="groom">MỪNG CHÚ RỂ (VĂN TIẾN)</button>
-        <button class="gift-tab-pill" id="tabBrideBtn" type="button" data-target="bride">MỪNG CÔ DÂU (BẢO CHÂU)</button>
+        <button class="gift-tab-pill is-active" id="tabGroomBtn" type="button" data-target="groom">MỪNG CHÚ RỂ</button>
+        <button class="gift-tab-pill" id="tabBrideBtn" type="button" data-target="bride">MỪNG CÔ DÂU</button>
       </div>
 
       <div class="gift-cards-container" id="giftCardsContainer">
@@ -820,7 +825,7 @@
           <div class="silk-hy-card">
             <div class="silk-card-header-badge">
               <span class="silk-badge-icon">囍</span>
-              <span class="silk-badge-text">MỪNG CƯỚI CHÚ RỂ · VĂN TIẾN</span>
+              <span class="silk-badge-text">MỪNG CƯỚI CHÚ RỂ</span>
             </div>
             <div class="silk-card-body">
               <div class="silk-qr-holder">
@@ -883,7 +888,7 @@
           <div class="silk-hy-card">
             <div class="silk-card-header-badge bride-badge">
               <span class="silk-badge-icon">囍</span>
-              <span class="silk-badge-text">MỪNG CƯỚI CÔ DÂU · BẢO CHÂU</span>
+              <span class="silk-badge-text">MỪNG CƯỚI CÔ DÂU</span>
             </div>
             <div class="silk-card-body">
               <div class="silk-qr-holder">
