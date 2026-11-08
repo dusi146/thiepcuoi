@@ -42,6 +42,7 @@
   --intro-mono: "IBM Plex Mono", ui-monospace, monospace;
   --intro-hand: "Dancing Script", cursive;
   --intro-han: "Noto Serif TC", "Songti SC", serif;
+  --intro-sans: "Be Vietnam Pro", -apple-system, sans-serif;
   --intro-spring: cubic-bezier(.22, 1.2, .36, 1);
   --intro-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -242,8 +243,8 @@ html.lock, html.lock body {
 
 .stage .top b {
   display: block;
-  font: 800 clamp(20px, 6.4vw, 28px)/1.2 var(--intro-serif);
-  letter-spacing: .42em;
+  font: 700 clamp(20px, 6vw, 26px) var(--intro-serif);
+  letter-spacing: .28em;
   margin-right: -.42em;
   color: var(--intro-gold);
 }
@@ -891,8 +892,9 @@ html.lock, html.lock body {
 }
 
 .stage h2 {
-  font: 800 13.5cqw/1 var(--intro-serif);
-  letter-spacing: -.01em;
+  font: 700 clamp(24px, 8cqw, 36px) var(--intro-serif);
+  letter-spacing: -0.01em;
+  line-height: 1.18;
   color: var(--intro-red);
   text-shadow: 0 1px 0 rgba(255, 255, 255, .55), 0 -1px 0 rgba(0, 0, 0, .15);
 }

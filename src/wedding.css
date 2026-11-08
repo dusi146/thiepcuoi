@@ -91,13 +91,46 @@ a {
   --border-line: rgba(166, 124, 82, 0.22);
   --border-dashed: rgba(184, 58, 42, 0.28);
 
-  /* Typography nghệ thuật điện ảnh Retro: Dễ đọc tuyệt đối cho thông tin, quý phái nghệ thuật cho tiêu đề */
-  --font-display: 'Playfair Display', 'Fraunces', Georgia, serif;
-  --font-royal: 'Playfair Display', Georgia, serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-script: 'Dancing Script', 'Marck Script', cursive;
-  --font-mono: 'IBM Plex Mono', 'SF Mono', Consolas, monospace;
-  --font-sans: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* =========================================================================
+     BỘ TYPOGRAPHY NGHỆ THUẬT ĐIỆN ẢNH RETRO HOÀI NIỆM (RETRO CINEMA EDITORIAL)
+     1. Playfair Display: Ngôi sao điện ảnh — Tiêu đề trang trọng, tên cô dâu chú rể
+     2. Be Vietnam Pro: Kỹ thuật số bản địa — Thân bài, thư từ, chuẩn dấu tiếng Việt
+     3. IBM Plex Mono: Cơ khí phòng chiếu — Viền phim 35mm, vé rạp, số tài khoản
+     4. Dancing Script: Nét mực lãng mạn — Dấu nối &, chữ ký, lời gửi gắm ấm áp
+     5. Noto Serif TC: Hán Nôm cổ kính — Biểu tượng Song Hỷ (囍) truyền thống
+     ========================================================================= */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-serif:   'Playfair Display', Georgia, serif;
+  --font-royal:   'Playfair Display', Georgia, serif;
+  --font-sans:    'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'SF Mono', Consolas, monospace;
+  --font-script:  'Dancing Script', cursive;
+  --font-han:     'Noto Serif TC', 'Songti SC', serif;
+
+  /* MODULAR FLUID TYPE SCALE (Chuẩn hóa toàn bộ cỡ chữ) */
+  --text-2xs:  0.68rem;                            /* 10.9px: Mã răng cưa, viền con dấu */
+  --text-xs:   0.75rem;                            /* 12px: Tag phân cảnh, thông số Kodak */
+  --text-sm:   0.84rem;                            /* 13.5px: Ngày âm lịch, washi tape, pill code */
+  --text-base: 0.96rem;                            /* 15.4px: Đoạn văn thư ngỏ, form input, mô tả */
+  --text-md:   1.08rem;                            /* 17.3px: Tên cha mẹ, nút hành động, số TK */
+  --text-lg:   clamp(1.18rem, 2.5vw, 1.38rem);     /* 19-22px: Tiêu đề phụ, tên vé rạp */
+  --text-xl:   clamp(1.45rem, 3.8vw, 1.85rem);     /* 23-30px: Tiêu đề phân cảnh H2 */
+  --text-2xl:  clamp(1.85rem, 5.2vw, 2.45rem);     /* 30-39px: Số đếm ngược, tiêu đề thiệp chính */
+  --text-3xl:  clamp(2.35rem, 7.5vw, 4.2rem);      /* 38-67px: Hero đại cảnh VĂN TIẾN & BẢO CHÂU */
+
+  /* LINE-HEIGHT SCALE (Bảo vệ dấu tiếng Việt không bị va quệt hay cắt cụt) */
+  --lh-tight:    1.18;                             /* Tiêu đề lớn Display */
+  --lh-snug:     1.32;                             /* Tiêu đề vừa, label mono */
+  --lh-normal:   1.52;                             /* Subtitles, quote ngắn */
+  --lh-relaxed:  1.72;                             /* Văn bản tiếng Việt nhiều dòng (hoàn hảo dấu thanh) */
+
+  /* LETTER-SPACING SCALE (Đặc trưng phong cách áp phích chiếu bóng thập niên 70) */
+  --track-tight:   -0.015em;                       /* Số lớn, tên Hero lớn */
+  --track-normal:   0;                             /* Đoạn văn đọc tự nhiên */
+  --track-subtle:   0.03em;                        /* Nút bấm, nhãn nhỏ */
+  --track-wide:     0.08em;                        /* Tiêu đề nhỏ viết hoa */
+  --track-wider:    0.14em;                        /* Technical mono, vé xem phim */
+  --track-widest:   0.24em;                        /* Viền phim 35mm, viền tem cổ điển */
 
   /* Easing chuyển động chậm đều, quý phái */
   --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
@@ -4452,4 +4485,236 @@ body.invite-open .editorial-sticky-bar {
   transform: translateZ(0);
   backface-visibility: hidden;
   will-change: transform;
+}
+
+
+/* =========================================================================
+   HỆ THỐNG TYPOGRAPHY NGHỆ THUẬT ĐIỆN ẢNH ĐỒNG BỘ TOÀN DIỆN (TYPOGRAPHY OVERHAUL)
+   Đảm bảo tiếng Việt hiển thị tuyệt đẹp: Không va quệt dấu, phân cấp rõ ràng
+   ========================================================================= */
+
+/* 1. Tiêu đề lớn bìa phim (Hero Couple Names) */
+.hero-couple-title {
+  font-family: var(--font-display) !important;
+  font-size: var(--text-3xl) !important;
+  font-weight: 700 !important;
+  line-height: var(--lh-tight) !important;
+  letter-spacing: var(--track-tight) !important;
+}
+
+/* 2. Vé rạp chiếu bóng cổ điển (Cinema Ticket) */
+.ticket-series,
+.ticket-label {
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-2xs) !important;
+  font-weight: 600 !important;
+  letter-spacing: var(--track-wider) !important;
+  text-transform: uppercase;
+}
+
+.ticket-main-title {
+  font-family: var(--font-display) !important;
+  font-size: var(--text-lg) !important;
+  font-weight: 700 !important;
+  line-height: var(--lh-snug) !important;
+  letter-spacing: var(--track-tight) !important;
+}
+
+.date-badge {
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-2xs) !important;
+  font-weight: 600 !important;
+  letter-spacing: var(--track-wide) !important;
+}
+
+.date-string {
+  font-family: var(--font-display) !important;
+  font-size: var(--text-md) !important;
+  font-weight: 700 !important;
+  line-height: var(--lh-snug) !important;
+  letter-spacing: var(--track-tight) !important;
+}
+
+.ticket-cinema-meta {
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-xs) !important;
+  font-weight: 500 !important;
+  letter-spacing: var(--track-wide) !important;
+}
+
+/* 3. Tiêu đề phân cảnh chung (Chapter Headings H2) */
+.card-display-title {
+  font-family: var(--font-display) !important;
+  font-size: var(--text-xl) !important;
+  font-weight: 700 !important;
+  line-height: var(--lh-tight) !important;
+  letter-spacing: var(--track-tight) !important;
+}
+
+.chapter-roman,
+.chapter-topic {
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-xs) !important;
+  font-weight: 600 !important;
+  letter-spacing: var(--track-wider) !important;
+  text-transform: uppercase;
+}
+
+.card-intro-text {
+  font-family: var(--font-sans) !important;
+  font-size: var(--text-base) !important;
+  line-height: var(--lh-normal) !important;
+  letter-spacing: var(--track-normal) !important;
+}
+
+/* 4. Phân cảnh 01: Gia Đình Hai Họ */
+.family-pillar-tag {
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-xs) !important;
+  font-weight: 600 !important;
+  letter-spacing: var(--track-wider) !important;
+}
+
+.parent-line {
+  font-family: var(--font-sans) !important;
+  font-size: var(--text-base) !important;
+  line-height: var(--lh-relaxed) !important;
+}
+
+.family-native-place {
+  font-family: var(--font-sans) !important;
+  font-size: var(--text-sm) !important;
+  line-height: var(--lh-normal) !important;
+}
+
+.role-italic {
+  font-family: var(--font-display) !important;
+  font-style: italic !important;
+  font-size: var(--text-sm) !important;
+  letter-spacing: var(--track-subtle) !important;
+}
+
+.child-formal-name {
+  font-family: var(--font-display) !important;
+  font-size: var(--text-lg) !important;
+  font-weight: 700 !important;
+  line-height: var(--lh-snug) !important;
+  letter-spacing: var(--track-tight) !important;
+}
+
+/* 5. Phân cảnh 02: Lá Thư Thân Tình */
+.letter-salutation {
+  font-family: var(--font-display) !important;
+  font-size: var(--text-md) !important;
+  font-weight: 600 !important;
+  line-height: var(--lh-snug) !important;
+}
+
+.letter-body-copy p {
+  font-family: var(--font-sans) !important;
+  font-size: var(--text-base) !important;
+  line-height: var(--lh-relaxed) !important;
+  letter-spacing: var(--track-normal) !important;
+}
+
+.sign-handwritten {
+  font-family: var(--font-script) !important;
+  font-size: clamp(1.85rem, 5.5vw, 2.5rem) !important;
+  line-height: 1.35 !important;
+  letter-spacing: var(--track-subtle) !important;
+}
+
+/* 6. Phân cảnh 03: Thước Phim Chuyện Mình (Polaroid Cards) */
+.polaroid-year-pill {
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-xs) !important;
+  font-weight: 700 !important;
+  letter-spacing: var(--track-wide) !important;
+}
+
+.chin-scene,
+.chin-caption {
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-2xs) !important;
+  font-weight: 500 !important;
+  letter-spacing: var(--track-wide) !important;
+  text-transform: uppercase;
+}
+
+.chin-title {
+  font-family: var(--font-display) !important;
+  font-size: var(--text-md) !important;
+  font-weight: 700 !important;
+  line-height: var(--lh-snug) !important;
+  letter-spacing: var(--track-tight) !important;
+}
+
+.chin-story {
+  font-family: var(--font-sans) !important;
+  font-size: var(--text-sm) !important;
+  line-height: var(--lh-relaxed) !important;
+  letter-spacing: var(--track-normal) !important;
+}
+
+/* 7. Phân cảnh 04: Đồng Hồ Đếm Ngược */
+.clock-digit {
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-2xl) !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  letter-spacing: var(--track-tight) !important;
+}
+
+.clock-sub {
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-2xs) !important;
+  font-weight: 500 !important;
+  letter-spacing: var(--track-wider) !important;
+}
+
+/* 8. Phân cảnh 06: Cuộn Film 35mm Toàn Cảnh */
+.frame-code {
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-2xs) !important;
+  font-weight: 500 !important;
+  letter-spacing: var(--track-wider) !important;
+}
+
+.slide-title {
+  font-family: var(--font-display) !important;
+  font-size: var(--text-sm) !important;
+  font-weight: 600 !important;
+  line-height: var(--lh-snug) !important;
+}
+
+.zoom-cue {
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-2xs) !important;
+  letter-spacing: var(--track-subtle) !important;
+}
+
+/* 9. Mừng Cưới & Tài Khoản Ngân Hàng */
+.banking-account-number {
+  font-family: var(--font-mono) !important;
+  font-size: var(--text-md) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+}
+
+.bank-holder-name {
+  font-family: var(--font-sans) !important;
+  font-size: var(--text-base) !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: var(--track-wide) !important;
+}
+
+/* 10. Chữ Song Hỷ (囍) Truyền Thống */
+.double-joy-glyph,
+.crest-circle .double-joy-glyph,
+.vinyl-fallback-center,
+.xi,
+.traditional-center-crest span {
+  font-family: var(--font-han) !important;
+  font-weight: 700 !important;
 }
