@@ -1,3 +1,55 @@
+
+/* =========================================================================
+   TRIỆT TIÊU TOÀN BỘ KHUNG VIỀN XANH / ĐEN TAP-HIGHLIGHT VÀ FOCUS TRÊN MOBILE
+   ========================================================================= */
+*, *::before, *::after {
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none;
+}
+
+:focus {
+  outline: none !important;
+}
+
+:focus:not(:focus-visible) {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+button, a, input, textarea, select, [tabindex] {
+  -webkit-tap-highlight-color: transparent !important;
+  outline: none !important;
+}
+
+button:focus, a:focus, [tabindex]:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Ngăn mobile tự động bôi đen / hiện khung viền chọn văn bản khi vuốt chạm */
+.stage,
+.stage *,
+.cinematic-shell,
+.hero-stage-container,
+.ticket-wrapper,
+.polaroid-scrapbook-card,
+.film-frame-slide,
+.floating-vinyl-player,
+.editorial-header,
+.editorial-sticky-bar,
+button,
+a {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.copy-btn,
+.banking-account-number,
+.guestbook-stream {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
 /* ==========================================================================
    THƯỚC PHIM CƯỚI RETRO VĂN TIẾN & BẢO CHÂU — CINEMATIC ART DIRECTION
    Phong cách Điện Ảnh Retro 1960s-1970s: Giấy ngà, đỏ gạch son, xanh olive,
@@ -4388,4 +4440,16 @@ body.invite-open .editorial-sticky-bar {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+
+/* Tối ưu hiệu năng GPU: Chống drop frame khi cuộn trên Mobile */
+.hero-photo-wrapper,
+.traditional-photo-stage,
+.polaroid-scrapbook-card,
+.film-frame-slide,
+.floating-vinyl-player {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
 }

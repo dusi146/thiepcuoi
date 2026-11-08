@@ -130,43 +130,39 @@
       }
     };
 
-    /* Nghiêng 3D chân thực theo cử chỉ ngón tay / chuột / con quay hồi chuyển */
+    /* Nghiêng 3D mượt mà — Chỉ kích hoạt trên chuột máy tính, bỏ sensor rung giật trên điện thoại */
     let tx = 0, ty = 0, cx = 0, cy = 0;
-    const cl = (v) => Math.max(-1, Math.min(1, v));
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
 
-    window.addEventListener(
-      'pointermove',
-      (e) => {
-        tx = (e.clientX / window.innerWidth - 0.5) * 2;
-        ty = (e.clientY / window.innerHeight - 0.5) * 2;
-      },
-      { passive: true }
-    );
-
-    window.addEventListener(
-      'deviceorientation',
-      (e) => {
-        if (e.gamma != null) {
-          tx = cl(e.gamma / 28);
-          ty = cl(((e.beta || 45) - 45) / 28);
-        }
-      },
-      { passive: true }
-    );
+    if (!isTouch) {
+      window.addEventListener(
+        'pointermove',
+        (e) => {
+          tx = (e.clientX / window.innerWidth - 0.5) * 1.5;
+          ty = (e.clientY / window.innerHeight - 0.5) * 1.5;
+        },
+        { passive: true }
+      );
+    }
 
     let last = performance.now();
-    function loop(t) {
-      if (!st.isConnected) return;
-      const dt = Math.min((t - last) / 16.7, 2.5);
-      last = t;
-      cx += (tx - cx) * 0.07 * dt;
-      cy += (ty - cy) * 0.07 * dt;
-      if (rig) {
-        rig.style.transform = `perspective(1100px) rotateX(${(-cy * 5).toFixed(2)}deg) rotateY(${(cx * 7).toFixed(2)}deg)`;
-      }
-      st.style.setProperty('--sxp', (cx * -26).toFixed(1) + '%');
+    let isIntroActive = true;
+    const maxAmb = isTouch ? 10 : 24;
 
-      if (!calm && amb < 34 && R() < 0.12 * dt) {
+    function loop(t) {
+      if (!isIntroActive || !st.isConnected) return;
+      const dt = Math.min((t - last) / 16.7, 2.0);
+      last = t;
+
+      if (!isTouch) {
+        cx += (tx - cx) * 0.06 * dt;
+        cy += (ty - cy) * 0.06 * dt;
+        if (rig && (Math.abs(cx) > 0.01 || Math.abs(cy) > 0.01)) {
+          rig.style.transform = `perspective(1100px) rotateX(${(-cy * 4).toFixed(2)}deg) rotateY(${(cx * 5).toFixed(2)}deg)`;
+        }
+      }
+
+      if (!calm && amb < maxAmb && R() < (isTouch ? 0.05 : 0.1) * dt) {
         amb++;
         add({
           x: R() * W,
@@ -275,6 +271,7 @@
     }
 
     async function enterInvitation() {
+      isIntroActive = false;
       if (!st.classList.contains('ready') || st.classList.contains('leave')) return;
       buzz(12);
       st.classList.add('leave');

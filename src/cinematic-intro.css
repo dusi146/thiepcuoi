@@ -1,3 +1,28 @@
+
+/* Triệt tiêu hoàn toàn khung xanh/đen tap-highlight, focus ring và chớp giật */
+.stage,
+.stage *,
+.stage button,
+.stage .seal,
+.stage .cta,
+.stage .enter,
+.stage .card,
+.stage .env {
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  outline: none !important;
+}
+
+.stage button:focus,
+.stage .seal:focus,
+.stage .cta:focus,
+.stage .enter:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 /* ==========================================================================
    CINEMATIC RETRO WEDDING INTRO — PHONG BÌ THƯ BÁO HỶ 3D
    ========================================================================== */
@@ -109,10 +134,11 @@ html.lock, html.lock body {
   inset: -10%;
   background: var(--intro-noise);
   background-size: 160px;
-  opacity: .09;
+  opacity: .04;
   z-index: 15;
   pointer-events: none;
-  animation: introGrain .7s steps(1) infinite;
+  animation: none !important;
+  will-change: auto;
 }
 
 @keyframes introGrain {
@@ -123,8 +149,8 @@ html.lock, html.lock body {
 }
 
 .stage .scr {
-  inset: 0;
-  z-index: 16;
+  display: none !important;
+  opacity: 0 !important;
   pointer-events: none;
 }
 
@@ -165,12 +191,9 @@ html.lock, html.lock body {
 }
 
 .stage .flick {
-  inset: 0;
-  z-index: 17;
+  display: none !important;
+  opacity: 0 !important;
   pointer-events: none;
-  background: #000;
-  opacity: 0;
-  animation: introFlick 3s steps(1) infinite;
 }
 
 @keyframes introFlick {
@@ -342,6 +365,9 @@ html.lock, html.lock body {
   z-index: 4;
   pointer-events: none;
   transform: perspective(1100px);
+  will-change: transform;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 
 .stage .ground {
@@ -975,3 +1001,13 @@ html.lock, html.lock body {
   }
 }
 
+
+
+@media (max-width: 768px), (pointer: coarse) {
+  .stage .env {
+    animation: none !important;
+  }
+  .ready .paper {
+    animation: none !important;
+  }
+}

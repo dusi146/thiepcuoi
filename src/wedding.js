@@ -20,13 +20,15 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
 const body = document.body;
 
 // 1. KHỞI TẠO LENIS SMOOTH SCROLL & ĐỒNG BỘ GSAP SCROLLTRIGGER
+const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 const lenis = new Lenis({
-  duration: reducedMotion ? 0.01 : 1.8, // Cuộn chậm đều, quý phái
+  duration: reducedMotion ? 0.01 : (isTouchDevice ? 0.9 : 1.2),
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   orientation: 'vertical',
   smoothWheel: true,
-  wheelMultiplier: 0.85,
-  touchMultiplier: 1.1,
+  wheelMultiplier: 0.9,
+  touchMultiplier: 1.0,
+  syncTouch: false, // Để cuộn cảm ứng tự nhiên 120Hz/60Hz của điện thoại, không lag giật
   infinite: false,
 });
 
@@ -88,7 +90,8 @@ function initAmbientRomanticParticles() {
   // Tối ưu 60FPS mobile: Giới hạn tối đa 12 hạt lơ lửng nhẹ nhàng, không shadowBlur
   const emberColors = ['#FFD166', '#FFE8A3', '#F4D06F', '#E29578', '#FFF9E6'];
   const embers = [];
-  const emberCount = reducedMotion ? 4 : 8;
+  const isMobileScreen = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
+  const emberCount = reducedMotion ? 2 : (isMobileScreen ? 4 : 8);
 
   for (let i = 0; i < emberCount; i++) {
     embers.push({
@@ -113,7 +116,7 @@ function initAmbientRomanticParticles() {
     'rgba(224, 108, 92, 0.6)',
   ];
   const petals = [];
-  const petalCount = reducedMotion ? 2 : 4;
+  const petalCount = reducedMotion ? 1 : (isMobileScreen ? 2 : 4);
 
   for (let i = 0; i < petalCount; i++) {
     petals.push({
@@ -219,7 +222,14 @@ function initAmbientRomanticParticles() {
 
   render();
 }
-initAmbientRomanticParticles();
+// Chỉ khởi chạy Canvas hạt bụi & hoa hồng SAU KHI mở phong bì xong để giải phóng 100% GPU
+if (body.classList.contains('invite-open')) {
+  initAmbientRomanticParticles();
+} else {
+  document.addEventListener('intro:done', () => {
+    setTimeout(initAmbientRomanticParticles, 300);
+  }, { once: true });
+}
 
 // 2. HIỆU ỨNG MỞ PHONG BÌ RETRO 3D CHÂN THỰC & LẮP ĐẦY MÀN HÌNH
 const openEnvelopeTrigger = document.getElementById('openEnvelopeTrigger');
@@ -724,7 +734,7 @@ function initScrollTrigger3D() {
         if (innerFrame) {
           gsap.to(innerFrame, {
             scale: 0.96,
-            filter: 'brightness(0.92)',
+            opacity: 0.9,
             ease: 'none',
             scrollTrigger: {
               trigger: nextCard,
