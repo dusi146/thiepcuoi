@@ -78,10 +78,59 @@
       'driveLink', 'musicChoice', 'rsvpDeadline'
     ];
 
+    
+    // Dữ liệu gốc chuẩn theo thiệp mời
+    const CARD_DEFAULTS = {
+      groomFullName: 'Nguyễn Văn Tiến',
+      groomShortName: 'Văn Tiến',
+      groomOrder: 'Thứ nam',
+      brideFullName: 'Phạm Thị Bảo Châu',
+      brideShortName: 'Bảo Châu',
+      brideOrder: 'Trưởng nữ',
+      groomFather: 'Ông Nguyễn Văn Minh',
+      groomMother: 'Bà Điền Thị Bình',
+      groomAddress: 'Thôn Đồng Văn 1, Xã Đại Đồng, Tỉnh Nghệ An',
+      brideFather: 'Ông Phạm Văn Ba',
+      brideMother: 'Bà Nguyễn Thị Chung',
+      brideAddress: 'Thôn Dùng 1, Xã Đại Đồng, Tỉnh Nghệ An',
+      vuQuyTime: '11:30 Trưa',
+      vuQuyDate: 'Thứ Ba, 24.11.2026',
+      vuQuyLunar: '16 tháng 10 năm Bính Ngọ',
+      vuQuyAddress: 'Tư gia Nhà Gái — Thôn Dùng 1, Xã Đại Đồng, Tỉnh Nghệ An',
+      vuQuyMap: 'https://maps.google.com/?q=Dai+Dong+Thanh+Chuong+Nghe+An',
+      thanhHonTime: '10:30 Trưa',
+      thanhHonDate: 'Thứ Tư, 25.11.2026',
+      thanhHonAddress: 'Tư gia Nhà Trai — Thôn Dùng 2, Xã Đại Đồng, Tỉnh Nghệ An',
+      thanhHonMap: 'https://maps.google.com/?q=Dai+Dong+Thanh+Chuong+Nghe+An',
+      tiecDonKhach: '11:00',
+      tiecKhaiTiec: '11:30',
+      tiecVenue: 'Tư Gia Hai Họ',
+      tiecHall: 'Hôn Trường Gia Đình',
+      tiecAddress: 'Xã Đại Đồng, Huyện Thanh Chương, Tỉnh Nghệ An',
+      tiecMap: 'https://maps.google.com/?q=Dai+Dong+Thanh+Chuong+Nghe+An',
+      groomBank: 'Vietcombank',
+      groomAccNumber: '1018899999',
+      groomAccName: 'NGUYEN VAN TIEN',
+      brideBank: 'MB Bank',
+      brideAccNumber: '0905181227',
+      brideAccName: 'PHAM THI BAO CHAU',
+      musicChoice: 'Gói Con Tim Làm Quà - Nguyễn Hùng',
+      rsvpDeadline: 'Trước ngày 20.11.2026'
+    };
+
+    // Kiểm tra và dọn dẹp các giá trị demo cũ còn đọng trong localStorage
+    const savedVuQuy = localStorage.getItem('wedding_form_vuQuyDate');
+    const savedBride = localStorage.getItem('wedding_form_brideFullName');
+    if (savedVuQuy && savedVuQuy.includes('18.12.2027') || (savedBride && savedBride.includes('Lê Thị Bảo Châu'))) {
+      localStorage.clear();
+      data = {};
+    }
+
     fields.forEach((k) => {
       if (!data[k]) {
         const val = localStorage.getItem('wedding_form_' + k);
         if (val) data[k] = val;
+        else if (CARD_DEFAULTS[k]) data[k] = CARD_DEFAULTS[k];
       }
     });
 
@@ -146,7 +195,7 @@
 
     // 1. Tiêu đề trang & Meta
     if (gShort && bShort) {
-      document.title = `${gShort} & ${bShort} — Thước Phim Ngày Chung Đôi · 18.12.2027`;
+      document.title = `${gShort} & ${bShort} — Thước Phim Ngày Chung Đôi · 24.11 - 25.11.2026`;
     }
 
     // 2. Tên chú rể thân mật
@@ -200,7 +249,7 @@
         el.textContent = coupleStr;
       });
       const addrFrom = document.querySelector('.addr-line-from span');
-      if (addrFrom) addrFrom.textContent = `Từ: ${coupleStr} · TP. Đà Nẵng`;
+      if (addrFrom) addrFrom.textContent = `Từ: ${coupleStr} · Nghệ An`;
       const introFrom = document.querySelector('.intro-from');
       if (introFrom) introFrom.textContent = `Từ: ${coupleStr}`;
       const finaleNames = document.querySelector('.finale-names-tag');
@@ -209,7 +258,7 @@
       }
       const footerSig = document.querySelector('.film-closing-footer span:last-child');
       if (footerSig) {
-        footerSig.textContent = `${gShort.toUpperCase()} ✳ ${bShort.toUpperCase()} © 2027`;
+        footerSig.textContent = `${gShort.toUpperCase()} ✳ ${bShort.toUpperCase()} © 2026`;
       }
     }
 
@@ -334,7 +383,7 @@
           const tKhach = d.tiecDonKhach ? `ĐÓN KHÁCH ${d.tiecDonKhach}` : '';
           const tKhai = d.tiecKhaiTiec ? `KHAI TIỆC ${d.tiecKhaiTiec}` : '';
           const timeStr = [tKhach, tKhai].filter(Boolean).join(' · ');
-          dt.innerHTML = `<strong>${timeStr}</strong><br />${mainDate || 'Thứ Bảy, 18.12.2027'}`;
+          dt.innerHTML = `<strong>${timeStr}</strong><br />${mainDate || 'Thứ Ba 24.11 &amp; Thứ Tư 25.11.2026'}`;
         }
       }
       if (d.tiecVenue) {

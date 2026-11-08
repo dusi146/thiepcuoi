@@ -972,8 +972,8 @@ if (document.readyState === 'loading') {
 }
 
 // 4. ĐỒNG HỒ ĐẾM NGƯỢC THỜI GIAN THỰC (COUNTDOWN TIMER)
-// 10:30 AM Thứ Bảy, 18.12.2027 GMT+7
-const targetDate = new Date('2027-12-18T10:30:00+07:00').getTime();
+// 10:30 AM Thứ Tư, 25.11.2026 GMT+7
+const targetDate = new Date('2026-11-25T10:30:00+07:00').getTime();
 const countNodes = {
   days: document.querySelector('[data-count="days"]'),
   hours: document.querySelector('[data-count="hours"]'),
@@ -1024,10 +1024,10 @@ const addToCalBtn = document.getElementById('addToCalBtn');
 if (addToCalBtn) {
   addToCalBtn.addEventListener('click', () => {
     const title = encodeURIComponent('Lễ Cưới Văn Tiến & Bảo Châu');
-    const details = encodeURIComponent('Trân trọng kính mời bạn đến chung vui trong ngày hạnh phúc của Văn Tiến & Bảo Châu tại Đà Nẵng.');
-    const location = encodeURIComponent('Trung tâm Tiệc cưới Vườn Trong Nắng, 02 Đường 2 Tháng 9, Hải Châu, Đà Nẵng');
-    const start = '20271218T033000Z'; // 10:30 AM GMT+7
-    const end = '20271218T140000Z';   // 21:00 PM GMT+7
+    const details = encodeURIComponent('Trân trọng kính mời bạn đến chung vui trong ngày hạnh phúc của Văn Tiến & Bảo Châu tại Nghệ An.');
+    const location = encodeURIComponent('Tư gia Nhà Trai / Nhà Gái, Xã Đại Đồng, Huyện Thanh Chương, Tỉnh Nghệ An');
+    const start = '20261125T033000Z'; // 10:30 AM GMT+7
+    const end = '20261125T140000Z';   // 21:00 PM GMT+7
 
     const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
     window.open(googleCalUrl, '_blank', 'noopener,noreferrer');
@@ -1347,7 +1347,7 @@ const defaultWishes = [
   {
     name: 'Minh Đức',
     time: '1 giờ trước',
-    wish: 'Chúc mừng người anh em đã tìm được một nửa hoàn hảo của cuộc đời. Hẹn gặp hai bạn ở Đà Nẵng ngày 18.12!'
+    wish: 'Chúc mừng người anh em đã tìm được một nửa hoàn hảo của cuộc đời. Hẹn gặp hai bạn ở Nghệ An ngày 24 - 25.11!'
   },
   {
     name: 'Ngọc Anh',

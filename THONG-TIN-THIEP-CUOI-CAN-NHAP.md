@@ -9,13 +9,13 @@
 ### 1.1. Chú Rể
 - **Họ và tên đầy đủ:** [Ví dụ: Nguyễn Văn Tiến]
 - **Tên thường gọi / Tên muốn in trên thiệp:** [Ví dụ: Văn Tiến]
-- **Thứ bậc trong gia đình:** [Ví dụ: Trưởng nam / Thứ nam / Út nam]
+- **Thứ bậc trong gia đình:** [Ví dụ: Thứ nam]
 - **Số điện thoại liên hệ (nếu cần):** 
 
 ### 1.2. Cô Dâu
-- **Họ và tên đầy đủ:** [Ví dụ: Lê Thị Bảo Châu]
+- **Họ và tên đầy đủ:** [Ví dụ: Phạm Thị Bảo Châu]
 - **Tên thường gọi / Tên muốn in trên thiệp:** [Ví dụ: Bảo Châu]
-- **Thứ bậc trong gia đình:** [Ví dụ: Ái nữ / Trưởng nữ / Thứ nữ / Út nữ]
+- **Thứ bậc trong gia đình:** [Ví dụ: Trưởng nữ]
 - **Số điện thoại liên hệ (nếu cần):** 
 
 ---
@@ -23,15 +23,15 @@
 ## PHẦN 2: THÔNG TIN GIA ĐÌNH HAI HỌ
 
 ### 2.1. Nhà Trai
-- **Họ tên Bố:** [Ví dụ: Ông Nguyễn Văn Hùng]
-- **Họ tên Mẹ:** [Ví dụ: Bà Trần Thị Mai]
-- **Địa chỉ / Quê quán hiển thị:** [Ví dụ: Quận Hải Châu, TP. Đà Nẵng]
+- **Họ tên Bố:** [Ví dụ: Ông Nguyễn Văn Minh]
+- **Họ tên Mẹ:** [Ví dụ: Bà Điền Thị Bình]
+- **Địa chỉ / Quê quán hiển thị:** [Ví dụ: Thôn Đồng Văn 1, Xã Đại Đồng, Tỉnh Nghệ An]
 - **Ghi chú đặc biệt (nếu có cố phụ mẫu):** [Ví dụ: Cố / Quá vãng / Đã mất...]
 
 ### 2.2. Nhà Gái
-- **Họ tên Bố:** [Ví dụ: Ông Lê Quang Đức]
-- **Họ tên Mẹ:** [Ví dụ: Bà Phạm Thị Hồng]
-- **Địa chỉ / Quê quán hiển thị:** [Ví dụ: Quận Thanh Khê, TP. Đà Nẵng]
+- **Họ tên Bố:** [Ví dụ: Ông Phạm Văn Ba]
+- **Họ tên Mẹ:** [Ví dụ: Bà Nguyễn Thị Chung]
+- **Địa chỉ / Quê quán hiển thị:** [Ví dụ: Thôn Dùng 1, Xã Đại Đồng, Tỉnh Nghệ An]
 - **Ghi chú đặc biệt (nếu có cố phụ mẫu):** [Ví dụ: Cố / Quá vãng / Đã mất...]
 
 ---
@@ -39,28 +39,28 @@
 ## PHẦN 3: THỜI GIAN & ĐỊA ĐIỂM CÁC BUỔI LỄ
 
 ### 3.1. Lễ Vu Quy (Nhà Gái)
-- **Thời gian (Giờ & Buổi):** [Ví dụ: 08:30 Sáng]
-- **Ngày Dương lịch:** [Ví dụ: Thứ Bảy, ngày 18 tháng 12 năm 2027]
-- **Ngày Âm lịch:** [Ví dụ: Nhằm ngày 21 tháng 11 năm Đinh Mùi]
+- **Thời gian (Giờ & Buổi):** [Ví dụ: 11:30 Trưa]
+- **Ngày Dương lịch:** [Ví dụ: Thứ Ba, ngày 24 tháng 11 năm 2026]
+- **Ngày Âm lịch:** [Ví dụ: Nhằm ngày 16 tháng 10 năm Bính Ngọ]
 - **Địa điểm tổ chức:** [Ví dụ: Tư gia Nhà Gái]
-- **Địa chỉ chi tiết:** [Ví dụ: 128 Nguyễn Tri Phương, P. Chính Gián, Q. Thanh Khê, TP. Đà Nẵng]
+- **Địa chỉ chi tiết:** [Ví dụ: Thôn Dùng 1, Xã Đại Đồng, Tỉnh Nghệ An]
 - **Link Google Maps chỉ đường:** [Dán link vị trí tại đây]
 
 ### 3.2. Lễ Thành Hôn / Rước Dâu (Nhà Trai)
 - **Thời gian (Giờ & Buổi):** [Ví dụ: 10:30 Trưa]
-- **Ngày Dương lịch:** [Ví dụ: Thứ Bảy, ngày 18 tháng 12 năm 2027]
-- **Ngày Âm lịch:** [Ví dụ: Nhằm ngày 21 tháng 11 năm Đinh Mùi]
+- **Ngày Dương lịch:** [Ví dụ: Thứ Tư, ngày 25 tháng 11 năm 2026]
+- **Ngày Âm lịch:** [Ví dụ: Nhằm ngày 17 tháng 10 năm Bính Ngọ]
 - **Địa điểm tổ chức:** [Ví dụ: Tư gia Nhà Trai]
-- **Địa chỉ chi tiết:** [Ví dụ: 45 Võ Văn Tần, P. Chính Gián, Q. Thanh Khê, TP. Đà Nẵng]
+- **Địa chỉ chi tiết:** [Ví dụ: Thôn Dùng 2, Xã Đại Đồng, Tỉnh Nghệ An]
 - **Link Google Maps chỉ đường:** [Dán link vị trí tại đây]
 
 ### 3.3. Tiệc Mừng Chung Đôi (Tiệc Cưới Chiêu Đãi Khách)
-- **Thời gian đón khách:** [Ví dụ: 17:30 Chiều tối]
-- **Thời gian khai tiệc:** [Ví dụ: 18:30 Tối]
-- **Ngày Dương lịch:** [Ví dụ: Thứ Bảy, ngày 18 tháng 12 năm 2027]
-- **Tên Trung tâm tiệc cưới / Nhà hàng:** [Ví dụ: Trung tâm Tiệc cưới Vườn Trong Nắng]
-- **Tên Sảnh tiệc (Hall / Ballroom):** [Ví dụ: Sảnh Hoa Sen]
-- **Địa chỉ chi tiết:** [Ví dụ: Số 02 Đường 2 Tháng 9, P. Bình Hiên, Q. Hải Châu, TP. Đà Nẵng]
+- **Thời gian đón khách:** [Ví dụ: 11:00 Trưa]
+- **Thời gian khai tiệc:** [Ví dụ: 11:30 Trưa]
+- **Ngày Dương lịch:** [Ví dụ: Thứ Ba 24.11 & Thứ Tư 25.11.2026]
+- **Tên Trung tâm tiệc cưới / Nhà hàng:** [Ví dụ: Tư Gia Hai Họ]
+- **Tên Sảnh tiệc (Hall / Ballroom):** [Ví dụ: Hôn Trường Gia Đình]
+- **Địa chỉ chi tiết:** [Ví dụ: Xã Đại Đồng, Huyện Thanh Chương, Tỉnh Nghệ An]
 - **Link Google Maps chỉ đường:** [Dán link vị trí tại đây]
 
 ---
@@ -70,9 +70,9 @@
 
 - **Tiêu đề thư:** Gửi Người Thương Quý
 - **Nội dung:**
-  > Có những chuyện tình bắt đầu rất khẽ. Không hoa mỹ rộn ràng, chỉ là một chiều Đà Nẵng nắng nhẹ, một tách cà phê thơm và ánh mắt người đối diện bỗng trở thành bến đỗ bình yên nhất.
+  > Có những chuyện tình bắt đầu rất khẽ. Không hoa mỹ rộn ràng, chỉ là một chiều Nghệ An nắng nhẹ, một tách cà phê thơm và ánh mắt người đối diện bỗng trở thành bến đỗ bình yên nhất.
   > 
-  > Qua những mùa nắng mưa cùng nhau vun vén, hai đứa mình đã cùng nhau học cách sẻ chia, lắng nghe và trân trọng từng khoảnh khắc giản đơn. Ngày 18 tháng 12 năm 2027 này, chúng mình chọn nắm tay nhau bước vào một chặng đường mới.
+  > Qua những mùa nắng mưa cùng nhau vun vén, hai đứa mình đã cùng nhau học cách sẻ chia, lắng nghe và trân trọng từng khoảnh khắc giản đơn. Ngày 24 và 25 tháng 11 năm 2026 này, chúng mình chọn nắm tay nhau bước vào một chặng đường mới.
   > 
   > Chúng mình tin rằng, một ngày vui chỉ thực sự trọn vẹn khi có nụ cười, lời chúc và cái ôm ấm áp từ những người đã luôn yêu thương và đồng hành cùng hai đứa.
 - **Chữ ký cuối thư:** [Ví dụ: Văn Tiến & Bảo Châu]
@@ -111,7 +111,7 @@
 - **Ảnh đính kèm:** [Tên file ảnh hoặc số thứ tự ảnh]
 
 ### Mốc 5:
-- **Năm:** [Ví dụ: 2027]
+- **Năm:** [Ví dụ: 2026]
 - **Tiêu đề phân cảnh:** [Ví dụ: Bắt đầu một hành trình mới]
 - **Chú thích nhỏ:** [Ví dụ: Về chung một mái nhà]
 - **Câu chuyện ngắn:** [Ví dụ: Hôm nay, trước sự chứng kiến và chúc phúc của những người thương quý, chúng mình chính thức về chung một mái nhà, cùng nhau đón bình minh của những tháng năm dài phía trước.]
@@ -125,14 +125,14 @@
 - **Tên ngân hàng:** [Ví dụ: Vietcombank / Techcombank / ACB / MB Bank...]
 - **Số tài khoản:** 
 - **Tên chủ tài khoản (in hoa không dấu):** [Ví dụ: NGUYEN VAN TIEN]
-- **Chi nhánh:** [Ví dụ: Đà Nẵng]
+- **Chi nhánh:** [Ví dụ: Nghệ An]
 - **Mã QR VietQR:** *(Đính kèm ảnh chụp mã QR từ app ngân hàng)*
 
 ### 6.2. Tài khoản Cô Dâu
 - **Tên ngân hàng:** [Ví dụ: MB Bank / Vietinbank / BIDV / TPBank...]
 - **Số tài khoản:** 
-- **Tên chủ tài khoản (in hoa không dấu):** [Ví dụ: LE THI BAO CHAU]
-- **Chi nhánh:** [Ví dụ: Đà Nẵng]
+- **Tên chủ tài khoản (in hoa không dấu):** [Ví dụ: PHAM THI BAO CHAU]
+- **Chi nhánh:** [Ví dụ: Nghệ An]
 - **Mã QR VietQR:** *(Đính kèm ảnh chụp mã QR từ app ngân hàng)*
 
 ---
@@ -153,7 +153,7 @@
 - **Bài hát nền:**
   - [ ] Giữ bài mặc định: *"Gói Con Tim Làm Quà - Nguyễn Hùng (Bò Sữa Bay OST)"*
   - [ ] Đổi bài hát khác: [Tên bài hát - Tên ca sĩ hoặc gửi link Youtube/mp3]
-- **Hạn chót gửi phản hồi tham dự (RSVP deadline):** [Ví dụ: Trước ngày 01.12.2027]
+- **Hạn chót gửi phản hồi tham dự (RSVP deadline):** [Ví dụ: Trước ngày 20.11.2026]
 
 ---
 
