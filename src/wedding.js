@@ -1044,16 +1044,16 @@ const filmCounter = document.getElementById('filmCounter');
 
 // Danh sách các bức ảnh chất lượng cao đã chọn lọc từ thư mục photo
 const curatedFilmPhotos = [
-  { src: './photo/BEE05873.JPG', caption: 'Đại cảnh chung đôi hạnh phúc — Văn Tiến & Bảo Châu' },
-  { src: './photo/BEE05727.JPG', caption: 'Bàn tay tạo hình trái tim ôm trọn nụ cười rạng rỡ' },
-  { src: './photo/BEE06018.JPG', caption: 'Kính râm retro cá tính & nụ cười tràn ngập niềm vui' },
-  { src: './photo/BEE06042.JPG', caption: 'Lời thề hẹn ước Vows trăm năm gắn kết' },
-  { src: './photo/BEE05929.JPG', caption: 'Ánh mắt đong đầy thương mến bên hoa cưới nhung đỏ' },
-  { src: './photo/BEE05509.JPG', caption: 'Khoảnh khắc rạng ngời cùng bó hoa cưới trắng tinh khôi' },
-  { src: './photo/BEE05674.JPG', caption: 'Trang trọng cùng đọc lời hẹn ước trọn đời' },
-  { src: './photo/BEE06457.JPG', caption: 'Chữ Hỷ Vu Quy đỏ thắm bên tà áo dài truyền thống' },
-  { src: './photo/BEE06251.JPG', caption: 'Nụ cười tinh nghịch và ánh mắt tràn ngập yêu thương' },
-  { src: './photo/BEE05707.JPG', caption: 'Bình yên luôn ở phía sau lưng anh' },
+  { src: './photo/BEE05884.jpg', caption: 'Đại cảnh chung đôi hạnh phúc — Văn Tiến & Bảo Châu' },
+  { src: './photo/BEE05473.jpg', caption: 'Váy cưới bồng xòe lộng lẫy & vest tuxedo trang trọng' },
+  { src: './photo/BEE05587.jpg', caption: 'Nụ hôn yêu thương ngọt ngào trao nhau' },
+  { src: './photo/BEE06016.jpg', caption: 'Kính râm retro cá tính & nụ cười tràn ngập niềm vui' },
+  { src: './photo/BEE06053.jpg', caption: 'Rạng rỡ nụ cười cùng lời hẹn ước Vows trăm năm' },
+  { src: './photo/BEE05911.jpg', caption: 'Phút giây chỉnh áo & nụ cười tươi tắn bên hoa cưới' },
+  { src: './photo/BEE06546.JPG', caption: 'Áo dài truyền thống đỏ thắm bên Chữ Hỷ vàng' },
+  { src: './photo/BEE06530.jpg', caption: 'Chú rể bế cô dâu ngập tràn tiếng cười hạnh phúc' },
+  { src: './photo/BEE06206.jpg', caption: 'Ánh mắt đong đầy dịu dàng trao nhau' },
+  { src: './photo/BEE06269.jpg', caption: 'Tà váy cưới satin bồng bềnh kiêu sa trong nắng' },
 ];
 
 let currentFilmIndex = 0;
@@ -1177,7 +1177,7 @@ filmSlides.forEach((slide) => {
 
 // Chạm bất kỳ ảnh nào trong Phân Cảnh 03 (Polaroid Scrapbook) để nháy Flash và mở Lightbox
 document.querySelectorAll('.polaroid-scrapbook-card').forEach((card, idx) => {
-  const img = card.querySelector('.polaroid-photo-canvas img');
+  const img = card.querySelector('.polaroid-photo-canvas img, .polaroid-img-box img, img');
   const captionEl = card.querySelector('.chin-title');
   const captionText = captionEl ? captionEl.textContent : `Thước phim chuyện mình · Cảnh 0${idx + 1}`;
   if (img) {

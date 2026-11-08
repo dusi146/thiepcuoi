@@ -1597,7 +1597,7 @@ body.invite-open {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 36%;
+  object-position: center 24%;
   display: block;
   filter: contrast(106%) saturate(110%) sepia(8%);
   animation: kenBurnsHero 7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
@@ -2296,8 +2296,8 @@ body.invite-open {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 26%;
-  transform: scale(1.08);
+  object-position: center 20%;
+  transform: scale(1.0);
   display: block;
   filter: contrast(105%) saturate(110%) sepia(6%);
   transition: transform 1.2s var(--ease-cinematic);
@@ -2567,7 +2567,7 @@ body.invite-open {
 .polaroid-photo-canvas,
 .polaroid-img-box {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 5;
   width: 100%;
   overflow: hidden;
   background: #EAE1CF;
@@ -2579,6 +2579,7 @@ body.invite-open {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 22%;
   display: block;
   filter: contrast(1.05) saturate(1.1) sepia(4%);
   transition: transform 0.8s var(--ease-cinematic);
@@ -2588,7 +2589,7 @@ body.invite-open {
 .polaroid-scrapbook-card.is-focused .polaroid-photo-canvas img,
 .polaroid-scrapbook-card:hover .polaroid-img-box img,
 .polaroid-scrapbook-card.is-focused .polaroid-img-box img {
-  transform: scale(1.04);
+  transform: scale(1.02);
 }
 
 /* Warm Light-Leak Shimmer Sweep on tap */
@@ -3191,19 +3192,28 @@ body.invite-open {
   border-radius: 2px;
 }
 
+.film-frame-slide.is-landscape {
+  flex: 0 0 clamp(320px, 86%, 420px);
+  max-width: 420px;
+}
+
+.film-frame-slide.is-landscape .slide-photo-holder {
+  aspect-ratio: 3 / 2;
+}
+
 .slide-photo-holder img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 36%;
-  transform: scale(1.08);
+  object-position: center 25%;
+  transform: scale(1.0);
   display: block;
   filter: contrast(104%) saturate(108%) sepia(6%);
   transition: transform 0.8s var(--ease-cinematic);
 }
 
 .film-frame-slide:hover .slide-photo-holder img {
-  transform: scale(1.14);
+  transform: scale(1.04);
 }
 
 .frame-code {
@@ -4359,6 +4369,11 @@ body.invite-open .editorial-sticky-bar {
   .film-frame-slide {
     flex: 0 0 88%;
     max-width: 88%;
+  }
+
+  .film-frame-slide.is-landscape {
+    flex: 0 0 94%;
+    max-width: 94%;
   }
 
   .envelope-screen {
