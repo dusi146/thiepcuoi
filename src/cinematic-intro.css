@@ -1,4 +1,152 @@
 
+/* ==========================================================================
+   P0-1: 35MM FILM LEADER PRELOADER (Tránh màn trống khi tải/reload)
+   ========================================================================== */
+.film-leader-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000000;
+  background: #140E0B;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+  overflow: hidden;
+  transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.film-leader-preloader.leave-leader {
+  opacity: 0;
+  transform: scale(1.05);
+  pointer-events: none;
+}
+
+.leader-sprockets {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: rgba(217, 164, 65, 0.28);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.leader-sprockets-left {
+  left: 8px;
+}
+
+.leader-sprockets-right {
+  right: 8px;
+}
+
+.leader-center-target {
+  position: relative;
+  width: min(72vw, 220px);
+  height: min(72vw, 220px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leader-circle-outer {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid rgba(217, 164, 65, 0.45);
+  border-radius: 50%;
+  box-shadow: 0 0 16px rgba(217, 164, 65, 0.12);
+}
+
+.leader-circle-inner {
+  position: absolute;
+  inset: 18%;
+  border: 1px solid rgba(217, 164, 65, 0.6);
+  border-radius: 50%;
+}
+
+.leader-crosshair {
+  position: absolute;
+  background: rgba(217, 164, 65, 0.5);
+  pointer-events: none;
+}
+
+.leader-crosshair.ch-horizontal {
+  left: -20px;
+  right: -20px;
+  height: 1px;
+  top: 50%;
+}
+
+.leader-crosshair.ch-vertical {
+  top: -20px;
+  bottom: -20px;
+  width: 1px;
+  left: 50%;
+}
+
+.leader-sweep-arm {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(217, 164, 65, 0.35) 0deg, rgba(217, 164, 65, 0) 90deg);
+  animation: leaderSweep 1s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes leaderSweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.leader-countdown-num {
+  position: relative;
+  z-index: 2;
+  font-family: var(--intro-serif, "Playfair Display", Georgia, serif);
+  font-size: clamp(3.2rem, 15vw, 4.8rem);
+  font-weight: 700;
+  color: var(--intro-gold, #D9A441);
+  line-height: 1;
+  text-shadow: 0 0 18px rgba(217, 164, 65, 0.4);
+}
+
+.leader-footer-meta {
+  position: absolute;
+  bottom: clamp(24px, 6vh, 48px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  padding: 0 16px;
+}
+
+.leader-meta-title {
+  font-family: var(--intro-mono, "IBM Plex Mono", monospace);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--intro-gold, #D9A441);
+  text-transform: uppercase;
+}
+
+.leader-meta-sub {
+  font-family: var(--intro-mono, "IBM Plex Mono", monospace);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: rgba(240, 227, 199, 0.65);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leader-sweep-arm {
+    animation: none !important;
+    display: none !important;
+  }
+}
+
 /* Triệt tiêu hoàn toàn khung xanh/đen tap-highlight, focus ring và chớp giật */
 .stage,
 .stage *,

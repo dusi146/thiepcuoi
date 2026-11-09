@@ -6,6 +6,44 @@
 (function () {
   if (typeof window === 'undefined') return;
 
+  /* P0-1: Preloader cuộn phim 35mm (Film Leader Countdown 3-2-1) */
+  function initFilmLeader() {
+    const leader = document.getElementById('filmLeader');
+    if (!leader) return;
+    const num = document.getElementById('leaderCountdownNum');
+    let count = 3;
+
+    const timer = setInterval(() => {
+      count--;
+      if (count > 0) {
+        if (num) num.textContent = count;
+      } else {
+        clearInterval(timer);
+        dismissLeader();
+      }
+    }, 450);
+
+    function dismissLeader() {
+      clearInterval(timer);
+      if (!leader.classList.contains('leave-leader')) {
+        leader.classList.add('leave-leader');
+        setTimeout(() => {
+          try { leader.remove(); } catch (_) {}
+        }, 450);
+      }
+    }
+
+    // Dismiss leader as soon as fonts are ready or after max 1.3s
+    Promise.race([
+      document.fonts.ready,
+      new Promise((r) => setTimeout(r, 1300))
+    ]).then(() => {
+      setTimeout(dismissLeader, 1000);
+    });
+  }
+
+  initFilmLeader();
+
   function initIntro() {
     const st = document.getElementById('intro');
     if (!st) return;

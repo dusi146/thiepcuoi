@@ -243,7 +243,19 @@ let isEnvelopeOpening = false;
 function initRetroCursor() {
   const dot = document.getElementById('cursorDot');
   const ring = document.getElementById('cursorRing');
-  if (!dot || !ring || window.matchMedia('(pointer: coarse)').matches) return;
+  if (!dot || !ring) return;
+
+  // Ẩn lập tức trên mọi thiết bị cảm ứng hoặc màn hình touch
+  if (window.matchMedia('(pointer: coarse), (hover: none), (max-width: 1024px)').matches) {
+    dot.style.display = 'none';
+    ring.style.display = 'none';
+    return;
+  }
+
+  window.addEventListener('touchstart', () => {
+    dot.style.display = 'none';
+    ring.style.display = 'none';
+  }, { passive: true, once: true });
 
   let mouseX = -100, mouseY = -100;
   let ringX = -100, ringY = -100;
@@ -1029,21 +1041,81 @@ function updateCountdown() {
 updateCountdown();
 window.setInterval(updateCountdown, 1000);
 
-// 5. THÊM NGÀY CƯỚI VÀO LỊCH (GOOGLE / APPLE CALENDAR)
-const addToCalBtn = document.getElementById('addToCalBtn');
-if (addToCalBtn) {
-  addToCalBtn.addEventListener('click', () => {
-    const title = encodeURIComponent('Lễ Cưới Văn Tiến & Bảo Châu');
-    const details = encodeURIComponent('Trân trọng kính mời bạn đến chung vui trong ngày hạnh phúc của Văn Tiến & Bảo Châu tại Nghệ An.');
-    const location = encodeURIComponent('Tư gia Nhà Trai / Nhà Gái, Xã Đại Đồng, Huyện Thanh Chương, Tỉnh Nghệ An');
-    const start = '20261125T033000Z'; // 10:30 AM GMT+7
-    const end = '20261125T140000Z';   // 21:00 PM GMT+7
+// 5. THÊM NGÀY CƯỚI VÀO LỊCH (GOOGLE / APPLE CALENDAR .ICS)
+function openGoogleCalendar() {
+  const title = encodeURIComponent('Lễ Cưới Văn Tiến & Bảo Châu');
+  const details = encodeURIComponent('Trân trọng kính mời bạn đến chung vui trong ngày hạnh phúc của Văn Tiến & Bảo Châu tại Nghệ An.');
+  const location = encodeURIComponent('Tư gia Nhà Trai / Nhà Gái, Xã Đại Đồng, Huyện Thanh Chương, Tỉnh Nghệ An');
+  const start = '20261125T033000Z'; // 10:30 AM GMT+7
+  const end = '20261125T140000Z';   // 21:00 PM GMT+7
 
-    const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
-    window.open(googleCalUrl, '_blank', 'noopener,noreferrer');
-    showEditorialToast('Đang mở Lịch Google để lưu ngày cưới...');
-  });
+  const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
+  window.open(googleCalUrl, '_blank', 'noopener,noreferrer');
+  showEditorialToast('Đang mở Lịch Google để lưu ngày cưới...');
 }
+
+function downloadWeddingIcs() {
+  const icsContent = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Thu Bao Hy//Nguyen Van Tien & Pham Thi Bao Chau//VI',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    'UID:vuquy-20261124-tienchau@duvansi.me',
+    'DTSTAMP:20261109T000000Z',
+    'DTSTART:20261124T043000Z',
+    'DTEND:20261124T070000Z',
+    'SUMMARY:Lễ Vu Quy — Văn Tiến & Bảo Châu',
+    'DESCRIPTION:Kính mời dự Lễ Vu Quy và chung vui bữa cơm thân mật cùng gia đình Nhà Gái tại Thôn Dùng 1, Xã Đại Đồng, Tỉnh Nghệ An.',
+    'LOCATION:Tư gia Nhà Gái — Thôn Dùng 1, Xã Đại Đồng, Tỉnh Nghệ An',
+    'BEGIN:VALARM',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:Nhắc nhở ngày mai có Lễ Vu Quy Văn Tiến & Bảo Châu',
+    'TRIGGER:-P1D',
+    'END:VALARM',
+    'END:VEVENT',
+    'BEGIN:VEVENT',
+    'UID:thanhhon-20261125-tienchau@duvansi.me',
+    'DTSTAMP:20261109T000000Z',
+    'DTSTART:20261125T033000Z',
+    'DTEND:20261125T070000Z',
+    'SUMMARY:Lễ Thành Hôn — Văn Tiến & Bảo Châu',
+    'DESCRIPTION:Trân trọng kính mời bạn đến chung vui Lễ Thành Hôn và tiệc cưới cùng gia đình Nhà Trai tại Thôn Dùng 2, Xã Đại Đồng, Tỉnh Nghệ An.',
+    'LOCATION:Tư gia Nhà Trai — Thôn Dùng 2, Xã Đại Đồng, Tỉnh Nghệ An',
+    'BEGIN:VALARM',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:Nhắc nhở ngày mai có Lễ Thành Hôn Văn Tiến & Bảo Châu',
+    'TRIGGER:-P1D',
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+
+  try {
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.setAttribute('download', 'le-cuoi-tien-chau.ics');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showEditorialToast('Đã tải file lịch hẹn Apple (.ics) thành công!');
+  } catch (err) {
+    showEditorialToast('Không thể tạo file lịch trên trình duyệt này');
+  }
+}
+
+const addGoogleCalBtn = document.getElementById('addGoogleCalBtn');
+if (addGoogleCalBtn) addGoogleCalBtn.addEventListener('click', openGoogleCalendar);
+
+const addAppleCalBtn = document.getElementById('addAppleCalBtn');
+if (addAppleCalBtn) addAppleCalBtn.addEventListener('click', downloadWeddingIcs);
+
+const addToCalBtn = document.getElementById('addToCalBtn');
+if (addToCalBtn) addToCalBtn.addEventListener('click', openGoogleCalendar);
 
 // 6. CUỘN PHIM 35MM (35MM FILM REEL SLIDER) & LIGHTBOX PHÓNG TO
 const filmStripTrack = document.getElementById('filmStripTrack');
@@ -1369,6 +1441,11 @@ const defaultWishes = [
 const guestbookStream = document.getElementById('guestbookStream');
 const wishesCounter = document.getElementById('wishesCounter');
 const weddingRsvpForm = document.getElementById('weddingRsvpForm');
+const guestbookMoreWrapper = document.getElementById('guestbookMoreWrapper');
+const guestbookMoreBtn = document.getElementById('guestbookMoreBtn');
+
+let wishesVisibleCount = 5;
+let fullWishesList = [];
 
 function loadGuestbook() {
   let saved = [];
@@ -1376,15 +1453,16 @@ function loadGuestbook() {
     saved = JSON.parse(localStorage.getItem('wedding_guestbook_tien_chau') || localStorage.getItem('wedding_guestbook_thai_tran') || '[]');
   } catch {}
 
-  const combined = [...saved, ...defaultWishes];
-  renderGuestbook(combined);
+  fullWishesList = [...saved, ...defaultWishes];
+  renderGuestbook(fullWishesList);
 }
 
 function renderGuestbook(list) {
   if (!guestbookStream) return;
   if (wishesCounter) wishesCounter.textContent = `${list.length} lời chúc`;
 
-  guestbookStream.innerHTML = list
+  const visibleList = list.slice(0, wishesVisibleCount);
+  guestbookStream.innerHTML = visibleList
     .map(
       (item) => `
       <article class="stream-item">
@@ -1397,7 +1475,23 @@ function renderGuestbook(list) {
     `
     )
     .join('');
-  guestbookStream.scrollTop = 0;
+
+  if (guestbookMoreWrapper && guestbookMoreBtn) {
+    if (list.length > wishesVisibleCount) {
+      guestbookMoreWrapper.style.display = 'flex';
+      const remaining = list.length - wishesVisibleCount;
+      guestbookMoreBtn.innerHTML = `<span>Xem thêm lời chúc ↓ (còn ${remaining})</span>`;
+    } else {
+      guestbookMoreWrapper.style.display = 'none';
+    }
+  }
+}
+
+if (guestbookMoreBtn) {
+  guestbookMoreBtn.addEventListener('click', () => {
+    wishesVisibleCount += 5;
+    renderGuestbook(fullWishesList);
+  });
 }
 
 function sanitize(str) {
@@ -1407,6 +1501,41 @@ function sanitize(str) {
 }
 
 loadGuestbook();
+
+// P0-5: STEPPER − 1 + VÀ THẺ CHỌN (CHIP CARDS)
+const guestMinusBtn = document.getElementById('guestMinusBtn');
+const guestPlusBtn = document.getElementById('guestPlusBtn');
+const guestCountDisplay = document.getElementById('guestCountDisplay');
+const guestCountInput = document.getElementById('guestCount');
+
+if (guestMinusBtn && guestPlusBtn && guestCountDisplay && guestCountInput) {
+  guestMinusBtn.addEventListener('click', () => {
+    let val = parseInt(guestCountInput.value, 10) || 1;
+    if (val > 1) {
+      val--;
+      guestCountInput.value = val;
+      guestCountDisplay.textContent = val;
+    }
+  });
+
+  guestPlusBtn.addEventListener('click', () => {
+    let val = parseInt(guestCountInput.value, 10) || 1;
+    if (val < 10) {
+      val++;
+      guestCountInput.value = val;
+      guestCountDisplay.textContent = val;
+    }
+  });
+}
+
+const eventChipRadios = document.querySelectorAll('input[name="eventChoice"]');
+eventChipRadios.forEach((radio) => {
+  radio.addEventListener('change', () => {
+    document.querySelectorAll('.event-chip-card').forEach((card) => card.classList.remove('is-active'));
+    const parentCard = radio.closest('.event-chip-card');
+    if (parentCard) parentCard.classList.add('is-active');
+  });
+});
 
 // HIỆU ỨNG PHÁO TIM / BỤI VÀNG CHÚC PHÚC KHI GỬI RSVP
 function createCelebrationBurst(btn) {

@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#f5efdf" />
   <meta name="description" content="Thước phim cưới hoài niệm của Nguyễn Văn Tiến & Phạm Thị Bảo Châu — 24.11 - 25.11.2026 · Nghệ An." />
   <title>Nguyễn Văn Tiến & Phạm Thị Bảo Châu — Thước Phim Ngày Chung Đôi · 24.11 - 25.11.2026</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23b83522%22>囍</text></svg>" />
 
   <!-- Typography nghệ thuật điện ảnh Retro: Dễ đọc tuyệt đối cho thông tin, quý phái nghệ thuật cho tiêu đề -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,6 +18,7 @@
   <script>
     // Fail-safe mở phong bì dự phòng
     window.__openEnvelope = function() {
+      document.documentElement.classList.remove('lock');
       document.body.classList.remove('invite-closed');
       document.body.classList.add('invite-open');
       var scr = document.getElementById('intro') || document.getElementById('envelopeScreen');
@@ -89,6 +91,30 @@
 
   <!-- Nút bỏ qua phong bì dành cho trợ năng -->
   <a class="skip-link" href="#invitation" onclick="window.__openEnvelope && window.__openEnvelope()">Bỏ qua mở phong bì · Vào thẳng nội dung thiệp</a>
+
+  <!-- ========================================================================= -->
+  <!-- 35MM FILM LEADER PRELOADER (ĐẾM LÙI CUỘN PHIM TRÁNH MÀN HÌNH TRỐNG)        -->
+  <!-- ========================================================================= -->
+  <div class="film-leader-preloader" id="filmLeader" aria-hidden="true">
+    <div class="leader-sprockets leader-sprockets-left">
+      <span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span>
+    </div>
+    <div class="leader-sprockets leader-sprockets-right">
+      <span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span><span>■</span>
+    </div>
+    <div class="leader-center-target">
+      <div class="leader-crosshair ch-horizontal"></div>
+      <div class="leader-crosshair ch-vertical"></div>
+      <div class="leader-circle-outer"></div>
+      <div class="leader-circle-inner"></div>
+      <div class="leader-sweep-arm"></div>
+      <div class="leader-countdown-num" id="leaderCountdownNum">3</div>
+    </div>
+    <div class="leader-footer-meta">
+      <span class="leader-meta-title">HEAD LEADER · 35MM KODAK PORTRA 400</span>
+      <span class="leader-meta-sub">SOUND &amp; PICTURE START · TIẾN ✦ CHÂU · 2026</span>
+    </div>
+  </div>
 
   <!-- ========================================================================= -->
   <!-- MÀN HÌNH PHONG BÌ RETRO 3D CINEMATIC INTRO — THƯ BÁO HỶ                    -->
@@ -230,14 +256,20 @@
             <div class="ticket-content">
               <div class="ticket-header-strip">
                 <span class="ticket-star">★</span>
-                <span class="ticket-series">SUẤT CHIẾU ĐẶC BIỆT · LỄ THÀNH HÔN &amp; VU QUY</span>
+                <span class="ticket-series">SUẤT CHIẾU ĐẶC BIỆT</span>
                 <span class="ticket-star">★</span>
               </div>
+              <div class="ticket-sub-strip">LỄ THÀNH HÔN &amp; VU QUY</div>
 
               <div class="ticket-main-title">
-                <span class="t-groom">VĂN TIẾN</span>
-                <span class="t-amp">💍</span>
-                <span class="t-bride">BẢO CHÂU</span>
+                <span class="t-name-row t-groom-name">VĂN TIẾN</span>
+                <span class="t-rings-icon" aria-hidden="true">
+                  <svg class="icon-svg-rings" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="8.5" cy="12" r="5"></circle>
+                    <circle cx="15.5" cy="12" r="5"></circle>
+                  </svg>
+                </span>
+                <span class="t-name-row t-bride-name">BẢO CHÂU</span>
               </div>
 
               <div class="ticket-date-row">
@@ -357,11 +389,6 @@
       </div>
 
       <div class="letter-sheet-container">
-        <!-- Con tem cổ điển góc thư -->
-        <div class="letter-postmark-stamp" aria-hidden="true">
-          <span>THƯƠNG<br />MẾN</span>
-        </div>
-
         <h2 class="card-display-title" id="letterHeading">Gửi Người Thương Quý</h2>
 
         <div class="letter-body-copy">
@@ -380,6 +407,11 @@
             <span class="sign-tagline">Mong được đón bạn trong ngày vui,</span>
             <p class="sign-handwritten">Văn Tiến & Bảo Châu</p>
           </div>
+        </div>
+
+        <!-- Con dấu bưu thiếp cổ điển góc dưới bên phải gần chữ ký -->
+        <div class="letter-postmark-stamp" aria-hidden="true">
+          <span>THƯƠNG<br />MẾN</span>
         </div>
       </div>
     </section>
@@ -556,9 +588,26 @@
       </div>
 
       <div class="calendar-action-box">
-        <button class="editorial-pill-btn" id="addToCalBtn" type="button">
-          LƯU VÀO LỊCH HẸN (GOOGLE / APPLE CALENDAR) ↗
-        </button>
+        <span class="calendar-action-heading">Thêm vào lịch:</span>
+        <div class="calendar-btn-pair">
+          <button class="cal-action-btn" id="addGoogleCalBtn" type="button" aria-label="Thêm lịch cưới vào Google Calendar">
+            <svg class="cal-btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Google ↗</span>
+          </button>
+          <button class="cal-action-btn" id="addAppleCalBtn" type="button" aria-label="Tải file lịch Apple iCalendar (.ics)">
+            <svg class="cal-btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Apple (.ics) ↓</span>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -583,7 +632,13 @@
         <article class="event-tile event-vuquy">
           <div class="event-tile-stamp">24.11</div>
           <div class="event-seq">I</div>
-          <span class="event-nature">💍 TƯ GIA NHÀ GÁI</span>
+          <span class="event-nature">
+            <svg class="event-svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="8.5" cy="12" r="5"></circle>
+              <circle cx="15.5" cy="12" r="5"></circle>
+            </svg>
+            TƯ GIA NHÀ GÁI
+          </span>
           <h3 class="event-title">Lễ Vu Quy</h3>
           <p class="event-datetime">
             <strong>11:30 TRƯA</strong> · Thứ Ba, 24.11.2026 (16.10 Bính Ngọ)
@@ -593,7 +648,11 @@
             <span class="loc-address">Tư gia Nhà Gái — Thôn Dùng 1, Xã Đại Đồng, Tỉnh Nghệ An</span>
           </div>
           <a class="event-map-btn" href="https://maps.google.com/?q=Dai+Dong+Thanh+Chuong+Nghe+An" target="_blank" rel="noopener noreferrer">
-            📍 CHỈ ĐƯỜNG ĐẾN NHÀ GÁI ↗
+            <svg class="btn-pin-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"></path>
+              <circle cx="12" cy="9" r="2.5"></circle>
+            </svg>
+            <span>CHỈ ĐƯỜNG ĐẾN NHÀ GÁI ↗</span>
           </a>
         </article>
 
@@ -601,7 +660,13 @@
         <article class="event-tile highlight-tile event-thanhhon">
           <div class="event-tile-stamp">25.11</div>
           <div class="event-seq">II</div>
-          <span class="event-nature">💐 TƯ GIA NHÀ TRAI</span>
+          <span class="event-nature">
+            <svg class="event-svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2a4 4 0 0 0-4 4c0 3 4 7 4 7s4-4 4-7a4 4 0 0 0-4-4z"></path>
+              <path d="M12 13v9M8 17l4 2 4-2"></path>
+            </svg>
+            TƯ GIA NHÀ TRAI
+          </span>
           <h3 class="event-title">Lễ Thành Hôn</h3>
           <p class="event-datetime">
             <strong>10:30 TRƯA</strong> · Thứ Tư, 25.11.2026 (17.10 Bính Ngọ)
@@ -611,7 +676,11 @@
             <span class="loc-address">Tư gia Nhà Trai — Thôn Dùng 2, Xã Đại Đồng, Tỉnh Nghệ An</span>
           </div>
           <a class="event-map-btn" href="https://maps.google.com/?q=Dai+Dong+Thanh+Chuong+Nghe+An" target="_blank" rel="noopener noreferrer">
-            📍 CHỈ ĐƯỜNG ĐẾN NHÀ TRAI ↗
+            <svg class="btn-pin-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"></path>
+              <circle cx="12" cy="9" r="2.5"></circle>
+            </svg>
+            <span>CHỈ ĐƯỜNG ĐẾN NHÀ TRAI ↗</span>
           </a>
         </article>
 
@@ -619,7 +688,12 @@
         <article class="event-tile dark-tile event-tieccuoi">
           <div class="event-tile-stamp tiec-stamp">24-25.11</div>
           <div class="event-seq">III</div>
-          <span class="event-nature nature-gold">🥂 TIỆC MỪNG CHUNG ĐÔI</span>
+          <span class="event-nature nature-gold">
+            <svg class="event-svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 21h8M12 15v6M6 4l3 7h6l3-7H6z"></path>
+            </svg>
+            TIỆC MỪNG CHUNG ĐÔI
+          </span>
           <h3 class="event-title">Tiệc Rượu Thân Mật</h3>
           <p class="event-datetime">
             <strong>11:00 ĐÓN KHÁCH · 11:30 KHAI TIỆC</strong><br />
@@ -630,7 +704,11 @@
             <span class="loc-address">Hôn Trường Gia Đình · Xã Đại Đồng, Huyện Thanh Chương, Tỉnh Nghệ An</span>
           </div>
           <a class="event-map-btn gold-map-btn" href="https://maps.google.com/?q=Dai+Dong+Thanh+Chuong+Nghe+An" target="_blank" rel="noopener noreferrer">
-            📍 MỞ VỊ TRÍ TRÊN GOOGLE MAPS ↗
+            <svg class="btn-pin-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"></path>
+              <circle cx="12" cy="9" r="2.5"></circle>
+            </svg>
+            <span>MỞ VỊ TRÍ TRÊN GOOGLE MAPS ↗</span>
           </a>
         </article>
       </div>
@@ -983,24 +1061,43 @@
               </div>
 
               <div class="form-field-unit">
-                <label for="guestCount">Số người đi cùng</label>
-                <select id="guestCount" name="guestCount" class="field-select">
-                  <option value="1">1 người (Đi một mình)</option>
-                  <option value="2">2 người (Cùng người thương)</option>
-                  <option value="3">3 người (Cả gia đình)</option>
-                  <option value="4">4+ người</option>
-                </select>
+                <label>Số người đi cùng</label>
+                <div class="guest-stepper-control" role="group" aria-label="Chọn số người tham dự">
+                  <button type="button" class="stepper-btn minus-btn" id="guestMinusBtn" aria-label="Giảm một người">−</button>
+                  <span class="stepper-display" id="guestCountDisplay">1</span>
+                  <button type="button" class="stepper-btn plus-btn" id="guestPlusBtn" aria-label="Tăng một người">+</button>
+                  <input type="hidden" id="guestCount" name="guestCount" value="1" />
+                </div>
               </div>
             </div>
 
             <div class="form-field-unit">
-              <label for="eventChoice">Bạn sẽ tham dự buổi nào?</label>
-              <select id="eventChoice" name="eventChoice" class="field-select">
-                <option value="party">Tiệc Cưới Chiều Tối (17:30 · Vườn Trong Nắng)</option>
-                <option value="ceremony">Lễ Thành Hôn Trưa (10:30 · Nhà Trai)</option>
-                <option value="vuquy">Lễ Vu Quy Sáng (08:30 · Nhà Gái)</option>
-                <option value="all">Tham dự trọn vẹn cả ngày</option>
-              </select>
+              <label class="field-group-label">Bạn sẽ tham dự buổi nào?</label>
+              <div class="event-chips-grid" role="radiogroup" aria-label="Chọn buổi lễ tham dự">
+                <label class="event-chip-card is-active">
+                  <input type="radio" name="eventChoice" value="all" checked class="chip-radio-input" />
+                  <div class="chip-card-content">
+                    <span class="chip-title">Cả hai buổi lễ</span>
+                    <span class="chip-sub">24 &amp; 25.11 · Trọn vẹn hai họ</span>
+                  </div>
+                </label>
+
+                <label class="event-chip-card">
+                  <input type="radio" name="eventChoice" value="thanhhon" class="chip-radio-input" />
+                  <div class="chip-card-content">
+                    <span class="chip-title">Lễ Thành Hôn</span>
+                    <span class="chip-sub">10:30 · 25.11 · Nhà Trai</span>
+                  </div>
+                </label>
+
+                <label class="event-chip-card">
+                  <input type="radio" name="eventChoice" value="vuquy" class="chip-radio-input" />
+                  <div class="chip-card-content">
+                    <span class="chip-title">Lễ Vu Quy</span>
+                    <span class="chip-sub">11:30 · 24.11 · Nhà Gái</span>
+                  </div>
+                </label>
+              </div>
             </div>
 
             <div class="form-field-unit">
@@ -1023,6 +1120,12 @@
 
           <div class="guestbook-stream" id="guestbookStream" aria-live="polite">
             <!-- Render từ JS và LocalStorage -->
+          </div>
+
+          <div class="guestbook-more-wrapper" id="guestbookMoreWrapper" style="display: none;">
+            <button type="button" class="guestbook-more-btn" id="guestbookMoreBtn">
+              <span>Xem thêm lời chúc</span> <span class="btn-arrow">↓</span>
+            </button>
           </div>
         </div>
       </div>
