@@ -331,7 +331,13 @@
       const introDateLong = document.querySelector('.intro-date-long');
       if (introDateLong) introDateLong.textContent = mainDate;
       const ticketDate = document.querySelector('#heroAdmissionTicket .date-string');
-      if (ticketDate) ticketDate.textContent = mainDate.toUpperCase();
+      if (ticketDate) {
+        if (d.vuQuyDate && d.thanhHonDate && d.vuQuyDate.includes('24.11') && d.thanhHonDate.includes('25.11')) {
+          ticketDate.textContent = '24.11 & 25.11 · 2026';
+        } else {
+          ticketDate.textContent = mainDate.toUpperCase();
+        }
+      }
       const envSolar = document.querySelector('.env-card-solar-date span');
       if (envSolar) envSolar.textContent = mainDate.toUpperCase();
     }

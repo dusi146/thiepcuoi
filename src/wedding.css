@@ -146,19 +146,18 @@ a {
 }
 
 html {
-  background: linear-gradient(180deg, var(--bg-ivory) 0%, var(--bg-cream) 100%);
-  background-attachment: fixed;
+  background: var(--bg-ivory);
   color: var(--ink-brown);
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.68;
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: auto; /* Điều khiển mượt qua Lenis */
+  scroll-behavior: auto;
   overflow-x: clip;
 }
 
 body {
-  background: transparent;
+  background: linear-gradient(180deg, var(--bg-ivory) 0%, var(--bg-cream) 100%);
   color: var(--ink-brown);
   min-height: 100vh;
   position: relative;
@@ -182,9 +181,16 @@ body.invite-open {
   inset: 0;
   z-index: 10;
   pointer-events: none;
-  opacity: 0.15;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='filmNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23filmNoise)'/%3E%3C/svg%3E");
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='filmNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23filmNoise)'/%3E%3C/svg%3E");
   mix-blend-mode: multiply;
+}
+
+@media (pointer: coarse), (max-width: 768px) {
+  .vintage-film-grain {
+    mix-blend-mode: normal;
+    opacity: 0.03;
+  }
 }
 
 /* Canvas cánh hoa hồng & hạt bụi vàng bay lơ lửng toàn trang */
@@ -202,21 +208,22 @@ body.invite-open {
 .film-light-leak-flash {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 100001;
   pointer-events: none;
   background:
-    radial-gradient(circle at 40% 35%, rgba(255, 190, 80, 0.95) 0%, rgba(230, 80, 40, 0.8) 40%, rgba(30, 10, 5, 0) 80%),
-    linear-gradient(135deg, rgba(255, 230, 150, 0.5) 0%, rgba(220, 60, 40, 0.6) 100%);
+    radial-gradient(circle at 50% 42%, rgba(255, 210, 110, 0.92) 0%, rgba(215, 75, 40, 0.65) 45%, rgba(30, 10, 5, 0) 82%),
+    linear-gradient(135deg, rgba(255, 235, 165, 0.45) 0%, rgba(195, 55, 35, 0.45) 100%);
   mix-blend-mode: screen;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity;
 }
 
 .film-light-leak-flash.is-flashing {
   opacity: 1;
 }
 
-/* Thanh tiến trình cuộn phim trên cùng */
+/* Thanh tiến trình cuộn phim trên cùng — 60FPS GPU transform */
 .film-scroll-bar {
   position: fixed;
   top: 0;
@@ -225,14 +232,17 @@ body.invite-open {
   height: 3px;
   z-index: 100;
   background: rgba(45, 36, 32, 0.08);
+  overflow: hidden;
 }
 
 .film-scroll-bar .film-progress {
   display: block;
   height: 100%;
-  width: 0%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
   background: linear-gradient(90deg, var(--olive), var(--vermilion), var(--sun-gold));
-  transition: width 0.1s linear;
 }
 
 /* Nút skip trợ năng */
@@ -307,850 +317,6 @@ body.invite-open {
     visibility: hidden !important;
     pointer-events: none !important;
   }
-}
-
-/* ==========================================================================
-   1. MÀN HÌNH PHONG BÌ RETRO 3D CHÂN THỰC & MỞ LẮP ĐẦY TOÀN MÀN HÌNH
-   ========================================================================== */
-.envelope-screen {
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  background: #140E0C;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  perspective: 1200px;
-  transition: opacity 1.2s var(--ease-cinematic), visibility 1.2s;
-}
-
-/* Ảnh nền mờ cinematic phía sau */
-.intro-bg-photo {
-  position: absolute;
-  inset: -30px;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.intro-bg-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
-  filter: blur(24px) saturate(0.55) brightness(0.32);
-  transform: scale(1.12);
-  animation: introBgDrift 24s ease-in-out infinite alternate;
-}
-
-@keyframes introBgDrift {
-  0% { transform: scale(1.12) translate(0, 0); }
-  50% { transform: scale(1.2) translate(-10px, 8px); }
-  100% { transform: scale(1.14) translate(10px, -6px); }
-}
-
-/* Lớp phủ tối cinematic gradient ấm áp */
-.intro-dark-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    radial-gradient(ellipse at center, rgba(20, 14, 12, 0.4) 0%, rgba(20, 14, 12, 0.85) 65%, rgba(20, 14, 12, 0.98) 100%),
-    linear-gradient(180deg, rgba(184, 71, 54, 0.12) 0%, transparent 40%, rgba(212, 154, 50, 0.08) 100%);
-  pointer-events: none;
-}
-
-/* Hạt bụi vàng bay lơ lửng */
-.intro-dust-particles {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.dust-particle {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle, #FFE4A0, var(--sun-gold-light) 60%, transparent);
-  box-shadow: 0 0 6px rgba(234, 192, 110, 0.7);
-  opacity: 0;
-  pointer-events: none;
-  animation: dustFloatUp 9s ease-in-out infinite;
-}
-
-@keyframes dustFloatUp {
-  0% { opacity: 0; transform: translateY(0) scale(0.6); }
-  25% { opacity: 0.85; transform: translateY(-30vh) scale(1); }
-  75% { opacity: 0.5; transform: translateY(-80vh) scale(0.85); }
-  100% { opacity: 0; transform: translateY(-115vh) scale(0.4); }
-}
-
-/* Sân khấu phong bì 3D */
-.envelope-3d-stage {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 460px;
-  padding: 16px 20px;
-  perspective: 1200px;
-}
-
-/* Dòng tiêu đề nhỏ tinh tế */
-.env-header-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.22em;
-  color: var(--sun-gold-light);
-  margin-bottom: 22px;
-  text-shadow: 0 1px 8px rgba(212, 154, 50, 0.35);
-  animation: badgeGlow 4s ease-in-out infinite alternate;
-}
-
-@keyframes badgeGlow {
-  0% { opacity: 0.75; transform: translateY(0); }
-  100% { opacity: 1; transform: translateY(-2px); }
-}
-
-.env-badge-star {
-  color: var(--sun-gold);
-  font-size: 0.82rem;
-}
-
-/* ==========================================================================
-   KHỐI PHONG BÌ 3D VẬT LÝ (THE 3D ENVELOPE)
-   ========================================================================== */
-.envelope-box {
-  position: relative;
-  width: clamp(310px, 88vw, 410px);
-  height: clamp(215px, 58vw, 275px);
-  perspective: 1200px;
-  transform-style: preserve-3d;
-  filter: drop-shadow(0 26px 55px rgba(0, 0, 0, 0.65)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.3));
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform 0.4s var(--ease-cinematic);
-  animation: envelopeIdleBreathing 6s ease-in-out infinite alternate;
-}
-
-@keyframes envelopeIdleBreathing {
-  0% {
-    transform: translateY(0px) rotateZ(0deg);
-  }
-  50% {
-    transform: translateY(-8px) rotateZ(0.6deg);
-  }
-  100% {
-    transform: translateY(2px) rotateZ(-0.4deg);
-  }
-}
-
-.envelope-box:hover {
-  transform: translateY(-6px) rotateX(2deg);
-}
-
-/* Mặt sau bao thư (Back wall) */
-.env-back {
-  position: absolute;
-  inset: 0;
-  background: #D1BFA8;
-  background-image:
-    radial-gradient(rgba(45, 36, 32, 0.05) 1px, transparent 0),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0.12) 100%);
-  background-size: 16px 16px, 100% 100%;
-  border-radius: 6px;
-  border: 1px solid rgba(45, 36, 32, 0.2);
-  z-index: 1;
-  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.18);
-}
-
-/* Cánh gấp hông trái & phải */
-.env-side-left,
-.env-side-right {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  z-index: 3;
-  pointer-events: none;
-}
-
-.env-side-left {
-  left: 0;
-  background: linear-gradient(135deg, #DFCEBA 0%, #D2BFAB 100%);
-  clip-path: polygon(0 0, 0 100%, 55% 50%);
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
-  filter: drop-shadow(2px 0 3px rgba(0, 0, 0, 0.06));
-}
-
-.env-side-right {
-  right: 0;
-  background: linear-gradient(-135deg, #DFCEBA 0%, #D2BFAB 100%);
-  clip-path: polygon(100% 0, 100% 100%, 18% 50%);
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-  filter: drop-shadow(-2px 0 3px rgba(0, 0, 0, 0.06));
-}
-
-/* Túi trước phong bì (Front Pocket) */
-.env-pocket-front {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 64%;
-  background: #E8D8C3;
-  background-image:
-    linear-gradient(180deg, #F0E2CF 0%, #E2D1BC 100%),
-    radial-gradient(rgba(45, 36, 32, 0.04) 1px, transparent 0);
-  background-size: 100% 100%, 14px 14px;
-  clip-path: polygon(0 28%, 50% 0%, 100% 28%, 100% 100%, 0% 100%);
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  border: 1px solid rgba(45, 36, 32, 0.18);
-  border-top: none;
-  z-index: 4;
-  box-shadow:
-    0 -3px 12px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 14px 16px;
-}
-
-/* Viền họa tiết bưu chính Airmail cổ điển */
-.env-airmail-strip {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 6px;
-  background: repeating-linear-gradient(
-    -45deg,
-    var(--vermilion) 0,
-    var(--vermilion) 10px,
-    #FAF6ED 10px,
-    #FAF6ED 16px,
-    var(--olive) 16px,
-    var(--olive) 26px,
-    #FAF6ED 26px,
-    #FAF6ED 32px
-  );
-  opacity: 0.85;
-}
-
-/* Con tem bưu chính Đà Nẵng dán góc */
-.env-vintage-stamp {
-  position: absolute;
-  top: 18px;
-  right: 14px;
-  display: flex;
-  align-items: center;
-  transform: rotate(3deg);
-  pointer-events: none;
-}
-
-.stamp-perforation {
-  background: #F7F1E1;
-  border: 1.5px dashed var(--vermilion);
-  padding: 4px 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-.stamp-num {
-  font-family: var(--font-display);
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--vermilion);
-  line-height: 1;
-}
-
-.stamp-name {
-  font-family: var(--font-mono);
-  font-size: 0.42rem;
-  letter-spacing: 0.1em;
-  color: var(--ink-brown);
-}
-
-.stamp-icon {
-  font-family: var(--font-serif);
-  font-size: 0.65rem;
-  color: var(--vermilion);
-  line-height: 1;
-}
-
-.stamp-postmark-ring {
-  position: absolute;
-  inset: -6px -10px;
-  border: 1px dashed rgba(45, 36, 32, 0.45);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: rotate(-18deg);
-  pointer-events: none;
-}
-
-.stamp-postmark-ring span {
-  font-family: var(--font-mono);
-  font-size: 0.38rem;
-  letter-spacing: 0.12em;
-  color: rgba(45, 36, 32, 0.55);
-}
-
-/* Nhãn địa chỉ viết tay */
-.env-address-label {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  max-width: 58%; /* Giữ khoảng cách an toàn, tuyệt đối không chạm hay đè lên con dấu sáp đỏ */
-  z-index: 2;
-  margin-bottom: 4px;
-  padding-top: 2rem;
-  padding-left: 0.85rem;
-}
-
-.addr-line-to {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-
-.addr-tag {
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.14em;
-  color: var(--ink-muted);
-  text-transform: uppercase;
-}
-
-.addr-recipient {
-  font-family: var(--font-script);
-  font-size: clamp(1.15rem, 3.6vw, 1.4rem);
-  font-weight: 700;
-  color: #2F1E19;
-  line-height: 1.35;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  word-break: break-word;
-}
-
-.addr-line-from {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.08em;
-  color: var(--olive);
-}
-
-/* ==========================================================================
-   NẮP PHONG BÌ TAM GIÁC 3D (TOP FLAP)
-   ========================================================================== */
-.env-flap-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 56%;
-  transform-origin: top center;
-  z-index: 8;
-  transform-style: preserve-3d;
-  transition: transform 0.85s var(--ease-paper-fold);
-  pointer-events: none;
-}
-
-.env-flap-triangle {
-  position: absolute;
-  inset: 0;
-  background: #E5D5BF;
-  background-image:
-    linear-gradient(180deg, #EDE0CF 0%, #D8C6AE 100%),
-    radial-gradient(rgba(45, 36, 32, 0.04) 1px, transparent 0);
-  background-size: 100% 100%, 14px 14px;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.18));
-}
-
-/* Khi mở: nắp lật ngược 180 độ ra phía sau & ẩn hẳn con dấu sáp + tem thư */
-.envelope-screen.flap-opened .env-flap-top {
-  transform: rotateX(180deg);
-  z-index: 1;
-}
-
-.envelope-screen.flap-opened .env-wax-seal,
-.envelope-screen.flap-opened .env-vintage-stamp {
-  opacity: 0 !important;
-  pointer-events: none !important;
-  transform: translate(-50%, -50%) scale(0.85) !important;
-  transition: opacity 0.35s ease, transform 0.35s ease !important;
-}
-
-/* ==========================================================================
-   TỜ THIỆP CƯỚI BÊN TRONG — SẼ TRƯỢT LÊN VÀ PHÓNG TO LẮP ĐẦY TOÀN MÀN HÌNH
-   ========================================================================== */
-.env-card {
-  position: absolute;
-  width: 90%;
-  height: 90%;
-  left: 5%;
-  top: 6%;
-  z-index: 2;
-  background: #FCF8F0;
-  background-image:
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.7) 0%, rgba(247, 239, 223, 0.95) 100%);
-  border-radius: 4px;
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.22),
-    0 2px 6px rgba(0, 0, 0, 0.1),
-    inset 0 0 0 1px rgba(212, 154, 50, 0.4);
-  transform-origin: center center;
-  will-change: transform, opacity;
-  overflow: hidden;
-  transition: transform 0.7s var(--ease-cinematic), box-shadow 0.7s var(--ease-cinematic);
-}
-
-.env-card.env-card-closed {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(24px);
-}
-
-.env-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: 14px 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-sizing: border-box;
-}
-
-/* Viền vàng đồng kép nghệ thuật & góc hoa văn */
-.env-card-gold-border {
-  position: absolute;
-  inset: 6px;
-  border: 1px solid rgba(212, 154, 50, 0.65);
-  outline: 1px dashed rgba(184, 71, 54, 0.35);
-  outline-offset: -4px;
-  pointer-events: none;
-}
-
-.env-card-gold-border::before,
-.env-card-gold-border::after {
-  content: "✦";
-  position: absolute;
-  font-size: 7px;
-  color: var(--sun-gold);
-  line-height: 1;
-}
-.env-card-gold-border::before {
-  top: 1px;
-  left: 2px;
-}
-.env-card-gold-border::after {
-  bottom: 1px;
-  right: 2px;
-}
-
-.env-card-top-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.14em;
-  color: var(--ink-muted);
-  position: relative;
-  z-index: 2;
-}
-
-.env-card-crest-mark {
-  font-family: var(--font-royal);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--vermilion);
-  line-height: 1;
-  text-shadow: 0 1px 2px rgba(184, 71, 54, 0.2);
-}
-
-/* Ảnh preview cặp đôi */
-.env-card-photo-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 130px;
-  margin: 0 auto;
-  aspect-ratio: 4 / 3;
-  border-radius: 2px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
-  border: 2px solid #FAF6ED;
-}
-
-.env-card-couple-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 25%;
-  filter: contrast(1.05) saturate(1.1);
-  display: block;
-}
-
-.env-card-photo-grain {
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cg)'/%3E%3C/svg%3E");
-  opacity: 0.12;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-}
-
-.env-card-photo-badge {
-  position: absolute;
-  bottom: 3px;
-  right: 4px;
-  font-family: var(--font-mono);
-  font-size: 0.42rem;
-  letter-spacing: 0.1em;
-  color: #FAF6ED;
-  background: rgba(45, 36, 32, 0.65);
-  padding: 1px 4px;
-  border-radius: 1px;
-}
-
-/* Tiêu đề thiệp */
-.env-card-text-block {
-  text-align: center;
-  position: relative;
-  z-index: 2;
-}
-
-.env-card-lead {
-  font-family: var(--font-mono);
-  font-size: 0.54rem;
-  letter-spacing: 0.2em;
-  color: var(--olive);
-  text-transform: uppercase;
-  margin-bottom: 2px;
-  font-weight: 600;
-}
-
-.env-card-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.18rem, 3.8vw, 1.55rem);
-  font-weight: 700;
-  color: var(--vermilion);
-  line-height: 1.35;
-  margin: 4px 0 6px;
-  letter-spacing: 0.02em;
-  text-shadow: 0 1px 2px rgba(184, 71, 54, 0.15);
-}
-
-.env-card-title .env-name {
-  display: inline-block;
-}
-
-.env-card-title .env-name.bride {
-  color: var(--vermilion-dark);
-}
-
-.env-card-title .env-amp {
-  font-family: var(--font-script);
-  font-size: 1.35rem;
-  color: var(--sun-gold);
-  font-weight: 400;
-  margin: 0 6px;
-  vertical-align: baseline;
-}
-
-.env-card-quote {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--ink-muted);
-  line-height: 1.45;
-  margin-bottom: 6px;
-}
-
-.env-card-solar-date {
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.14em;
-  color: var(--ink-brown);
-  font-weight: 600;
-}
-
-.env-card-bottom-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: var(--font-mono);
-  font-size: 0.48rem;
-  letter-spacing: 0.12em;
-  color: var(--ink-faint);
-  position: relative;
-  z-index: 2;
-}
-
-/* ==========================================================================
-   TEM SÁP SON ĐỎ 3D (THE WAX SEAL)
-   ========================================================================== */
-.env-wax-seal {
-  position: absolute;
-  top: 52%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #E85D48, #B83A2A 55%, #75170E 90%);
-  border: 2px solid #581108;
-  box-shadow:
-    inset 0 2px 4px rgba(255, 255, 255, 0.4),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.5),
-    0 10px 28px rgba(184, 58, 42, 0.65),
-    0 0 40px rgba(200, 157, 102, 0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.env-wax-seal:hover {
-  transform: translate(-50%, -50%) scale(1.08);
-  box-shadow:
-    inset 0 3px 6px rgba(255, 255, 255, 0.5),
-    inset 0 -3px 6px rgba(0, 0, 0, 0.55),
-    0 14px 38px rgba(184, 71, 54, 0.8),
-    0 0 60px rgba(212, 154, 50, 0.5);
-}
-
-/* Biến mất lập tức khi mở phong bì để không đè lên thiệp cưới */
-.envelope-screen.is-opening .env-header-badge,
-.envelope-screen.is-opening .env-vintage-stamp,
-.envelope-screen.is-opening .env-wax-seal,
-.envelope-screen.is-opening .env-controls-group,
-.envelope-screen.is-opening .env-address-label {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  transform: scale(0.85);
-  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
-  pointer-events: none !important;
-}
-
-.wax-seal-surface {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #FFF3DD;
-  pointer-events: none;
-}
-
-.seal-character {
-  font-family: var(--font-royal);
-  font-size: 1.85rem;
-  line-height: 1;
-  font-weight: 700;
-  color: #FFF6E5;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.seal-orbit-text {
-  font-family: var(--font-mono);
-  font-size: 0.42rem;
-  letter-spacing: 0.16em;
-  margin-top: 1px;
-  color: #FFE5A3;
-  font-weight: 600;
-}
-
-.wax-pulse-ring {
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  border: 1px dashed rgba(212, 154, 50, 0.6);
-  animation: pulseWax 3s ease-in-out infinite;
-  pointer-events: none;
-}
-
-.wax-pulse-ring.ring-2 {
-  inset: -18px;
-  border-color: rgba(212, 154, 50, 0.3);
-  animation-delay: 1.5s;
-}
-
-@keyframes pulseWax {
-  0%, 100% { transform: scale(1); opacity: 0.35; }
-  50% { transform: scale(1.15); opacity: 0.85; }
-}
-
-/* Ánh sáng quét bóng bẩy qua con dấu sáp đỏ */
-.wax-shimmer-sweep {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.wax-shimmer-sweep::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -120%;
-  width: 70%;
-  height: 200%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.5) 50%,
-    transparent 100%
-  );
-  transform: rotate(28deg);
-  animation: waxShimmerSweep 3.2s ease-in-out infinite;
-}
-
-@keyframes waxShimmerSweep {
-  0%, 35% { left: -120%; opacity: 0; }
-  50% { opacity: 1; }
-  70%, 100% { left: 150%; opacity: 0; }
-}
-
-/* Mảnh sáp vật lý nứt vỡ khi mở */
-.wax-shard {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  background: radial-gradient(circle at 30% 30%, #E85D48, #B83522 60%, #63140C);
-  border: 1px solid #4A1009;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.3);
-}
-
-/* Sóng xung kích vàng tỏa ra khi mở phong bì */
-.wax-shockwave-ring {
-  position: fixed;
-  border-radius: 50%;
-  border: 2px solid rgba(212, 154, 50, 0.85);
-  box-shadow: 0 0 35px rgba(212, 154, 50, 0.55), inset 0 0 25px rgba(184, 71, 54, 0.45);
-  pointer-events: none;
-  z-index: 9990;
-  transform: translate(-50%, -50%);
-}
-
-/* ==========================================================================
-   ĐIỀU KHIỂN & HÀNH ĐỘNG DƯỚI PHONG BÌ
-   ========================================================================== */
-.env-controls-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  margin-top: 26px;
-  text-align: center;
-}
-
-.open-envelope-trigger {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--vermilion);
-  color: #FAF6ED;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 13px 30px;
-  border-radius: 999px;
-  font-family: var(--font-mono);
-  font-size: 0.86rem;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(184, 71, 54, 0.45);
-  transition: all 0.3s ease;
-}
-
-.open-envelope-trigger:hover {
-  background: var(--vermilion-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(184, 71, 54, 0.58);
-}
-
-.btn-dot {
-  color: var(--sun-gold-light);
-}
-
-.btn-arrow {
-  display: inline-block;
-  min-width: 1.25em;
-  overflow: visible;
-  line-height: 1;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.skip-envelope-trigger {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  background: transparent;
-  border: none;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  color: rgba(250, 246, 237, 0.45);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  cursor: pointer;
-  padding: 6px 14px;
-  white-space: nowrap;
-  transition: color 0.2s;
-}
-
-.skip-envelope-trigger:hover {
-  color: rgba(250, 246, 237, 0.85);
-}
-
-.env-instruction-hint {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 0.86rem;
-  color: rgba(250, 246, 237, 0.55);
-  max-width: 320px;
-  line-height: 1.4;
-}
-
-/* Màn rèm chuyển tiếp mượt mà — TẮT HOÀN TOÀN để tránh màn hình đen 1 giây */
-.intro-curtain-screen {
-  position: absolute;
-  inset: 0;
-  display: none !important;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0 !important;
-}
-
-/* Trạng thái đã mở hoàn tất */
-.invite-open .envelope-screen {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  display: none !important;
 }
 
 /* ==========================================================================
@@ -1562,8 +728,6 @@ body.invite-open {
   margin-top: 40px;
   position: relative;
   box-shadow: 0 12px 32px -8px rgba(62, 39, 35, 0.07);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  will-change: transform, opacity;
 }
 
 .film-chapter-card::before {
@@ -1949,6 +1113,7 @@ body.invite-open {
 .ticket-header-strip {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   margin-bottom: 2px;
 }
@@ -2021,14 +1186,17 @@ body.invite-open {
 
 .ticket-date-row {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  text-align: center;
+  gap: 4px;
 }
 
 .ticket-content .solar-date-item {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 6px;
 }
 
@@ -2041,30 +1209,40 @@ body.invite-open {
   letter-spacing: 0.1em;
   padding: 3px 8px;
   border-radius: 4px;
+  white-space: nowrap;
 }
 
 .ticket-content .date-string {
   font-family: var(--font-serif);
-  font-size: clamp(0.95rem, 2.6vw, 1.12rem);
+  font-size: clamp(0.92rem, 2.5vw, 1.1rem);
   color: #5B1D1D;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .ticket-content .lunar-date-item {
   font-family: var(--font-sans);
   font-size: 0.78rem;
   color: #7A5B4C;
+  text-align: center;
 }
 
 .ticket-cinema-meta {
   font-family: var(--font-mono);
   font-size: 0.62rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: #7A5B4C;
-  margin-top: 6px;
+  margin-top: 8px;
   display: flex;
-  gap: 6px;
-  opacity: 0.85;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  gap: 3px 6px;
+  opacity: 0.9;
+}
+
+.ticket-cinema-meta span {
+  white-space: nowrap;
 }
 
 .hero-poetic-quote {
@@ -2492,10 +1670,11 @@ body.invite-open {
 
 .letter-postmark-stamp {
   position: absolute;
-  bottom: 22px;
-  right: 22px;
-  width: 62px;
-  height: 62px;
+  bottom: 20px;
+  left: 20px;
+  right: auto;
+  width: 60px;
+  height: 60px;
   border: 1.5px solid var(--vermilion);
   border-radius: 50%;
   display: grid;
@@ -2599,48 +1778,51 @@ body.invite-open {
 .polaroid-scrapbook-card {
   position: -webkit-sticky;
   position: sticky;
-  margin-bottom: 46px;
+  margin-bottom: 52px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
-  will-change: transform;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Thứ tự tầng và độ lệch khi xếp chồng sticky */
+/* Thứ tự tầng và độ lệch khi xếp chồng sticky — chừa lộ rõ huy hiệu năm */
 .polaroid-scrapbook-card[data-index="0"] {
-  top: 85px;
+  top: 66px;
   z-index: 10;
-  transform: rotate(-1.5deg);
+  transform: rotate(-1.4deg);
 }
 
 .polaroid-scrapbook-card[data-index="1"] {
-  top: 104px;
+  top: 82px;
   z-index: 11;
-  transform: rotate(1.8deg);
+  transform: rotate(1.5deg);
 }
 
 .polaroid-scrapbook-card[data-index="2"] {
-  top: 123px;
+  top: 98px;
   z-index: 12;
-  transform: rotate(-1.2deg);
+  transform: rotate(-1.1deg);
 }
 
 .polaroid-scrapbook-card[data-index="3"] {
-  top: 142px;
+  top: 114px;
   z-index: 13;
-  transform: rotate(1.6deg);
+  transform: rotate(1.3deg);
 }
 
 .polaroid-scrapbook-card[data-index="4"] {
-  top: 161px;
+  top: 130px;
   z-index: 14;
-  transform: rotate(-0.5deg);
+  transform: rotate(-0.4deg);
 }
 
-.polaroid-scrapbook-card.is-focused,
-.polaroid-scrapbook-card:hover {
-  transform: rotate(0deg) scale(1.02) !important;
-  z-index: 5;
+.polaroid-scrapbook-card.is-focused {
+  transform: rotate(0deg) scale(1.015) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .polaroid-scrapbook-card:hover {
+    transform: rotate(0deg) scale(1.015) !important;
+  }
 }
 
 /* Floating Year Pill Badge */
@@ -2660,12 +1842,12 @@ body.invite-open {
   box-shadow: 0 4px 14px rgba(184, 58, 42, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.4);
   transform-origin: center;
-  transition: transform 0.4s var(--ease-spring);
+  transition: transform 0.35s var(--ease-spring), background 0.25s ease;
 }
 
 .polaroid-scrapbook-card:hover .polaroid-year-pill,
 .polaroid-scrapbook-card.is-focused .polaroid-year-pill {
-  transform: scale(1.12);
+  transform: scale(1.1);
   background: var(--vermilion-dark);
 }
 
@@ -2673,13 +1855,14 @@ body.invite-open {
 .polaroid-physical-frame,
 .polaroid-photo-frame {
   background: #FFFDF9;
-  border: 1px solid rgba(166, 124, 82, 0.22);
-  border-radius: 4px;
+  border: 1px solid rgba(166, 124, 82, 0.24);
+  border-radius: 6px;
   padding: 10px 10px 18px;
   box-shadow:
-    0 10px 24px -6px rgba(62, 39, 35, 0.12),
-    0 2px 6px rgba(62, 39, 35, 0.06);
-  transition: box-shadow 0.4s ease;
+    0 14px 32px -8px rgba(45, 28, 20, 0.16),
+    0 3px 10px rgba(45, 28, 20, 0.08);
+  transform-origin: center top;
+  will-change: transform, opacity;
 }
 
 .polaroid-scrapbook-card:hover .polaroid-physical-frame,

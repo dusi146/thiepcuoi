@@ -1,0 +1,18 @@
+{
+  "name": "ponytail",
+  "displayName": "Ponytail 5",
+  "version": "5.3.3",
+  "description": "Lazy senior dev mode. Forces the simplest, shortest solution that actually works: YAGNI, stdlib first, one line over fifty.",
+  "logo": "assets/logo.png",
+  "author": "Dietrich Gebert",
+  "homepage": "https://github.com/DietrichGebert/ponytail",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DietrichGebert/ponytail.git"
+  },
+  "suggestedPrompts": [
+    "/ponytail",
+    "/ponytail-review",
+    "/ponytail-audit"
+  ]
+}
