@@ -892,43 +892,140 @@ body.invite-open {
   gap: 8px;
 }
 
-/* Con tem bưu điện Đà Nẵng góc ảnh */
+/* Con tem bưu điện cổ Nghệ An - Chi tiết tinh xảo & Dấu nhật ấn */
 .hero-postal-seal {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 76px;
-  height: 90px;
-  background: #F4E8D3;
-  border: 1px dashed var(--vermilion);
+  top: 16px;
+  right: 16px;
+  width: 88px;
+  min-height: 112px;
+  background-color: #F8EFE1;
+  /* Viền răng cưa tem thư cổ điển chuẩn bưu chính */
+  border: 3px solid #F8EFE1;
+  outline: 1.5px dashed rgba(168, 50, 36, 0.55);
+  outline-offset: -3px;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.12),
+    0 10px 24px rgba(45, 36, 32, 0.28);
+  transform: rotate(6.5deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  box-sizing: border-box;
+  z-index: 4;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+}
+
+.seal-inner-frame {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(168, 50, 36, 0.65);
+  box-sizing: border-box;
+  padding: 6px 3px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  color: var(--vermilion, #9E2A2B);
+  background: radial-gradient(circle at center, rgba(255, 250, 240, 0.8) 0%, rgba(244, 232, 211, 0.5) 100%);
+  position: relative;
+}
+
+.seal-country {
+  font-family: var(--font-mono, 'Courier New', monospace);
+  font-size: 0.46rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: var(--vermilion, #9E2A2B);
+}
+
+.seal-star-divider {
+  font-size: 0.42rem;
+  letter-spacing: 0.25em;
+  color: var(--gold-accent, #B8860B);
+  line-height: 1;
+  margin: 1px 0;
+  opacity: 0.85;
+}
+
+.seal-year {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: 1.85rem;
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--vermilion, #8B261E);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+  margin: 2px 0 1px;
+}
+
+.seal-stamp-mark {
+  font-family: var(--font-mono, 'Courier New', monospace);
+  font-size: 0.44rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--vermilion, #9E2A2B);
+}
+
+.seal-submark {
+  font-family: var(--font-mono, 'Courier New', monospace);
+  font-size: 0.38rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted, #7A6F68);
+  line-height: 1;
+  margin-top: 1px;
+}
+
+/* Dấu hủy bưu điện mộc tròn & lượn sóng */
+.postal-cancellation-mark {
+  position: absolute;
+  top: -12px;
+  right: -16px;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 1.2px solid rgba(139, 38, 30, 0.38);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--vermilion);
-  transform: rotate(8deg);
-  box-shadow: 0 6px 18px rgba(45, 36, 32, 0.2);
-}
-
-.seal-country {
-  font-family: var(--font-mono);
-  font-size: 0.48rem;
-  letter-spacing: 0.1em;
-  text-align: center;
-}
-
-.seal-year {
-  font-family: var(--font-display);
-  font-size: 1.7rem;
-  line-height: 1;
+  pointer-events: none;
+  transform: rotate(-15deg);
+  font-family: var(--font-mono, monospace);
+  color: rgba(139, 38, 30, 0.48);
+  font-size: 0.42rem;
   font-weight: 700;
-  margin: 2px 0;
+  letter-spacing: 0.1em;
+  line-height: 1.15;
+  box-shadow: inset 0 0 0 1.5px rgba(139, 38, 30, 0.15);
 }
 
-.seal-stamp-mark {
-  font-family: var(--font-mono);
-  font-size: 0.48rem;
-  letter-spacing: 0.08em;
+.postal-cancellation-mark .cancel-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.postal-cancellation-mark .cancel-waves {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 2px;
+}
+
+.postal-cancellation-mark .cancel-waves span {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: rgba(139, 38, 30, 0.35);
+  border-radius: 1px;
 }
 
 /* Khối nội dung chữ nghệ thuật bên dưới */
@@ -2276,6 +2373,7 @@ body.invite-open {
   font-weight: 700;
   display: block;
   margin-bottom: 6px;
+  padding-right: 72px;
 }
 
 .nature-gold {

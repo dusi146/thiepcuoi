@@ -764,8 +764,8 @@ if (document.readyState === 'loading') {
 }
 
 // 4. ĐỒNG HỒ ĐẾM NGƯỢC THỜI GIAN THỰC (COUNTDOWN TIMER)
-// 10:30 AM Thứ Tư, 25.11.2026 GMT+7
-const targetDate = new Date('2026-11-25T10:30:00+07:00').getTime();
+// 11:30 AM Thứ Tư, 25.11.2026 GMT+7
+const targetDate = new Date('2026-11-25T11:30:00+07:00').getTime();
 const countNodes = {
   days: document.querySelector('[data-count="days"]'),
   hours: document.querySelector('[data-count="hours"]'),
@@ -815,8 +815,8 @@ window.setInterval(updateCountdown, 1000);
 function openGoogleCalendar() {
   const title = encodeURIComponent('Lễ Cưới Văn Tiến & Bảo Châu');
   const details = encodeURIComponent('Trân trọng kính mời bạn đến chung vui trong ngày hạnh phúc của Văn Tiến & Bảo Châu tại Nghệ An.');
-  const location = encodeURIComponent('Tư gia Nhà Trai / Nhà Gái, Xã Đại Đồng, Huyện Thanh Chương, Tỉnh Nghệ An');
-  const start = '20261125T033000Z';
+  const location = encodeURIComponent('Nhà Văn Hóa Thôn Dùng II & Tư gia hai họ, Xã Đại Đồng, Tỉnh Nghệ An');
+  const start = '20261125T043000Z';
   const end = '20261125T140000Z';
 
   const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
@@ -834,11 +834,11 @@ function downloadWeddingIcs() {
     'BEGIN:VEVENT',
     'UID:vuquy-20261124-tienchau@duvansi.me',
     'DTSTAMP:20261109T000000Z',
-    'DTSTART:20261124T043000Z',
+    'DTSTART:20261124T040000Z',
     'DTEND:20261124T070000Z',
     'SUMMARY:Lễ Vu Quy — Văn Tiến & Bảo Châu',
-    'DESCRIPTION:Kính mời dự Lễ Vu Quy và chung vui bữa cơm thân mật cùng gia đình Nhà Gái tại Thôn Dùng 1, Xã Đại Đồng, Tỉnh Nghệ An.',
-    'LOCATION:Tư gia Nhà Gái — Thôn Dùng 1, Xã Đại Đồng, Tỉnh Nghệ An',
+    'DESCRIPTION:Kính mời dự Lễ Vu Quy và chung vui bữa cơm thân mật cùng gia đình Nhà Gái tại Nhà Văn Hóa Thôn Dùng I (1A cũ) & Tư gia Nhà Gái, Xã Đại Đồng, Tỉnh Nghệ An.',
+    'LOCATION:Nhà Văn Hóa Thôn Dùng I (1A cũ), Xã Đại Đồng, Tỉnh Nghệ An',
     'BEGIN:VALARM',
     'ACTION:DISPLAY',
     'DESCRIPTION:Nhắc nhở ngày mai có Lễ Vu Quy Văn Tiến & Bảo Châu',
@@ -848,11 +848,11 @@ function downloadWeddingIcs() {
     'BEGIN:VEVENT',
     'UID:thanhhon-20261125-tienchau@duvansi.me',
     'DTSTAMP:20261109T000000Z',
-    'DTSTART:20261125T033000Z',
+    'DTSTART:20261125T043000Z',
     'DTEND:20261125T070000Z',
     'SUMMARY:Lễ Thành Hôn — Văn Tiến & Bảo Châu',
-    'DESCRIPTION:Trân trọng kính mời bạn đến chung vui Lễ Thành Hôn và tiệc cưới cùng gia đình Nhà Trai tại Thôn Dùng 2, Xã Đại Đồng, Tỉnh Nghệ An.',
-    'LOCATION:Tư gia Nhà Trai — Thôn Dùng 2, Xã Đại Đồng, Tỉnh Nghệ An',
+    'DESCRIPTION:Trân trọng kính mời bạn đến chung vui Lễ Thành Hôn và tiệc cưới cùng gia đình Nhà Trai tại Nhà Văn Hóa Thôn Dùng II (3A cũ) & Tư gia Nhà Trai, Xã Đại Đồng, Tỉnh Nghệ An.',
+    'LOCATION:Nhà Văn Hóa Thôn Dùng II (3A cũ), Xã Đại Đồng, Tỉnh Nghệ An',
     'BEGIN:VALARM',
     'ACTION:DISPLAY',
     'DESCRIPTION:Nhắc nhở ngày mai có Lễ Thành Hôn Văn Tiến & Bảo Châu',

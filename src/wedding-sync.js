@@ -93,21 +93,21 @@
       brideFather: 'Ông Phạm Văn Ba',
       brideMother: 'Bà Nguyễn Thị Chung',
       brideAddress: 'Thôn Dùng 1, Xã Đại Đồng, Tỉnh Nghệ An',
-      vuQuyTime: '11:30 Trưa',
+      vuQuyTime: '11:00 Trưa',
       vuQuyDate: 'Thứ Ba, 24.11.2026',
       vuQuyLunar: '16 tháng 10 năm Bính Ngọ',
-      vuQuyAddress: 'Tư gia Nhà Gái — Thôn Dùng 1, Xã Đại Đồng, Tỉnh Nghệ An',
+      vuQuyAddress: 'Nhà Văn Hóa Thôn Dùng I (1A cũ), Xã Đại Đồng, Tỉnh Nghệ An (Tư gia: Thôn Dùng 1)',
       vuQuyMap: 'https://maps.google.com/?q=Dai+Dong+Thanh+Chuong+Nghe+An',
-      thanhHonTime: '10:30 Trưa',
+      thanhHonTime: '11:30 Trưa',
       thanhHonDate: 'Thứ Tư, 25.11.2026',
-      thanhHonAddress: 'Tư gia Nhà Trai — Thôn Dùng 2, Xã Đại Đồng, Tỉnh Nghệ An',
-      thanhHonMap: 'https://maps.google.com/?q=Dai+Dong+Thanh+Chuong+Nghe+An',
+      thanhHonAddress: 'Nhà Văn Hóa Thôn Dùng II (Khối 3A cũ), Xã Đại Đồng, Tỉnh Nghệ An (Tư gia: Thôn Đồng Văn 1)',
+      thanhHonMap: 'https://maps.app.goo.gl/gYab7jgV7uYkqVxw7?g_st=afm',
       tiecDonKhach: '11:00',
       tiecKhaiTiec: '11:30',
-      tiecVenue: 'Tư Gia Hai Họ',
-      tiecHall: 'Hôn Trường Gia Đình',
-      tiecAddress: 'Xã Đại Đồng, Huyện Thanh Chương, Tỉnh Nghệ An',
-      tiecMap: 'https://maps.google.com/?q=Dai+Dong+Thanh+Chuong+Nghe+An',
+      tiecVenue: 'Nhà Văn Hóa & Tư Gia Hai Họ',
+      tiecHall: 'Thôn Dùng 1 & Thôn Dùng 2',
+      tiecAddress: 'Xã Đại Đồng, Tỉnh Nghệ An',
+      tiecMap: 'https://maps.app.goo.gl/gYab7jgV7uYkqVxw7?g_st=afm',
       groomBank: 'Vietcombank',
       groomAccNumber: '1018899999',
       groomAccName: 'NGUYEN VAN TIEN',
@@ -308,8 +308,8 @@
       if (el) el.textContent = d.brideAddress;
     }
 
-    // 8. Ngày cưới chung
-    const mainDate = d.vuQuyDate || d.thanhHonDate;
+    // 8. Ngày cưới chung (ưu tiên ngày Thành Hôn 25.11)
+    const mainDate = d.thanhHonDate || d.vuQuyDate;
     if (mainDate) {
       // Ngày ngắn (ví dụ 18.12.2027 -> 18.12)
       const dateMatch = mainDate.match(/\d{1,2}[\.\/]\d{1,2}([\.\/]\d{4})?/);
@@ -338,12 +338,22 @@
           ticketDate.textContent = mainDate.toUpperCase();
         }
       }
+      const ticketCode = document.querySelector('#heroAdmissionTicket .ticket-code');
+      if (ticketCode) {
+        ticketCode.textContent = 'Nº 2511';
+      }
       const envSolar = document.querySelector('.env-card-solar-date span');
       if (envSolar) envSolar.textContent = mainDate.toUpperCase();
     }
-    if (d.vuQuyLunar) {
-      const lunarEl = document.querySelector('#heroAdmissionTicket .lunar-date-item span');
-      if (lunarEl) lunarEl.textContent = `Nhằm ngày ${d.vuQuyLunar.replace(/^Nhằm ngày\s*/i, '')}`;
+    const lunarEl = document.querySelector('#heroAdmissionTicket .lunar-date-item span');
+    if (lunarEl) {
+      if (d.vuQuyLunar && d.thanhHonLunar) {
+        lunarEl.textContent = `(16 & 17 tháng 10 năm Bính Ngọ · Chính lễ 25.11)`;
+      } else if (d.vuQuyLunar && d.vuQuyLunar.includes('16')) {
+        lunarEl.textContent = `(16 & 17 tháng 10 năm Bính Ngọ · Chính lễ 25.11)`;
+      } else if (d.vuQuyLunar) {
+        lunarEl.textContent = `(Nhằm ngày ${d.vuQuyLunar.replace(/^Nhằm ngày\s*/i, '')})`;
+      }
     }
 
     // 9. Lịch trình hôn lễ
