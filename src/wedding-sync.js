@@ -97,17 +97,17 @@
       vuQuyDate: 'Thứ Ba, 24.11.2026',
       vuQuyLunar: '16 tháng 10 năm Bính Ngọ',
       vuQuyAddress: 'Nhà Văn Hóa Thôn Dùng I (1A cũ), Xã Đại Đồng, Tỉnh Nghệ An (Tư gia: Thôn Dùng 1)',
-      vuQuyMap: 'https://maps.google.com/?q=Dai+Dong+Thanh+Chuong+Nghe+An',
+      vuQuyMap: 'https://maps.app.goo.gl/PopFRA3yGgghnVxY7',
       thanhHonTime: '11:30 Trưa',
       thanhHonDate: 'Thứ Tư, 25.11.2026',
       thanhHonAddress: 'Nhà Văn Hóa Thôn Dùng II (Khối 3A cũ), Xã Đại Đồng, Tỉnh Nghệ An (Tư gia: Thôn Đồng Văn 1)',
       thanhHonMap: 'https://maps.app.goo.gl/gYab7jgV7uYkqVxw7?g_st=afm',
       tiecDonKhach: '11:00',
       tiecKhaiTiec: '11:30',
-      tiecVenue: 'Nhà Văn Hóa & Tư Gia Hai Họ',
-      tiecHall: 'Thôn Dùng 1 & Thôn Dùng 2',
+      tiecVenue: 'Nhà Văn Hóa Thôn Dùng II (Khối 3A cũ)',
+      tiecHall: '',
       tiecAddress: 'Xã Đại Đồng, Tỉnh Nghệ An',
-      tiecMap: 'https://maps.app.goo.gl/gYab7jgV7uYkqVxw7?g_st=afm',
+      tiecMap: 'https://maps.app.goo.gl/QnGKXhs52o25HWMNA',
       groomBank: 'Vietcombank',
       groomAccNumber: '1018899999',
       groomAccName: 'NGUYEN VAN TIEN',
@@ -409,7 +409,7 @@
       if (d.tiecAddress) {
         const addr = tiles[2].querySelector('.loc-address');
         if (addr) {
-          addr.textContent = d.tiecHall ? `${d.tiecHall} · ${d.tiecAddress}` : d.tiecAddress;
+          addr.textContent = (d.tiecHall && d.tiecHall !== d.tiecVenue) ? `${d.tiecHall} · ${d.tiecAddress}` : d.tiecAddress;
         }
       }
       if (d.tiecMap) {
