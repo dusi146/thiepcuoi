@@ -121,8 +121,20 @@
     // Kiểm tra và dọn dẹp các giá trị demo cũ còn đọng trong localStorage
     const savedVuQuy = localStorage.getItem('wedding_form_vuQuyDate');
     const savedBride = localStorage.getItem('wedding_form_brideFullName');
-    if (savedVuQuy && savedVuQuy.includes('18.12.2027') || (savedBride && savedBride.includes('Lê Thị Bảo Châu'))) {
-      localStorage.clear();
+    const savedGroomAcc = localStorage.getItem('wedding_form_groomAccNumber');
+    const savedBrideAcc = localStorage.getItem('wedding_form_brideAccNumber');
+    if (
+      (savedVuQuy && savedVuQuy.includes('18.12.2027')) ||
+      (savedBride && savedBride.includes('Lê Thị Bảo Châu')) ||
+      savedGroomAcc === '1018899999' ||
+      savedBrideAcc === '0905181227'
+    ) {
+      localStorage.removeItem('wedding_form_groomBank');
+      localStorage.removeItem('wedding_form_groomAccNumber');
+      localStorage.removeItem('wedding_form_groomAccName');
+      localStorage.removeItem('wedding_form_brideBank');
+      localStorage.removeItem('wedding_form_brideAccNumber');
+      localStorage.removeItem('wedding_form_brideAccName');
       data = {};
     }
 
@@ -539,18 +551,23 @@
     const frame = document.querySelector(selector);
     if (!frame) return;
 
-    // Chuẩn hóa tên bank (loại bỏ ký tự thừa)
-    const cleanBank = bank.trim().replace(/\s+/g, '').toUpperCase();
-    const cleanAcc = acc.trim();
-    const cleanName = encodeURIComponent((name || '').trim().toUpperCase());
+    let img = frame.querySelector('img.qr-img-art, img.dynamic-vietqr');
+    const cleanAcc = (acc || '').trim();
 
-    // Nếu là tài khoản mặc định chính thức của Tiến & Châu, giữ ảnh QR gốc độ nét cao
-    if ((cleanAcc === '2141954296' && selector.includes('Groom')) || (cleanAcc === '5110451392' && selector.includes('Bride'))) {
+    // Tài khoản chính thức của Tiến & Châu: Luôn dùng ảnh QR gốc nội bộ siêu tốc, không bao giờ qua API ngoài
+    if (selector.includes('Groom') || cleanAcc === '2141954296') {
+      if (img) img.src = './photo/qr-groom.jpg';
+      return;
+    }
+    if (selector.includes('Bride') || cleanAcc === '5110451392') {
+      if (img) img.src = './photo/qr-bride.jpg';
       return;
     }
 
+    // Trường hợp đổi số tài khoản khác hẳn trong trang nhập liệu
+    const cleanBank = (bank || '').trim().replace(/\s+/g, '').toUpperCase();
+    const cleanName = encodeURIComponent((name || '').trim().toUpperCase());
     const qrUrl = `https://img.vietqr.io/image/${cleanBank}-${cleanAcc}-compact.png?accountName=${cleanName}`;
-    let img = frame.querySelector('img.qr-img-art, img.dynamic-vietqr');
     if (!img) {
       img = document.createElement('img');
       img.className = 'qr-img-art dynamic-vietqr';

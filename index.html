@@ -13,6 +13,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@600;700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+TC:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700&display=swap" rel="stylesheet" />
 
+  <link rel="preload" href="./photo/qr-groom.jpg" as="image" fetchpriority="high" />
+  <link rel="preload" href="./photo/qr-bride.jpg" as="image" fetchpriority="high" />
+
   <link rel="stylesheet" href="./assets/wedding.css" />
   <script type="module" crossorigin src="./assets/wedding.js"></script>
   <script>
@@ -922,7 +925,7 @@
               <div class="silk-qr-holder">
                 <!-- Mã QR VietQR thiết kế cổ điển dạng tem thư -->
                 <div class="qr-vintage-frame">
-                  <img src="./photo/qr-groom.jpg" class="qr-img-art" alt="Mã QR VietQR Chuyển khoản mừng chú rể Văn Tiến - BIDV 2141954296" loading="lazy" />
+                  <img src="./photo/qr-groom.jpg" class="qr-img-art" alt="Mã QR VietQR Chuyển khoản mừng chú rể Văn Tiến - BIDV 2141954296" loading="eager" decoding="sync" fetchpriority="high" onerror="this.onerror=null;this.src='./photo/qr-groom.jpg';" />
                 </div>
                 <span class="qr-caption-text">Quét mã QR VietQR trên ứng dụng Ngân hàng</span>
               </div>
@@ -966,7 +969,7 @@
             <div class="silk-card-body">
               <div class="silk-qr-holder">
                 <div class="qr-vintage-frame">
-                  <img src="./photo/qr-bride.jpg" class="qr-img-art" alt="Mã QR VietQR Chuyển khoản mừng cô dâu Bảo Châu - BIDV 5110451392" loading="lazy" />
+                  <img src="./photo/qr-bride.jpg" class="qr-img-art" alt="Mã QR VietQR Chuyển khoản mừng cô dâu Bảo Châu - BIDV 5110451392" loading="eager" decoding="sync" fetchpriority="high" onerror="this.onerror=null;this.src='./photo/qr-bride.jpg';" />
                 </div>
                 <span class="qr-caption-text">Quét mã QR VietQR trên ứng dụng Ngân hàng</span>
               </div>

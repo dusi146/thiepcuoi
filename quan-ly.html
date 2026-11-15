@@ -791,7 +791,7 @@
         
         <div class="form-group">
           <label for="cfgSheetUrl">GOOGLE APPS SCRIPT WEB APP URL</label>
-          <input type="text" id="cfgSheetUrl" class="form-control" placeholder="https://script.google.com/macros/s/.../exec" />
+          <input type="text" id="cfgSheetUrl" class="form-control" value="https://script.google.com/macros/s/AKfyby7AiQwSnKqV4-F-vf0Y3qP--mbv67iGsMwnleex4CJPaMViwgk5aajYejxTg7cP6Os/exec" placeholder="https://script.google.com/macros/s/.../exec" />
         </div>
 
         <div style="background: var(--bg-cream); border: 1px dashed var(--border-color); border-radius: 6px; padding: 14px; margin-bottom: 20px;">
@@ -824,7 +824,8 @@
 }</pre>
           </div>
           <ol start="3" style="margin-left: 20px; font-size: 0.92rem; color: var(--ink-muted); line-height: 1.6;">
-            <li>Bấm <strong>Triển khai (Deploy) → Tùy chọn triển khai mới (New deployment) → Chọn loại: Ứng dụng web (Web App)</strong>. Mục <em>Ai có quyền truy cập (Who has access)</em> chọn <strong>Bất kỳ ai (Anyone)</strong> → Bấm Triển khai và copy đường link dán vào ô bên trên.</li>
+            <li>Bấm <strong>Triển khai (Deploy) → Tùy chọn triển khai mới (New deployment) → Chọn loại: Ứng dụng web (Web App)</strong>.</li>
+            <li><strong style="color: var(--vermilion);">⚠️ QUAN TRỌNG:</strong> Mục <em>Ai có quyền truy cập (Who has access)</em>, bạn <strong>bắt buộc phải chọn "Bất kỳ ai" (Anyone)</strong> để khách gửi thiệp không bị Google chặn quyền truy cập (lỗi 404).</li>
           </ol>
         </div>
 
@@ -1181,7 +1182,7 @@
     function loadSettingsToForm() {
       const cfg = WeddingDB.loadConfig();
       if (cfgFirebaseUrl) cfgFirebaseUrl.value = cfg.firebaseUrl || '';
-      if (cfgSheetUrl) cfgSheetUrl.value = cfg.sheetUrl || '';
+      if (cfgSheetUrl) cfgSheetUrl.value = cfg.sheetUrl || 'https://script.google.com/macros/s/AKfyby7AiQwSnKqV4-F-vf0Y3qP--mbv67iGsMwnleex4CJPaMViwgk5aajYejxTg7cP6Os/exec';
       if (cfgAdminPin) cfgAdminPin.value = cfg.adminPin || '2511';
     }
     loadSettingsToForm();
