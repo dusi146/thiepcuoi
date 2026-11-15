@@ -2883,10 +2883,13 @@ body.invite-open {
   box-shadow: 0 4px 16px rgba(62, 39, 35, 0.08);
 }
 
-.qr-svg-art {
+.qr-svg-art,
+.qr-img-art {
   width: 100%;
   height: 100%;
+  object-fit: contain;
   display: block;
+  border-radius: 6px;
 }
 
 .qr-caption-text {

@@ -108,11 +108,11 @@
       tiecHall: '',
       tiecAddress: 'Xã Đại Đồng, Tỉnh Nghệ An',
       tiecMap: 'https://maps.app.goo.gl/QnGKXhs52o25HWMNA',
-      groomBank: 'Vietcombank',
-      groomAccNumber: '1018899999',
+      groomBank: 'BIDV',
+      groomAccNumber: '2141954296',
       groomAccName: 'NGUYEN VAN TIEN',
-      brideBank: 'MB Bank',
-      brideAccNumber: '0905181227',
+      brideBank: 'BIDV',
+      brideAccNumber: '5110451392',
       brideAccName: 'PHAM THI BAO CHAU',
       musicChoice: 'Gói Con Tim Làm Quà - Nguyễn Hùng',
       rsvpDeadline: 'Trước ngày 20.11.2026'
@@ -543,16 +543,17 @@
     const cleanBank = bank.trim().replace(/\s+/g, '').toUpperCase();
     const cleanAcc = acc.trim();
     const cleanName = encodeURIComponent((name || '').trim().toUpperCase());
-    const qrUrl = `https://img.vietqr.io/image/${cleanBank}-${cleanAcc}-compact.png?accountName=${cleanName}`;
 
-    let img = frame.querySelector('img.dynamic-vietqr');
+    // Nếu là tài khoản mặc định chính thức của Tiến & Châu, giữ ảnh QR gốc độ nét cao
+    if ((cleanAcc === '2141954296' && selector.includes('Groom')) || (cleanAcc === '5110451392' && selector.includes('Bride'))) {
+      return;
+    }
+
+    const qrUrl = `https://img.vietqr.io/image/${cleanBank}-${cleanAcc}-compact.png?accountName=${cleanName}`;
+    let img = frame.querySelector('img.qr-img-art, img.dynamic-vietqr');
     if (!img) {
       img = document.createElement('img');
-      img.className = 'dynamic-vietqr';
-      img.style.cssText = 'width: 100%; height: 100%; object-fit: contain; border-radius: 6px; display: block;';
-      img.alt = `Mã VietQR ${cleanBank} ${cleanAcc}`;
-      const svg = frame.querySelector('svg');
-      if (svg) svg.style.display = 'none';
+      img.className = 'qr-img-art dynamic-vietqr';
       frame.appendChild(img);
     }
     img.src = qrUrl;
