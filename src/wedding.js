@@ -981,63 +981,123 @@ const lightboxCurtain = document.getElementById('lightboxCurtain');
 const lightboxPrevBtn = document.getElementById('lightboxPrevBtn');
 const lightboxNextBtn = document.getElementById('lightboxNextBtn');
 
+let currentLightboxGallery = [];
 let activePhotoIndex = 0;
 
-function openCinematicLightbox(index) {
-  activePhotoIndex = index;
+function renderLightboxPhoto() {
+  if (!currentLightboxGallery || currentLightboxGallery.length === 0) return;
+  const item = currentLightboxGallery[activePhotoIndex];
+  if (!item) return;
+
+  if (lightboxScreenImg) {
+    // Hiệu ứng chuyển ảnh mượt mà
+    lightboxScreenImg.style.opacity = '0.4';
+    lightboxScreenImg.src = item.src;
+    lightboxScreenImg.alt = item.caption || 'Ảnh cưới Văn Tiến & Bảo Châu';
+    lightboxScreenImg.onload = () => {
+      lightboxScreenImg.style.opacity = '1';
+    };
+  }
+  if (lightboxStoryText) {
+    lightboxStoryText.textContent = item.caption || '';
+  }
+}
+
+function openGalleryLightbox(gallery, startIndex = 0) {
+  if (!gallery || gallery.length === 0) return;
+  currentLightboxGallery = gallery;
+  activePhotoIndex = Math.max(0, Math.min(startIndex, gallery.length - 1));
   renderLightboxPhoto();
-  if (cinematicLightbox) cinematicLightbox.classList.add('is-open');
+  if (cinematicLightbox) {
+    cinematicLightbox.classList.add('is-open');
+    cinematicLightbox.setAttribute('aria-hidden', 'false');
+  }
 }
 
 function closeCinematicLightbox() {
-  if (cinematicLightbox) cinematicLightbox.classList.remove('is-open');
+  if (cinematicLightbox) {
+    cinematicLightbox.classList.remove('is-open');
+    cinematicLightbox.setAttribute('aria-hidden', 'true');
+  }
 }
 
-function renderLightboxPhoto() {
-  const item = curatedFilmPhotos[activePhotoIndex];
-  if (!item) return;
-  if (lightboxScreenImg) lightboxScreenImg.src = item.src;
-  if (lightboxStoryText) lightboxStoryText.textContent = item.caption;
+// 1. Thư viện ảnh cho Phân Cảnh 03: Thước Phim Chuyện Mình (Polaroid Scrapbook)
+function getPolaroidGallery() {
+  const cards = document.querySelectorAll('#polaroidDeckContainer .polaroid-scrapbook-card');
+  return Array.from(cards).map((card, idx) => {
+    const img = card.querySelector('.polaroid-img-box img, img');
+    const scene = card.querySelector('.chin-scene')?.textContent?.trim() || '';
+    const title = card.querySelector('.chin-title')?.textContent?.trim() || '';
+    const caption = [scene, title].filter(Boolean).join(' — ') || `Thước phim chuyện mình · Cảnh 0${idx + 1}`;
+    return {
+      src: img?.getAttribute('src') || img?.src || '',
+      caption: caption
+    };
+  });
 }
 
-function openCustomPhotoLightbox(src, caption) {
-  if (lightboxScreenImg) lightboxScreenImg.src = src;
-  if (lightboxStoryText) lightboxStoryText.textContent = caption;
-  if (cinematicLightbox) cinematicLightbox.classList.add('is-open');
+// 2. Thư viện ảnh cho Phân Cảnh 05: Cuộn Film Kỷ Niệm 35mm
+function getFilmReelGallery() {
+  const slides = document.querySelectorAll('#filmStripTrack .film-frame-slide');
+  return Array.from(slides).map((slide, idx) => {
+    const img = slide.querySelector('.slide-photo-holder img, img');
+    const code = slide.querySelector('.frame-code')?.textContent?.trim() || '';
+    const title = slide.querySelector('.slide-title')?.textContent?.trim() || '';
+    const caption = [code, title].filter(Boolean).join(' — ') || `Cuộn film 35mm · Frame 0${idx + 1}`;
+    return {
+      src: img?.getAttribute('src') || img?.src || '',
+      caption: caption
+    };
+  });
 }
 
+// Gắn sự kiện click phóng to cho Cuộn Film 35mm
 filmSlides.forEach((slide) => {
   slide.addEventListener('click', () => {
     const idx = parseInt(slide.dataset.index, 10) || 0;
     triggerCameraShutterFlash();
-    setTimeout(() => openCinematicLightbox(idx), 60);
+    const gallery = getFilmReelGallery();
+    setTimeout(() => openGalleryLightbox(gallery, idx), 60);
   });
 });
 
+// Gắn sự kiện click phóng to cho Thước Phim Chuyện Mình (Polaroid Scrapbook)
 document.querySelectorAll('.polaroid-scrapbook-card').forEach((card, idx) => {
   const img = card.querySelector('.polaroid-photo-canvas img, .polaroid-img-box img, img');
-  const captionEl = card.querySelector('.chin-title');
-  const captionText = captionEl ? captionEl.textContent : `Thước phim chuyện mình · Cảnh 0${idx + 1}`;
   if (img) {
     img.style.cursor = 'zoom-in';
     img.addEventListener('click', (e) => {
       e.stopPropagation();
       triggerCameraShutterFlash();
-      setTimeout(() => openCustomPhotoLightbox(img.src, captionText), 60);
+      const gallery = getPolaroidGallery();
+      setTimeout(() => openGalleryLightbox(gallery, idx), 60);
     });
   }
 });
+
+// Gắn sự kiện click cho ảnh Áo Dài truyền thống
+const tradImg = document.querySelector('.traditional-frame img');
+if (tradImg) {
+  tradImg.style.cursor = 'zoom-in';
+  tradImg.addEventListener('click', () => {
+    triggerCameraShutterFlash();
+    const caption = document.querySelector('.traditional-caption .trad-title')?.textContent?.trim() || 'Lễ Tơ Hồng Nên Duyên';
+    setTimeout(() => openGalleryLightbox([{ src: tradImg.getAttribute('src') || tradImg.src, caption }], 0), 60);
+  });
+}
 
 lightboxExitBtn?.addEventListener('click', closeCinematicLightbox);
 lightboxCurtain?.addEventListener('click', closeCinematicLightbox);
 
 lightboxPrevBtn?.addEventListener('click', () => {
-  activePhotoIndex = (activePhotoIndex - 1 + curatedFilmPhotos.length) % curatedFilmPhotos.length;
+  if (!currentLightboxGallery || currentLightboxGallery.length === 0) return;
+  activePhotoIndex = (activePhotoIndex - 1 + currentLightboxGallery.length) % currentLightboxGallery.length;
   renderLightboxPhoto();
 });
 
 lightboxNextBtn?.addEventListener('click', () => {
-  activePhotoIndex = (activePhotoIndex + 1) % curatedFilmPhotos.length;
+  if (!currentLightboxGallery || currentLightboxGallery.length === 0) return;
+  activePhotoIndex = (activePhotoIndex + 1) % currentLightboxGallery.length;
   renderLightboxPhoto();
 });
 

@@ -1028,6 +1028,49 @@ body.invite-open {
   border-radius: 1px;
 }
 
+/* Đảm bảo tem thư trên thiết bị di động KHÔNG che mặt cô dâu & chú rể */
+@media (max-width: 680px) {
+  .hero-postal-seal {
+    top: 14px;
+    left: 14px;
+    right: auto;
+    width: 76px;
+    min-height: 98px;
+    transform: rotate(-4.5deg);
+    box-shadow: 0 4px 14px rgba(45, 36, 32, 0.22);
+  }
+
+  .seal-country {
+    font-size: 0.42rem;
+  }
+
+  .seal-year {
+    font-size: 1.55rem;
+    margin: 1px 0;
+  }
+
+  .seal-stamp-mark {
+    font-size: 0.38rem;
+  }
+
+  .seal-submark {
+    font-size: 0.34rem;
+  }
+
+  .postal-cancellation-mark {
+    top: -8px;
+    left: -10px;
+    right: auto;
+    width: 58px;
+    height: 58px;
+    transform: rotate(12deg);
+  }
+
+  .postal-cancellation-mark .cancel-waves span {
+    width: 26px;
+  }
+}
+
 /* Khối nội dung chữ nghệ thuật bên dưới */
 .hero-typography-block {
   text-align: center;
