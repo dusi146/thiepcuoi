@@ -4,8 +4,8 @@ dist-ssr
 *.local
 .DS_Store
 *.zip
-Wedding*
-photo ky niem
-photo-edited
+/Wedding*
+/photo ky niem
+/photo-edited
 scripts
 test-screenshots

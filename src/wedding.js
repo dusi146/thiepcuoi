@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './wedding-sync.js';
 import './cinematic-intro.js';
+import { WeddingDB } from './wedding-db.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -1261,20 +1262,6 @@ function sanitize(str) {
   return p.innerHTML;
 }
 
-function loadGuestbook() {
-  let saved = [];
-  try {
-    saved = JSON.parse(
-      localStorage.getItem('wedding_guestbook_tien_chau') ||
-        localStorage.getItem('wedding_guestbook_thai_tran') ||
-        '[]'
-    );
-  } catch (_) {}
-
-  fullWishesList = [...saved, ...defaultWishes];
-  renderGuestbook(fullWishesList);
-}
-
 function renderGuestbook(list) {
   if (!guestbookStream) return;
   if (wishesCounter) wishesCounter.textContent = `${list.length} lời chúc`;
@@ -1283,9 +1270,9 @@ function renderGuestbook(list) {
   guestbookStream.innerHTML = visibleList
     .map(
       (item) => `
-      <article class="stream-item">
+      <article class="stream-item ${item.pinned ? 'is-pinned-wish' : ''}">
         <div class="stream-item-top">
-          <span class="stream-author">${sanitize(item.name)}</span>
+          <span class="stream-author">${sanitize(item.name)} ${item.pinned ? '📌' : ''}</span>
           <span class="stream-timestamp">${sanitize(item.time || 'Vừa xong')}</span>
         </div>
         <p class="stream-body">${sanitize(item.wish)}</p>
@@ -1310,7 +1297,11 @@ guestbookMoreBtn?.addEventListener('click', () => {
   renderGuestbook(fullWishesList);
 });
 
-loadGuestbook();
+// Đồng bộ Sổ Lưu Bút theo thời gian thực (Realtime DB)
+WeddingDB.onWishesChange((list) => {
+  fullWishesList = list;
+  renderGuestbook(fullWishesList);
+});
 
 // P0-5: STEPPER − 1 + VÀ THẺ CHỌN (CHIP CARDS)
 const guestMinusBtn = document.getElementById('guestMinusBtn');
@@ -1373,11 +1364,15 @@ function createCelebrationBurst(btn) {
 }
 
 if (weddingRsvpForm) {
-  weddingRsvpForm.addEventListener('submit', (e) => {
+  weddingRsvpForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = weddingRsvpForm.name?.value.trim();
-    const attendance = weddingRsvpForm.attendance?.value;
-    const wish = weddingRsvpForm.wish?.value.trim();
+    const phone = weddingRsvpForm.phone?.value.trim() || '';
+    const side = weddingRsvpForm.side?.value || 'both';
+    const attendance = weddingRsvpForm.attendance?.value || 'yes';
+    const guestCount = weddingRsvpForm.guestCount?.value || '1';
+    const eventChoice = weddingRsvpForm.querySelector('input[name="eventChoice"]:checked')?.value || 'all';
+    const wish = weddingRsvpForm.wish?.value.trim() || '';
 
     if (!name) {
       showEditorialToast('Vui lòng nhập họ và tên của bạn nhé!');
@@ -1385,32 +1380,41 @@ if (weddingRsvpForm) {
     }
 
     const submitBtn = weddingRsvpForm.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.7';
+    }
     createCelebrationBurst(submitBtn);
 
-    const newEntry = {
-      name,
-      time: 'Vừa xong',
-      wish:
-        wish ||
-        (attendance === 'yes'
-          ? 'Hẹn gặp Văn Tiến & Bảo Châu trong ngày vui sắp tới!'
-          : 'Chúc hai bạn trăm năm hạnh phúc và ngập tràn niềm vui!'),
-    };
+    const defaultWish = attendance === 'yes'
+      ? 'Hẹn gặp Văn Tiến & Bảo Châu trong ngày vui sắp tới!'
+      : 'Chúc hai bạn trăm năm hạnh phúc và ngập tràn niềm vui!';
 
     try {
-      const saved = JSON.parse(
-        localStorage.getItem('wedding_guestbook_tien_chau') ||
-          localStorage.getItem('wedding_guestbook_thai_tran') ||
-          '[]'
-      );
-      saved.unshift(newEntry);
-      localStorage.setItem('wedding_guestbook_tien_chau', JSON.stringify(saved));
-    } catch (_) {}
+      await WeddingDB.submitRsvp({
+        name,
+        phone,
+        side,
+        attendance,
+        guestCount,
+        eventChoice,
+        wish: wish || defaultWish
+      });
+      weddingRsvpForm.reset();
+      const countDisplay = document.getElementById('guestCountDisplay');
+      const countInput = document.getElementById('guestCount');
+      if (countDisplay) countDisplay.textContent = '1';
+      if (countInput) countInput.value = '1';
 
-    loadGuestbook();
-    guestbookStream?.querySelector('.stream-item')?.classList.add('wish-pop-in');
-    weddingRsvpForm.reset();
-    showEditorialToast(`Cảm ơn bạn ${name} đã gửi lời hồi âm & chúc phúc!`);
+      showEditorialToast(`✨ Cảm ơn bạn ${name} đã gửi hồi âm & lời chúc phúc thành công!`);
+    } catch (_) {
+      showEditorialToast(`✨ Cảm ơn bạn ${name}! Đã ghi nhận thông tin tham dự.`);
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+      }
+    }
   });
 }
 

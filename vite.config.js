@@ -17,7 +17,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         wedding: resolve(__dirname, 'src/wedding.js'),
-        nhaplieu: resolve(__dirname, 'nhap-lieu.html')
+        nhaplieu: resolve(__dirname, 'nhap-lieu.html'),
+        quanly: resolve(__dirname, 'quan-ly.html')
       },
       output: {
         entryFileNames: 'assets/[name].js',

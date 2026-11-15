@@ -1023,12 +1023,27 @@
         <!-- Form gửi xác nhận -->
         <div class="form-wrapper">
           <form class="vintage-editorial-form double-editorial-frame" id="weddingRsvpForm" novalidate>
-            <div class="form-field-unit">
-              <label for="guestName">Họ và tên của bạn <span class="req">*</span></label>
-              <input type="text" id="guestName" name="name" class="field-input" placeholder="Ví dụ: Hoàng Long, Thu Hà..." required />
+            <div class="form-field-dual">
+              <div class="form-field-unit">
+                <label for="guestName">Họ và tên của bạn <span class="req">*</span></label>
+                <input type="text" id="guestName" name="name" class="field-input" placeholder="Ví dụ: Hoàng Long, Thu Hà..." required />
+              </div>
+              <div class="form-field-unit">
+                <label for="guestPhone">Số điện thoại liên hệ</label>
+                <input type="tel" id="guestPhone" name="phone" class="field-input" placeholder="Ví dụ: 0912 345 678" />
+              </div>
             </div>
 
             <div class="form-field-dual">
+              <div class="form-field-unit">
+                <label for="guestSide">Bạn là khách của ai? <span class="req">*</span></label>
+                <select id="guestSide" name="side" class="field-select" required>
+                  <option value="both">Khách chung hai họ / Bạn bè đôi bên</option>
+                  <option value="groom">Khách Nhà Trai (Bạn/Người thân Chú rể)</option>
+                  <option value="bride">Khách Nhà Gái (Bạn/Người thân Cô dâu)</option>
+                </select>
+              </div>
+
               <div class="form-field-unit">
                 <label for="guestAttendance">Bạn sẽ tham dự chứ? <span class="req">*</span></label>
                 <select id="guestAttendance" name="attendance" class="field-select" required>
@@ -1036,15 +1051,15 @@
                   <option value="no">Tiếc quá, mình lỡ hẹn dịp này</option>
                 </select>
               </div>
+            </div>
 
-              <div class="form-field-unit">
-                <label>Số người đi cùng</label>
-                <div class="guest-stepper-control" role="group" aria-label="Chọn số người tham dự">
-                  <button type="button" class="stepper-btn minus-btn" id="guestMinusBtn" aria-label="Giảm một người">−</button>
-                  <span class="stepper-display" id="guestCountDisplay">1</span>
-                  <button type="button" class="stepper-btn plus-btn" id="guestPlusBtn" aria-label="Tăng một người">+</button>
-                  <input type="hidden" id="guestCount" name="guestCount" value="1" />
-                </div>
+            <div class="form-field-unit">
+              <label>Số người tham dự (bao gồm cả bạn và người đi cùng)</label>
+              <div class="guest-stepper-control" role="group" aria-label="Chọn số người tham dự">
+                <button type="button" class="stepper-btn minus-btn" id="guestMinusBtn" aria-label="Giảm một người">−</button>
+                <span class="stepper-display" id="guestCountDisplay">1</span>
+                <button type="button" class="stepper-btn plus-btn" id="guestPlusBtn" aria-label="Tăng một người">+</button>
+                <input type="hidden" id="guestCount" name="guestCount" value="1" />
               </div>
             </div>
 
@@ -1056,6 +1071,14 @@
                   <div class="chip-card-content">
                     <span class="chip-title">Cả hai buổi lễ</span>
                     <span class="chip-sub">24 &amp; 25.11 · Trọn vẹn hai họ</span>
+                  </div>
+                </label>
+
+                <label class="event-chip-card">
+                  <input type="radio" name="eventChoice" value="tiecruou" class="chip-radio-input" />
+                  <div class="chip-card-content">
+                    <span class="chip-title">Tiệc Rượu Thân Mật</span>
+                    <span class="chip-sub">11:30 · 25.11 · Nhà Văn Hóa Dùng II</span>
                   </div>
                 </label>
 
@@ -1138,7 +1161,7 @@
   <footer class="film-closing-footer">
     <span>MADE WITH LOVE · NGHỆ AN</span>
     <span>A VINTAGE WEDDING FILM · Nº 024</span>
-    <span>TIẾN ✳ CHÂU © 2026</span>
+    <span><a href="./quan-ly.html" style="color: inherit; text-decoration: none;" title="Mở trang Quản trị Khách mời & Sổ lưu bút">TIẾN ✳ CHÂU © 2026</a></span>
   </footer>
 
   <!-- ========================================================================= -->
