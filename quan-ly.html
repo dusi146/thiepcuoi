@@ -791,7 +791,7 @@
         
         <div class="form-group">
           <label for="cfgSheetUrl">GOOGLE APPS SCRIPT WEB APP URL</label>
-          <input type="text" id="cfgSheetUrl" class="form-control" value="https://script.google.com/macros/s/AKfyby7AiQwSnKqV4-F-vf0Y3qP--mbv67iGsMwnleex4CJPaMViwgk5aajYejxTg7cP6Os/exec" placeholder="https://script.google.com/macros/s/.../exec" />
+          <input type="text" id="cfgSheetUrl" class="form-control" value="https://script.google.com/macros/s/AKfycby7AiQwSnKqV4-F-vf0Y3qP--mbv67iGsMwnleex4CJPaMViwgk5aajYejxTg7cP6Os/exec" placeholder="https://script.google.com/macros/s/.../exec" />
         </div>
 
         <div style="background: var(--bg-cream); border: 1px dashed var(--border-color); border-radius: 6px; padding: 14px; margin-bottom: 20px;">
@@ -1182,7 +1182,7 @@
     function loadSettingsToForm() {
       const cfg = WeddingDB.loadConfig();
       if (cfgFirebaseUrl) cfgFirebaseUrl.value = cfg.firebaseUrl || '';
-      if (cfgSheetUrl) cfgSheetUrl.value = cfg.sheetUrl || 'https://script.google.com/macros/s/AKfyby7AiQwSnKqV4-F-vf0Y3qP--mbv67iGsMwnleex4CJPaMViwgk5aajYejxTg7cP6Os/exec';
+      if (cfgSheetUrl) cfgSheetUrl.value = cfg.sheetUrl || 'https://script.google.com/macros/s/AKfycby7AiQwSnKqV4-F-vf0Y3qP--mbv67iGsMwnleex4CJPaMViwgk5aajYejxTg7cP6Os/exec';
       if (cfgAdminPin) cfgAdminPin.value = cfg.adminPin || '2511';
     }
     loadSettingsToForm();

@@ -17,7 +17,7 @@ const STORAGE_KEYS = {
 const DEFAULT_CONFIG = {
   // Chú rể / Cô dâu có thể dán link Firebase hoặc Google Sheet vào trang quan-ly.html
   firebaseUrl: 'https://thiepcuoi-tienchau-default-rtdb.asia-southeast1.firebasedatabase.app',
-  sheetUrl: 'https://script.google.com/macros/s/AKfyby7AiQwSnKqV4-F-vf0Y3qP--mbv67iGsMwnleex4CJPaMViwgk5aajYejxTg7cP6Os/exec',
+  sheetUrl: 'https://script.google.com/macros/s/AKfycby7AiQwSnKqV4-F-vf0Y3qP--mbv67iGsMwnleex4CJPaMViwgk5aajYejxTg7cP6Os/exec',
   adminPin: '2511' // Ngày cưới chính lễ 25.11
 };
 
