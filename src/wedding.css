@@ -2574,15 +2574,18 @@ body.invite-open {
 }
 
 .film-frame-slide {
-  flex: 0 0 clamp(250px, 76%, 310px);
-  max-width: 310px;
+  flex: 0 0 clamp(260px, 78%, 320px);
+  max-width: 320px;
   scroll-snap-align: center;
   scroll-snap-stop: always;
   background: #25201D;
   border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 10px 10px 14px;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, border-color 0.3s ease;
   will-change: transform, opacity;
 }
@@ -2595,18 +2598,19 @@ body.invite-open {
 .slide-photo-holder {
   position: relative;
   aspect-ratio: 4 / 5;
+  width: 100%;
   overflow: hidden;
-  background: #000;
+  background: #14100E;
   border-radius: 2px;
 }
 
 .film-frame-slide.is-landscape {
-  flex: 0 0 clamp(320px, 86%, 420px);
-  max-width: 420px;
+  flex: 0 0 clamp(260px, 78%, 320px);
+  max-width: 320px;
 }
 
 .film-frame-slide.is-landscape .slide-photo-holder {
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 4 / 5;
 }
 
 .slide-photo-holder img {
@@ -3812,13 +3816,13 @@ body.invite-open .editorial-sticky-bar {
   }
 
   .film-frame-slide {
-    flex: 0 0 88%;
-    max-width: 88%;
+    flex: 0 0 82%;
+    max-width: 320px;
   }
 
   .film-frame-slide.is-landscape {
-    flex: 0 0 94%;
-    max-width: 94%;
+    flex: 0 0 82%;
+    max-width: 320px;
   }
 
   .envelope-screen {
