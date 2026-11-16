@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Quản Trị Khách Mời & Sổ Lưu Bút · Đám Cưới Văn Tiến & Bảo Châu</title>
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -11,28 +11,44 @@
   
   <style>
     :root {
-      --bg-cream: #F8F4EC;
-      --bg-card: #FFFDF9;
-      --ink-dark: #221A15;
-      --ink-muted: #6B5E52;
-      --ink-light: #9C8E80;
+      --bg-cream: #F8F5EE;
+      --bg-card: #FFFFFF;
+      --bg-card-subtle: #FDFBF7;
+      --ink-dark: #1D1713;
+      --ink-muted: #584B40;
+      --ink-light: #8E7F72;
       --vermilion: #B83A2A;
-      --terracotta: #D45B38;
+      --vermilion-hover: #98281B;
+      --vermilion-soft: #FDF1EF;
       --gold-accent: #C59A5A;
-      --gold-light: #E8D3B0;
-      --green-dark: #2E5A44;
-      --green-light: #E7F3EC;
-      --border-color: #E2D5C3;
-      --border-dashed: rgba(184, 58, 42, 0.3);
+      --gold-light: #F6EEDF;
+      --green-dark: #1E6B48;
+      --green-light: #E7F5EE;
+      --green-btn: #238656;
+      --blue-dark: #1C5D8C;
+      --blue-light: #EBF4FA;
+      --purple-dark: #6C3D8A;
+      --purple-light: #F4EEF8;
+      --border-color: #E5DBCE;
+      --border-dashed: rgba(184, 58, 42, 0.35);
+      
       --font-display: 'Cinzel', serif;
       --font-body: 'Cormorant Garamond', Georgia, serif;
       --font-mono: 'Space Mono', monospace;
-      --shadow-sm: 0 2px 8px rgba(34, 26, 21, 0.05);
-      --shadow-md: 0 6px 20px rgba(34, 26, 21, 0.08);
-      --shadow-lg: 0 12px 36px rgba(34, 26, 21, 0.12);
+      --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      
+      --shadow-xs: 0 1px 3px rgba(29, 23, 19, 0.05);
+      --shadow-sm: 0 2px 8px rgba(29, 23, 19, 0.06);
+      --shadow-md: 0 6px 18px rgba(29, 23, 19, 0.08);
+      --shadow-lg: 0 14px 36px rgba(29, 23, 19, 0.12);
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    
     body {
       background-color: var(--bg-cream);
       color: var(--ink-dark);
@@ -43,15 +59,17 @@
       display: flex;
       flex-direction: column;
       position: relative;
+      overflow-x: hidden;
+      padding-bottom: env(safe-area-inset-bottom);
     }
 
-    /* VINTAGE PAPER TEXTURE OVERLAY */
+    /* VINTAGE RETRO SUBTLE GRAIN */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background-image: radial-gradient(circle at 50% 50%, rgba(212, 175, 122, 0.06) 1px, transparent 1px);
-      background-size: 24px 24px;
+      background-image: radial-gradient(circle at 50% 50%, rgba(197, 154, 90, 0.07) 1px, transparent 1px);
+      background-size: 20px 20px;
       pointer-events: none;
       z-index: 0;
     }
@@ -66,64 +84,84 @@
       box-shadow: var(--shadow-sm);
     }
     .header-inner {
-      max-width: 1200px;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 12px 20px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 12px;
     }
     .header-brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       text-decoration: none;
       color: inherit;
+      min-width: 0;
     }
     .brand-stamp {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
       background: var(--vermilion);
       color: #FFFDF9;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 22px;
-      border-radius: 6px;
+      border-radius: 8px;
       border: 1px dashed var(--gold-light);
       box-shadow: 0 2px 6px rgba(184, 58, 42, 0.25);
+    }
+    .brand-text {
+      min-width: 0;
     }
     .brand-text h1 {
       font-family: var(--font-display);
       font-size: 1.05rem;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       color: var(--ink-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .brand-text p {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--vermilion);
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      flex-shrink: 0;
     }
+
+    /* STATUS PILL */
     .status-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 4px 10px;
+      padding: 6px 10px;
       background: var(--green-light);
       color: var(--green-dark);
-      border: 1px solid rgba(46, 90, 68, 0.25);
+      border: 1px solid rgba(30, 107, 72, 0.25);
       border-radius: 20px;
       font-family: var(--font-mono);
       font-size: 0.72rem;
       font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+    .status-pill:hover {
+      background: #D8ECE1;
     }
     .status-dot {
       width: 8px;
@@ -136,25 +174,39 @@
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.4; transform: scale(0.85); }
     }
+    .spin {
+      animation: spinAnim 0.8s linear infinite;
+    }
+    @keyframes spinAnim {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
+    /* BUTTONS */
     .btn-nav {
-      padding: 7px 14px;
-      border-radius: 6px;
+      padding: 7px 12px;
+      min-height: 38px;
+      border-radius: var(--radius-sm);
       font-family: var(--font-mono);
       font-size: 0.75rem;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
       cursor: pointer;
       border: 1px solid var(--border-color);
       background: var(--bg-card);
       color: var(--ink-dark);
       transition: all 0.2s;
+      white-space: nowrap;
     }
     .btn-nav:hover {
       background: var(--gold-light);
       border-color: var(--gold-accent);
+    }
+    .btn-nav:active {
+      transform: scale(0.97);
     }
     .btn-nav.primary {
       background: var(--vermilion);
@@ -162,38 +214,57 @@
       border-color: var(--vermilion);
     }
     .btn-nav.primary:hover {
-      background: #96281B;
+      background: var(--vermilion-hover);
+    }
+    .btn-nav.success {
+      background: var(--green-dark);
+      color: #FFFDF9;
+      border-color: var(--green-dark);
+    }
+    .btn-nav.success:hover {
+      background: #155035;
     }
 
     /* MAIN CONTAINER */
     .admin-main {
-      max-width: 1200px;
+      max-width: 1280px;
       width: 100%;
       margin: 0 auto;
-      padding: 24px 20px 60px;
+      padding: 16px 16px 60px;
       flex: 1;
       position: relative;
       z-index: 1;
     }
 
-    /* KPI METRICS */
+    /* KPI METRICS GRID */
     .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-      margin-bottom: 24px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
     }
+    @media (min-width: 640px) {
+      .kpi-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    }
+    @media (min-width: 1024px) {
+      .kpi-grid { grid-template-columns: repeat(6, 1fr); gap: 14px; }
+    }
+
     .kpi-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 16px 18px;
-      box-shadow: var(--shadow-sm);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      box-shadow: var(--shadow-xs);
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .kpi-card:hover {
+      box-shadow: var(--shadow-sm);
     }
     .kpi-card::before {
       content: "";
@@ -206,52 +277,70 @@
     }
     .kpi-card.highlight::before { background: var(--vermilion); }
     .kpi-card.green::before { background: var(--green-dark); }
-    .kpi-card.blue::before { background: #2980B9; }
+    .kpi-card.blue::before { background: var(--blue-dark); }
+    .kpi-card.purple::before { background: var(--purple-dark); }
     .kpi-card.gray::before { background: var(--ink-light); }
 
     .kpi-title {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       color: var(--ink-muted);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
     .kpi-number {
       font-family: var(--font-display);
-      font-size: 2rem;
+      font-size: 1.75rem;
       font-weight: 700;
       color: var(--ink-dark);
-      line-height: 1;
+      line-height: 1.1;
     }
     .kpi-sub {
-      font-size: 0.85rem;
+      font-family: var(--font-ui);
+      font-size: 0.76rem;
       color: var(--ink-light);
-      margin-top: 6px;
+      margin-top: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    /* TABS */
+    /* TABS NAVIGATION */
     .tabs-nav {
       display: flex;
-      gap: 8px;
+      gap: 4px;
       border-bottom: 2px solid var(--border-color);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       padding-bottom: 2px;
+      scrollbar-width: none;
     }
+    .tabs-nav::-webkit-scrollbar { display: none; }
+
     .tab-btn {
-      padding: 10px 18px;
+      padding: 10px 14px;
       border: none;
       background: none;
       font-family: var(--font-display);
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
       color: var(--ink-muted);
       cursor: pointer;
       position: relative;
       white-space: nowrap;
       transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    @media (min-width: 768px) {
+      .tab-btn { font-size: 0.96rem; padding: 12px 18px; }
     }
     .tab-btn:hover { color: var(--ink-dark); }
     .tab-btn.is-active {
@@ -268,84 +357,416 @@
       border-radius: 2px;
     }
 
+    .tab-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 12px;
+      background: rgba(184, 58, 42, 0.1);
+      color: var(--vermilion);
+    }
+    .tab-btn.is-active .tab-badge {
+      background: var(--vermilion);
+      color: #FFFDF9;
+    }
+
     .tab-pane {
       display: none;
     }
     .tab-pane.is-active {
       display: block;
-      animation: fadeIn 0.25s ease-out;
+      animation: fadeIn 0.22s ease-out;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* TOOLBAR */
-    .toolbar-bar {
+    /* TOOLBAR & SEARCH SECTION */
+    .controls-panel {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
       margin-bottom: 16px;
+      box-shadow: var(--shadow-xs);
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
       gap: 12px;
-      box-shadow: var(--shadow-sm);
-    }
-    .filter-group {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-      flex: 1;
-    }
-    .search-input {
-      min-width: 200px;
-      flex: 1;
-      padding: 8px 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-family: inherit;
-      font-size: 0.9rem;
-      background: var(--bg-cream);
-    }
-    .filter-select {
-      padding: 8px 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-family: inherit;
-      font-size: 0.9rem;
-      background: var(--bg-cream);
-      color: var(--ink-dark);
-      cursor: pointer;
     }
 
-    /* TABLE */
+    .search-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .search-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 220px;
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.95rem;
+      color: var(--ink-light);
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      height: 42px;
+      padding: 8px 36px 8px 36px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-ui);
+      font-size: 0.92rem;
+      background: var(--bg-cream);
+      color: var(--ink-dark);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .search-input:focus {
+      background: #FFFFFF;
+      border-color: var(--vermilion);
+      box-shadow: 0 0 0 3px rgba(184, 58, 42, 0.1);
+    }
+    .search-clear-btn {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--ink-light);
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    .search-clear-btn:hover {
+      background: rgba(0,0,0,0.06);
+      color: var(--ink-dark);
+    }
+
+    /* SEGMENTED VIEW SWITCHER */
+    .view-switcher {
+      display: inline-flex;
+      background: var(--bg-cream);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+    }
+    .view-btn {
+      padding: 6px 12px;
+      border: none;
+      background: none;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .view-btn.is-active {
+      background: #FFFFFF;
+      color: var(--vermilion);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    /* HORIZONTAL CHIP FILTERS FOR MOBILE/TABLET */
+    .filter-chips-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .filter-chips-bar::-webkit-scrollbar { display: none; }
+
+    .chip-btn {
+      padding: 6px 12px;
+      min-height: 34px;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      background: var(--bg-card-subtle);
+      color: var(--ink-muted);
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .chip-btn:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-accent);
+    }
+    .chip-btn.is-active {
+      background: var(--vermilion);
+      color: #FFFDF9;
+      border-color: var(--vermilion);
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(184, 58, 42, 0.25);
+    }
+    .chip-btn .chip-count {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 1px 5px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.08);
+    }
+    .chip-btn.is-active .chip-count {
+      background: rgba(255, 255, 255, 0.25);
+      color: #FFFDF9;
+    }
+
+    /* CARD LIST (MOBILE & TABLET PRIMARY) */
+    .guest-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 680px) {
+      .guest-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    }
+    @media (min-width: 1100px) {
+      .guest-cards-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    }
+
+    .guest-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-xs);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .guest-card:hover {
+      box-shadow: var(--shadow-sm);
+      border-color: var(--gold-accent);
+    }
+    .guest-card.checked-in {
+      border-left: 5px solid var(--green-dark);
+      background: #FDFEFC;
+    }
+    .guest-card.declined {
+      opacity: 0.85;
+      background: #FCFBFB;
+      border-left: 5px solid #C0392B;
+    }
+
+    .guest-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .guest-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      color: var(--vermilion);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(197, 154, 90, 0.3);
+    }
+    .guest-card.checked-in .guest-avatar {
+      background: var(--green-light);
+      color: var(--green-dark);
+      border-color: rgba(30, 107, 72, 0.3);
+    }
+
+    .guest-title-wrap {
+      flex: 1;
+      min-width: 0;
+    }
+    .guest-card-name {
+      font-family: var(--font-ui);
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--ink-dark);
+      line-height: 1.3;
+      word-break: break-word;
+    }
+    .guest-badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+      margin-top: 5px;
+    }
+
+    .badge-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-groom { background: var(--blue-light); color: var(--blue-dark); border: 1px solid rgba(28, 93, 140, 0.2); }
+    .badge-bride { background: var(--vermilion-soft); color: var(--vermilion); border: 1px solid rgba(184, 58, 42, 0.2); }
+    .badge-both { background: var(--gold-light); color: #7A531C; border: 1px solid rgba(197, 154, 90, 0.25); }
+    .badge-yes { background: var(--green-light); color: var(--green-dark); }
+    .badge-no { background: #FDE8E8; color: #9B2C2C; }
+    .badge-event { background: #F4EFEB; color: var(--ink-muted); font-size: 0.65rem; }
+
+    /* CHECK-IN TOGGLE HERO BUTTON */
+    .checkin-hero-btn {
+      width: 100%;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border-color);
+      background: var(--bg-card-subtle);
+      color: var(--ink-muted);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .checkin-hero-btn:hover {
+      background: var(--green-light);
+      border-color: var(--green-dark);
+      color: var(--green-dark);
+    }
+    .checkin-hero-btn:active {
+      transform: scale(0.98);
+    }
+    .checkin-hero-btn.is-checked {
+      background: var(--green-dark);
+      color: #FFFDF9;
+      border-color: var(--green-dark);
+      box-shadow: 0 3px 8px rgba(30, 107, 72, 0.28);
+    }
+    .checkin-hero-btn.is-checked:hover {
+      background: #165337;
+    }
+
+    /* DIRECT CONTACT BUTTONS */
+    .contact-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-contact {
+      flex: 1;
+      height: 36px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-cream);
+      color: var(--ink-dark);
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-contact:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-accent);
+    }
+    .btn-contact.zalo {
+      color: #0068FF;
+      background: #EFF6FF;
+      border-color: rgba(0, 104, 255, 0.2);
+    }
+    .btn-contact.zalo:hover {
+      background: #DBEAFE;
+    }
+
+    /* NOTE / WISH CALLOUT */
+    .guest-note-box {
+      background: var(--bg-cream);
+      border-left: 3px solid var(--gold-accent);
+      border-radius: 4px;
+      padding: 8px 10px;
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      font-style: italic;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .guest-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px dashed var(--border-color);
+      padding-top: 8px;
+      margin-top: 2px;
+      font-size: 0.75rem;
+      color: var(--ink-light);
+    }
+
+    /* TABLE VIEW (DESKTOP & LANDSCAPE TABLET) */
     .table-container {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 8px;
+      border-radius: var(--radius-md);
       overflow-x: auto;
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-xs);
+      -webkit-overflow-scrolling: touch;
     }
     table.data-table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
       font-size: 0.95rem;
+      min-width: 780px;
     }
     table.data-table th {
-      background: #F3EBDD;
+      background: #F3ECE1;
       font-family: var(--font-mono);
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--ink-muted);
       padding: 12px 14px;
       border-bottom: 2px solid var(--border-color);
       white-space: nowrap;
+      position: sticky;
+      top: 0;
+      z-index: 2;
     }
     table.data-table td {
       padding: 12px 14px;
@@ -355,52 +776,8 @@
     table.data-table tr:hover {
       background: rgba(232, 211, 176, 0.15);
     }
-
-    .guest-name-cell {
-      font-weight: 700;
-      color: var(--ink-dark);
-      font-size: 1.05rem;
-    }
-    .guest-phone-cell a {
-      color: var(--vermilion);
-      text-decoration: none;
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-    }
-    .badge-chip {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-    .badge-groom { background: #EBF3FB; color: #20639B; }
-    .badge-bride { background: #FCEFF2; color: #C0392B; }
-    .badge-both { background: #F4EFE6; color: #7F5A2C; }
-    .badge-yes { background: var(--green-light); color: var(--green-dark); }
-    .badge-no { background: #FDE8E8; color: #9B2C2C; }
-
-    .checkin-btn {
-      padding: 6px 12px;
-      border-radius: 20px;
-      border: 1px solid var(--border-color);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      transition: all 0.2s;
-      background: var(--bg-cream);
-      color: var(--ink-muted);
-    }
-    .checkin-btn.is-checked {
-      background: var(--green-dark);
-      color: #FFFDF9;
-      border-color: var(--green-dark);
+    table.data-table tr.is-checked-row {
+      background: rgba(30, 107, 72, 0.04);
     }
 
     .btn-action-icon {
@@ -409,48 +786,68 @@
       color: var(--ink-light);
       cursor: pointer;
       font-size: 1.1rem;
-      padding: 4px 6px;
+      padding: 6px;
       border-radius: 4px;
-      transition: color 0.2s;
+      transition: color 0.2s, background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
-    .btn-action-icon:hover { color: var(--vermilion); }
+    .btn-action-icon:hover {
+      color: var(--vermilion);
+      background: rgba(184, 58, 42, 0.08);
+    }
 
-    /* GUESTBOOK STREAM */
+    /* WISHES MASONRY */
     .wishes-masonry {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 16px;
+      grid-template-columns: 1fr;
+      gap: 14px;
     }
+    @media (min-width: 640px) {
+      .wishes-masonry { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    }
+    @media (min-width: 1024px) {
+      .wishes-masonry { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    }
+
     .wish-admin-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 18px 20px;
-      box-shadow: var(--shadow-sm);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-xs);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .wish-admin-card:hover {
+      box-shadow: var(--shadow-sm);
     }
     .wish-admin-card.is-pinned {
       border: 2px solid var(--gold-accent);
-      background: #FFFDF5;
+      background: #FFFDF7;
     }
     .wish-top-line {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       gap: 8px;
     }
     .wish-sender-title {
       font-weight: 700;
       font-size: 1.1rem;
       color: var(--ink-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .wish-time-tag {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--ink-light);
       white-space: nowrap;
     }
@@ -459,7 +856,8 @@
       color: var(--ink-muted);
       font-style: italic;
       line-height: 1.5;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
+      word-break: break-word;
     }
     .wish-card-footer {
       display: flex;
@@ -474,15 +872,18 @@
     .settings-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 24px;
-      box-shadow: var(--shadow-sm);
-      max-width: 780px;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-xs);
+      max-width: 820px;
       margin: 0 auto;
+    }
+    @media (min-width: 768px) {
+      .settings-card { padding: 32px; }
     }
     .settings-section-title {
       font-family: var(--font-display);
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       color: var(--vermilion);
       margin-bottom: 6px;
       display: flex;
@@ -492,254 +893,426 @@
     .settings-sub {
       font-size: 0.92rem;
       color: var(--ink-muted);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
+      line-height: 1.5;
     }
     .form-group {
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .form-group label {
       display: block;
       font-family: var(--font-mono);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       color: var(--ink-dark);
       font-weight: 700;
       margin-bottom: 6px;
     }
     .form-control {
       width: 100%;
-      padding: 10px 14px;
+      height: 42px;
+      padding: 8px 12px;
       border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-family: inherit;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-ui);
       font-size: 0.95rem;
       background: var(--bg-cream);
+      color: var(--ink-dark);
+      outline: none;
+    }
+    .form-control:focus {
+      background: #FFFFFF;
+      border-color: var(--vermilion);
+      box-shadow: 0 0 0 3px rgba(184, 58, 42, 0.1);
     }
     .code-box {
-      background: #2D2420;
+      background: #251E19;
       color: #E8D3B0;
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       padding: 14px;
-      border-radius: 6px;
+      border-radius: var(--radius-sm);
       overflow-x: auto;
       margin: 10px 0 16px;
       position: relative;
+      border: 1px solid rgba(197, 154, 90, 0.2);
     }
 
-    /* PIN OVERLAY */
-    .pin-overlay {
+    /* MODAL POPUPS */
+    .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(34, 26, 21, 0.85);
-      backdrop-filter: blur(8px);
+      background: rgba(29, 23, 19, 0.75);
+      backdrop-filter: blur(6px);
       z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease-out;
     }
-    .pin-modal {
+    .modal-overlay.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-box {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 32px 28px;
+      border-radius: var(--radius-lg);
+      padding: 24px;
       width: 100%;
-      max-width: 380px;
-      text-align: center;
+      max-width: 480px;
       box-shadow: var(--shadow-lg);
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(12px);
+      transition: transform 0.2s ease-out;
+    }
+    .modal-overlay.is-open .modal-box {
+      transform: translateY(0);
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .modal-header h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--ink-dark);
+    }
+    .modal-close-btn {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: var(--ink-light);
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+    }
+
+    /* STEPPER */
+    .stepper-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .stepper-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-cream);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--ink-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .stepper-btn:active {
+      transform: scale(0.95);
+    }
+    .stepper-val {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 700;
+      width: 44px;
+      text-align: center;
+    }
+
+    /* PIN OVERLAY */
+    .pin-modal {
+      text-align: center;
+      max-width: 360px;
     }
     .pin-input {
-      width: 180px;
-      padding: 10px;
+      width: 200px;
+      padding: 12px;
       text-align: center;
       font-family: var(--font-mono);
       font-size: 1.8rem;
-      letter-spacing: 0.3em;
+      letter-spacing: 0.35em;
       border: 2px solid var(--border-color);
-      border-radius: 8px;
+      border-radius: var(--radius-md);
       background: var(--bg-cream);
-      margin: 18px 0;
+      margin: 16px 0;
+      outline: none;
+    }
+    .pin-input:focus {
+      border-color: var(--vermilion);
+      background: #FFFFFF;
     }
 
     /* TOAST */
     .toast-msg {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
+      bottom: calc(20px + env(safe-area-inset-bottom));
+      right: 20px;
+      left: 20px;
+      max-width: 420px;
+      margin: 0 auto;
       background: var(--ink-dark);
       color: #FFFDF9;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      box-shadow: var(--shadow-md);
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-ui);
+      font-size: 0.88rem;
+      box-shadow: var(--shadow-lg);
       z-index: 10000;
       opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.25s;
+      transform: translateY(14px);
+      transition: all 0.25s ease-out;
       pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    @media (min-width: 600px) {
+      .toast-msg { left: auto; }
     }
     .toast-msg.show {
       opacity: 1;
       transform: translateY(0);
     }
 
+    /* EMPTY STATE */
+    .empty-state {
+      padding: 50px 20px;
+      text-align: center;
+      color: var(--ink-light);
+      background: var(--bg-card);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-md);
+    }
+    .empty-state-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    /* RESPONSIVE UTILITIES */
     @media (max-width: 768px) {
-      .header-inner { flex-direction: column; align-items: flex-start; }
-      .header-actions { width: 100%; justify-content: space-between; }
-      .toolbar-bar { flex-direction: column; align-items: stretch; }
+      .hide-mobile { display: none !important; }
+      .header-actions .btn-label { display: none; }
+      .btn-nav { padding: 6px 10px; }
+    }
+    @media (max-width: 480px) {
+      .header-inner { padding: 8px 10px; gap: 8px; }
+      .brand-stamp { width: 36px; height: 36px; font-size: 19px; }
+      .brand-text h1 { font-size: 0.95rem; }
+      .brand-text p { font-size: 0.62rem; }
+      .admin-main { padding: 12px 10px 60px; }
+      .kpi-grid { gap: 8px; }
+      .kpi-card { padding: 10px 12px; }
+      .kpi-number { font-size: 1.55rem; }
+      .guest-card { padding: 12px 14px; }
     }
   </style>
 </head>
 <body>
 
   <!-- 1. MÀN HÌNH KHÓA MÃ PIN BẢO MẬT -->
-  <div class="pin-overlay" id="pinOverlay">
-    <div class="pin-modal">
-      <div class="brand-stamp" style="margin: 0 auto 16px;">囍</div>
-      <h2 style="font-family: var(--font-display); font-size: 1.25rem;">XÁC THỰC QUẢN TRỊ VIÊN</h2>
-      <p style="font-size: 0.9rem; color: var(--ink-muted); margin-top: 6px;">
+  <div class="modal-overlay is-open" id="pinOverlay">
+    <div class="modal-box pin-modal">
+      <div class="brand-stamp" style="margin: 0 auto 14px;">囍</div>
+      <h2 style="font-family: var(--font-display); font-size: 1.25rem; color: var(--ink-dark);">
+        XÁC THỰC QUẢN TRỊ VIÊN
+      </h2>
+      <p style="font-size: 0.92rem; color: var(--ink-muted); margin-top: 6px; line-height: 1.4;">
         Nhập mã PIN ngày cưới để mở khóa bảng điều khiển khách mời
       </p>
-      <input type="password" id="pinInput" class="pin-input" maxlength="4" placeholder="••••" autofocus />
+      
+      <input type="password" id="pinInput" class="pin-input" maxlength="4" placeholder="••••" inputmode="numeric" pattern="[0-9]*" autofocus />
+      
       <div>
-        <button type="button" class="btn-nav primary" id="pinSubmitBtn" style="width: 100%; justify-content: center; padding: 10px;">
-          MỞ KHÓA BẢNG ĐIỀU KHIỂN
+        <button type="button" class="btn-nav primary" id="pinSubmitBtn" style="width: 100%; height: 44px; font-size: 0.88rem;">
+          🔓 MỞ KHÓA BẢNG ĐIỀU KHIỂN
         </button>
       </div>
-      <p style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-light); margin-top: 14px;">
-        (Mã PIN mặc định: <strong>2511</strong>)
+      
+      <p style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-light); margin-top: 14px;">
+        (Mã PIN mặc định ngày cưới: <strong>2511</strong>)
       </p>
     </div>
   </div>
 
-  <!-- 2. HEADER -->
+  <!-- 2. STICKY HEADER -->
   <header class="admin-header">
     <div class="header-inner">
       <a href="./index.html" class="header-brand" title="Xem thiệp cưới">
         <div class="brand-stamp">囍</div>
         <div class="brand-text">
-          <h1>VĂN TIẾN & BẢO CHÂU</h1>
-          <p>TRUNG TÂM QUẢN LÝ KHÁCH MỜI &amp; SỔ LƯU BÚT</p>
+          <h1>VĂN TIẾN &amp; BẢO CHÂU</h1>
+          <p>QUẢN TRỊ KHÁCH MỜI &amp; SỔ LƯU BÚT</p>
         </div>
       </a>
+      
       <div class="header-actions">
-        <div class="status-pill">
-          <span class="status-dot"></span>
-          <span id="connStatusText">Realtime Sync</span>
-        </div>
-        <a href="./index.html" class="btn-nav" target="_blank" rel="noopener">
-          <span>Xem Thiệp Cưới</span> ↗
+        <!-- Nút đồng bộ Realtime từ Google Sheets -->
+        <button type="button" class="status-pill" id="syncNowBtn" title="Bấm để đồng bộ dữ liệu mới nhất từ Google Sheets ngay">
+          <span class="status-dot" id="syncStatusDot"></span>
+          <span id="connStatusText">Realtime</span>
+          <span id="syncSpinner" style="display: none;">↻</span>
+        </button>
+
+        <a href="./index.html" class="btn-nav" target="_blank" rel="noopener" title="Xem thiệp cưới trực tiếp">
+          <span>👁️</span>
+          <span class="btn-label">Xem Thiệp</span>
         </a>
-        <a href="./nhap-lieu.html" class="btn-nav">
-          <span>Trang Nhập Liệu</span>
-        </a>
-        <button type="button" class="btn-nav" id="lockDashboardBtn" title="Khóa bảng điều khiển">
-          🔒
+
+        <button type="button" class="btn-nav" id="lockDashboardBtn" title="Khóa bảo vệ bảng quản trị">
+          <span>🔒</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- 3. MAIN CONTENT -->
+  <!-- 3. MAIN DASHBOARD CONTENT -->
   <main class="admin-main">
     
-    <!-- THỐNG KÊ LIVE METRICS -->
+    <!-- KPI METRICS (EXECUTIVE SUMMARY) -->
     <section class="kpi-grid">
       <div class="kpi-card highlight">
-        <span class="kpi-title">👥 Tổng Khách Đăng Ký Đi</span>
+        <span class="kpi-title">👥 Khách Đăng Ký Đi</span>
         <div class="kpi-number" id="kpiTotalGuests">0</div>
         <div class="kpi-sub" id="kpiTotalSeats">0 người lớn &amp; trẻ em</div>
       </div>
+      
+      <div class="kpi-card green">
+        <span class="kpi-title">✓ Đã Điểm Danh</span>
+        <div class="kpi-number" id="kpiCheckedInCount">0</div>
+        <div class="kpi-sub" id="kpiCheckInPercent">0% khách đã đến tiệc</div>
+      </div>
+
       <div class="kpi-card blue">
         <span class="kpi-title">🤵 Khách Nhà Trai</span>
         <div class="kpi-number" id="kpiGroomSide">0</div>
         <div class="kpi-sub">Lễ Thành Hôn (25.11)</div>
       </div>
+
       <div class="kpi-card highlight">
         <span class="kpi-title">👰 Khách Nhà Gái</span>
         <div class="kpi-number" id="kpiBrideSide">0</div>
         <div class="kpi-sub">Lễ Vu Quy (24.11)</div>
       </div>
-      <div class="kpi-card green">
+
+      <div class="kpi-card purple">
         <span class="kpi-title">🍷 Tiệc Rượu Thân Mật</span>
         <div class="kpi-number" id="kpiBanquet">0</div>
         <div class="kpi-sub">Thôn Dùng II (25.11)</div>
       </div>
-      <div class="kpi-card">
-        <span class="kpi-title">💌 Lời Chúc Nhận Được</span>
-        <div class="kpi-number" id="kpiWishesCount">0</div>
-        <div class="kpi-sub">Trong sổ lưu bút</div>
-      </div>
+
       <div class="kpi-card gray">
-        <span class="kpi-title">❌ Báo Vắng / Lỡ Hẹn</span>
-        <div class="kpi-number" id="kpiDeclinedCount">0</div>
-        <div class="kpi-sub">Khách gửi lời chúc từ xa</div>
+        <span class="kpi-title">💌 Sổ Lưu Bút / ❌ Vắng</span>
+        <div class="kpi-number" id="kpiWishesCount">0</div>
+        <div class="kpi-sub" id="kpiDeclinedSub">0 khách báo vắng</div>
       </div>
     </section>
 
     <!-- TABS NAVIGATION -->
     <nav class="tabs-nav">
       <button type="button" class="tab-btn is-active" data-tab="tabGuests">
-        📋 DANH SÁCH KHÁCH MỜI &amp; ĐIỂM DANH (<span id="tabGuestCountBadge">0</span>)
+        📋 KHÁCH MỜI &amp; ĐIỂM DANH
+        <span class="tab-badge" id="tabGuestCountBadge">0</span>
       </button>
       <button type="button" class="tab-btn" data-tab="tabWishes">
-        💌 SỔ LƯU BÚT KỶ NIỆM (<span id="tabWishCountBadge">0</span>)
+        💌 SỔ LƯU BÚT KỶ NIỆM
+        <span class="tab-badge" id="tabWishCountBadge">0</span>
       </button>
       <button type="button" class="tab-btn" data-tab="tabSettings">
-        ⚙️ CÀI ĐẶT ĐỒNG BỘ &amp; GOOGLE SHEETS
+        ⚙️ CÀI ĐẶT &amp; GOOGLE SHEETS
       </button>
     </nav>
 
+    <!-- ============================================== -->
     <!-- TAB 1: DANH SÁCH KHÁCH MỜI & ĐIỂM DANH -->
+    <!-- ============================================== -->
     <div class="tab-pane is-active" id="tabGuests">
-      <!-- Toolbar -->
-      <div class="toolbar-bar">
-        <div class="filter-group">
-          <input type="text" id="guestSearchInput" class="search-input" placeholder="🔍 Tìm theo họ tên hoặc số điện thoại..." />
-          <select id="sideFilter" class="filter-select">
-            <option value="all">Tất cả các bên</option>
-            <option value="groom">Nhà Trai (Chú rể)</option>
-            <option value="bride">Nhà Gái (Cô dâu)</option>
-            <option value="both">Khách chung / Bạn bè</option>
-          </select>
-          <select id="eventFilter" class="filter-select">
-            <option value="all">Tất cả buổi lễ</option>
-            <option value="all">Cả hai buổi lễ</option>
-            <option value="tiecruou">Tiệc Rượu Thân Mật</option>
-            <option value="thanhhon">Lễ Thành Hôn</option>
-            <option value="vuquy">Lễ Vu Quy</option>
-          </select>
-          <select id="checkInFilter" class="filter-select">
-            <option value="all">Tất cả trạng thái điểm danh</option>
-            <option value="checked">Đã đến tiệc</option>
-            <option value="not_yet">Chưa đến tiệc</option>
-          </select>
-        </div>
-        <div style="display: flex; gap: 8px;">
-          <button type="button" class="btn-nav primary" id="exportCsvBtn" title="Tải file Excel mở được trên máy">
-            📥 Xuất File Excel (CSV)
+      
+      <!-- CONTROLS PANEL -->
+      <section class="controls-panel">
+        
+        <!-- Search & View Mode Switcher -->
+        <div class="search-row">
+          <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="guestSearchInput" class="search-input" placeholder="Tìm tên khách hoặc số điện thoại..." />
+            <button type="button" id="searchClearBtn" class="search-clear-btn" title="Xóa tìm kiếm">✕</button>
+          </div>
+
+          <!-- View Mode Toggle: Cards vs Table -->
+          <div class="view-switcher" role="group" aria-label="Chế độ hiển thị">
+            <button type="button" class="view-btn is-active" id="btnViewCards" title="Xem dạng thẻ (Phù hợp điện thoại & iPad)">
+              ☷ Thẻ
+            </button>
+            <button type="button" class="view-btn" id="btnViewTable" title="Xem dạng bảng đầy đủ">
+              ☰ Bảng
+            </button>
+          </div>
+
+          <button type="button" class="btn-nav primary" id="openAddGuestModalBtn">
+            <span>➕</span>
+            <span>Thêm Khách</span>
           </button>
-          <button type="button" class="btn-nav" id="addQuickGuestBtn">
-            ➕ Thêm Khách
+
+          <button type="button" class="btn-nav" id="exportCsvBtn" title="Tải file Excel mở trên điện thoại & máy tính">
+            <span>📥</span>
+            <span class="hide-mobile">Xuất Excel</span>
           </button>
         </div>
+
+        <!-- Touch-Friendly Filter Chips -->
+        <div class="filter-chips-bar" id="filterChipsBar">
+          <button type="button" class="chip-btn is-active" data-filter-type="all" data-filter-val="all">
+            Tất cả <span class="chip-count" id="chipCountAll">0</span>
+          </button>
+          <button type="button" class="chip-btn" data-filter-type="side" data-filter-val="groom">
+            🤵 Nhà Trai <span class="chip-count" id="chipCountGroom">0</span>
+          </button>
+          <button type="button" class="chip-btn" data-filter-type="side" data-filter-val="bride">
+            👰 Nhà Gái <span class="chip-count" id="chipCountBride">0</span>
+          </button>
+          <button type="button" class="chip-btn" data-filter-type="event" data-filter-val="tiecruou">
+            🍷 Tiệc Thân Mật <span class="chip-count" id="chipCountBanquet">0</span>
+          </button>
+          <button type="button" class="chip-btn" data-filter-type="checkin" data-filter-val="checked">
+            ✓ Đã đến <span class="chip-count" id="chipCountChecked">0</span>
+          </button>
+          <button type="button" class="chip-btn" data-filter-type="checkin" data-filter-val="not_yet">
+            ⏳ Chưa đến <span class="chip-count" id="chipCountNotYet">0</span>
+          </button>
+          <button type="button" class="chip-btn" data-filter-type="attendance" data-filter-val="no">
+            ❌ Báo vắng <span class="chip-count" id="chipCountDeclined">0</span>
+          </button>
+        </div>
+
+      </section>
+
+      <!-- 1. DẠNG THẺ (CARD VIEW - MẶC ĐỊNH TRÊN ĐIỆN THOẠI & IPAD) -->
+      <div id="guestsCardView" class="guest-cards-grid">
+        <!-- Render từ JS -->
       </div>
 
-      <!-- Bảng dữ liệu khách mời -->
-      <div class="table-container">
+      <!-- 2. DẠNG BẢNG (TABLE VIEW) -->
+      <div id="guestsTableView" class="table-container" style="display: none;">
         <table class="data-table" id="guestsTable">
           <thead>
             <tr>
-              <th>Điểm Danh</th>
+              <th style="width: 140px;">Điểm Danh</th>
               <th>Họ &amp; Tên Khách</th>
               <th>Số Điện Thoại</th>
-              <th>Phía</th>
+              <th>Phía Quan Hệ</th>
               <th>Buổi Lễ Tham Dự</th>
-              <th>Số Người</th>
-              <th>Thời Gian Gửi</th>
-              <th>Lời Nhắn Kèm</th>
-              <th>Thao Tác</th>
+              <th style="text-align: center;">Số Người</th>
+              <th>Thời Gian Đăng Ký</th>
+              <th>Lời Nhắn / Lời Chúc</th>
+              <th style="text-align: center;">Thao Tác</th>
             </tr>
           </thead>
           <tbody id="guestsTableBody">
@@ -747,22 +1320,37 @@
           </tbody>
         </table>
       </div>
-      <div id="noGuestsMsg" style="display: none; padding: 40px; text-align: center; color: var(--ink-light); font-style: italic;">
-        Chưa tìm thấy khách mời nào phù hợp với bộ lọc hiện tại.
+
+      <!-- Thông báo khi không có kết quả -->
+      <div id="noGuestsMsg" class="empty-state" style="display: none;">
+        <div class="empty-state-icon">🔍</div>
+        <p style="font-size: 1.05rem; font-weight: 600; color: var(--ink-dark); margin-bottom: 4px;">
+          Không tìm thấy khách mời nào phù hợp
+        </p>
+        <p style="font-size: 0.88rem;">
+          Thử tìm từ khóa khác hoặc bấm chip <strong>[Tất cả]</strong> ở trên.
+        </p>
       </div>
+
     </div>
 
+    <!-- ============================================== -->
     <!-- TAB 2: SỔ LƯU BÚT KỶ NIỆM -->
+    <!-- ============================================== -->
     <div class="tab-pane" id="tabWishes">
-      <div class="toolbar-bar">
-        <div style="font-family: var(--font-display); font-size: 1rem; color: var(--ink-dark);">
-          SỔ LƯU BÚT TRỰC TUYẾN THỜI GIAN THỰC
-        </div>
+      <div class="controls-panel" style="flex-direction: row; align-items: center; justify-content: space-between;">
         <div>
-          <button type="button" class="btn-nav primary" id="addWishBtn">
-            ➕ Viết Lời Chúc Mới
-          </button>
+          <h3 style="font-family: var(--font-display); font-size: 1.05rem; color: var(--ink-dark);">
+            SỔ LƯU BÚT THỜI GIAN THỰC
+          </h3>
+          <p style="font-size: 0.85rem; color: var(--ink-muted);">
+            Những lời chúc phúc quý báu từ người thân, đồng nghiệp và bạn bè
+          </p>
         </div>
+        <button type="button" class="btn-nav primary" id="openAddWishModalBtn">
+          <span>➕</span>
+          <span>Viết Lời Chúc Mới</span>
+        </button>
       </div>
 
       <div class="wishes-masonry" id="wishesAdminContainer">
@@ -770,23 +1358,15 @@
       </div>
     </div>
 
+    <!-- ============================================== -->
     <!-- TAB 3: CÀI ĐẶT ĐỒNG BỘ REALTIME & GOOGLE SHEETS -->
+    <!-- ============================================== -->
     <div class="tab-pane" id="tabSettings">
       <div class="settings-card">
-        <h3 class="settings-section-title">☁️ 1. Đồng Bộ Thời Gian Thực (Firebase Realtime DB)</h3>
+        
+        <h3 class="settings-section-title">📊 1. Kết Nối Google Sheets Tự Động (Miễn Phí 100%)</h3>
         <p class="settings-sub">
-          Mặc định hệ thống đã kết nối sẵn cơ sở dữ liệu Realtime miễn phí 100%. Bạn có thể thay bằng URL Database riêng của mình nếu muốn:
-        </p>
-        <div class="form-group">
-          <label for="cfgFirebaseUrl">FIREBASE DATABASE URL</label>
-          <input type="text" id="cfgFirebaseUrl" class="form-control" placeholder="https://<project-id>-default-rtdb.firebaseio.com" />
-        </div>
-
-        <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 24px 0;" />
-
-        <h3 class="settings-section-title">📊 2. Tự Động Lưu Về Google Sheets (Google Trang Tính)</h3>
-        <p class="settings-sub">
-          Mỗi khi khách gửi xác nhận tham dự, dữ liệu sẽ tự động bắn thẳng về file Google Sheets của bạn để xem và chia sẻ với gia đình trên điện thoại:
+          Khi khách mời gửi xác nhận tham dự hoặc gửi lời chúc trên thiệp, dữ liệu sẽ tự động bắn thẳng về bảng tính Google Sheets của bạn để xem và chia sẻ với gia đình trên điện thoại:
         </p>
         
         <div class="form-group">
@@ -794,16 +1374,30 @@
           <input type="text" id="cfgSheetUrl" class="form-control" value="https://script.google.com/macros/s/AKfycby7AiQwSnKqV4-F-vf0Y3qP--mbv67iGsMwnleex4CJPaMViwgk5aajYejxTg7cP6Os/exec" placeholder="https://script.google.com/macros/s/.../exec" />
         </div>
 
-        <div style="background: var(--bg-cream); border: 1px dashed var(--border-color); border-radius: 6px; padding: 14px; margin-bottom: 20px;">
-          <strong style="color: var(--vermilion); font-family: var(--font-mono); font-size: 0.8rem; display: block; margin-bottom: 6px;">
-            HƯỚNG DẪN 3 BƯỚC TẠO GOOGLE SHEET ĐỒNG BỘ (HOÀN TOÀN MIỄN PHÍ):
-          </strong>
-          <ol style="margin-left: 20px; font-size: 0.92rem; color: var(--ink-muted); line-height: 1.6;">
-            <li>Mở một Google Trang tính (Google Sheets) mới trên Google Drive của bạn.</li>
-            <li>Vào menu <strong>Tiện ích mở rộng (Extensions) → Apps Script</strong>, xóa hết mã cũ và dán đoạn mã bên dưới vào:</li>
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+          <button type="button" class="btn-nav success" id="testSheetConnBtn">
+            ⚡ Kiểm Tra Kết Nối Google Sheets Ngay
+          </button>
+        </div>
+
+        <!-- HƯỚNG DẪN 3 BƯỚC -->
+        <div style="background: var(--bg-cream); border: 1px dashed var(--border-color); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <strong style="color: var(--vermilion); font-family: var(--font-mono); font-size: 0.82rem;">
+              MÃ GOOGLE APPS SCRIPT ĐỒNG BỘ 2 CHIỀU (ĐỌC &amp; GHI TẤT CẢ TRÌNH DUYỆT):
+            </strong>
+            <button type="button" class="btn-nav" id="copyAppsScriptBtn" style="padding: 4px 10px; font-size: 0.72rem;">
+              📋 Sao Chép Mã
+            </button>
+          </div>
+
+          <ol style="margin-left: 20px; font-size: 0.9rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 12px;">
+            <li>Mở file Google Trang tính (Google Sheets) của bạn trên máy tính hoặc điện thoại.</li>
+            <li>Vào <strong>Tiện ích mở rộng (Extensions) → Apps Script</strong>, dán toàn bộ mã bên dưới:</li>
           </ol>
+
           <div class="code-box">
-<pre id="appsScriptCode">// 1. Hàm ĐỌC danh sách khách & lời chúc về hiển thị trên TẤT CẢ các thiết bị / trình duyệt
+<pre id="appsScriptCodeText">// 1. Hàm ĐỌC danh sách khách &amp; lời chúc về hiển thị trên TẤT CẢ các thiết bị / trình duyệt
 function doGet(e) {
   try {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
@@ -823,7 +1417,7 @@ function doGet(e) {
       var eventChoice = r[5] ? String(r[5]) : "";
       var side = r[6] ? String(r[6]) : "";
       var wishText = r[7] ? String(r[7]) : "";
-      var checkedIn = (r[8] && String(r[8]).indexOf("ĐÃ ĐẾN") !== -1) || false;
+      var checkedIn = (r[8] &amp;&amp; String(r[8]).indexOf("ĐÃ ĐẾN") !== -1) || false;
       
       var item = {
         id: "sheet_rsvp_" + (i + 1),
@@ -839,7 +1433,7 @@ function doGet(e) {
         checkedIn: checkedIn
       };
       rsvps.unshift(item);
-      if (wishText && wishText.toString().trim().length &gt; 0) {
+      if (wishText &amp;&amp; wishText.toString().trim().length &gt; 0) {
         wishes.unshift({
           id: "sheet_wish_" + (i + 1),
           rowIndex: i + 1,
@@ -862,19 +1456,19 @@ function doGet(e) {
 function doPost(e) {
   try {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    var p = (e && e.parameter) ? e.parameter : {};
+    var p = (e &amp;&amp; e.parameter) ? e.parameter : {};
     if (sheet.getLastRow() === 0) {
       sheet.appendRow(["Thời gian", "Họ và tên", "Số điện thoại", "Tham dự", "Số người", "Buổi lễ", "Phía", "Lời chúc", "Điểm danh"]);
     }
     // Xử lý Check-in
-    if (p.action === "toggle_checkin" && p.rowIndex) {
+    if (p.action === "toggle_checkin" &amp;&amp; p.rowIndex) {
       var rIdx = parseInt(p.rowIndex, 10);
       var currentVal = sheet.getRange(rIdx, 9).getValue();
       sheet.getRange(rIdx, 9).setValue((String(currentVal).indexOf("ĐÃ ĐẾN") !== -1) ? "Chưa đến" : "✓ ĐÃ ĐẾN TIỆC");
       return ContentService.createTextOutput("CHECKIN_UPDATED");
     }
     // Xử lý Xóa dòng
-    if (p.action === "delete_row" && p.rowIndex) {
+    if (p.action === "delete_row" &amp;&amp; p.rowIndex) {
       sheet.deleteRow(parseInt(p.rowIndex, 10));
       return ContentService.createTextOutput("DELETED");
     }
@@ -896,29 +1490,41 @@ function doPost(e) {
   }
 }</pre>
           </div>
-          <ol start="3" style="margin-left: 20px; font-size: 0.92rem; color: var(--ink-muted); line-height: 1.6;">
+
+          <ol start="3" style="margin-left: 20px; font-size: 0.9rem; color: var(--ink-muted); line-height: 1.6;">
             <li>Bấm <strong>Triển khai (Deploy) → Quản lý các tùy chọn triển khai (Manage deployments)</strong>.</li>
-            <li>Bấm vào biểu tượng <strong>Chiếc bút chì ✏️ (Chỉnh sửa)</strong> → Mục <em>Phiên bản (Version)</em> chọn <strong>Phiên bản mới (New version)</strong> → Bấm <strong>Triển khai (Deploy)</strong>.</li>
+            <li>Bấm biểu tượng chiếc bút chì ✏️ → Mục <em>Phiên bản</em> chọn <strong>Phiên bản mới (New version)</strong> → Bấm <strong>Triển khai (Deploy)</strong>.</li>
           </ol>
+        </div>
+
+        <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 24px 0;" />
+
+        <h3 class="settings-section-title">☁️ 2. Kết Nối Firebase Realtime (Tùy Chọn)</h3>
+        <p class="settings-sub">
+          Nếu cần đồng bộ dạng WebSocket mili-giây, nhập Database URL Firebase của bạn vào đây:
+        </p>
+        <div class="form-group">
+          <label for="cfgFirebaseUrl">FIREBASE DATABASE URL</label>
+          <input type="text" id="cfgFirebaseUrl" class="form-control" placeholder="https://&lt;project-id&gt;-default-rtdb.firebaseio.com" />
         </div>
 
         <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 24px 0;" />
 
         <h3 class="settings-section-title">🔒 3. Đổi Mã PIN Quản Trị</h3>
         <div class="form-group">
-          <label for="cfgAdminPin">MÃ PIN BẢO MẬT HIỆN TẠI</label>
-          <input type="text" id="cfgAdminPin" class="form-control" maxlength="6" style="width: 140px; text-align: center; font-family: var(--font-mono); font-size: 1.2rem; font-weight: 700;" value="2511" />
+          <label for="cfgAdminPin">MÃ PIN BẢO MẬT (4 SỐ)</label>
+          <input type="text" id="cfgAdminPin" class="form-control" maxlength="6" style="width: 140px; text-align: center; font-family: var(--font-mono); font-size: 1.25rem; font-weight: 700;" value="2511" />
         </div>
 
-        <div style="display: flex; gap: 12px; margin-top: 24px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px;">
           <button type="button" class="btn-nav primary" id="saveSettingsBtn" style="padding: 10px 24px;">
             💾 LƯU CẤU HÌNH HỆ THỐNG
           </button>
           <button type="button" class="btn-nav" id="seedDemoDataBtn">
-            🎲 Nạp Dữ Liệu Mẫu Kiểm Thử
+            🎲 Nạp Thêm 5 Khách Mẫu
           </button>
           <button type="button" class="btn-nav" id="clearDataBtn" style="color: var(--vermilion);">
-            🗑️ Xóa Dữ Liệu
+            🗑️ Xóa Bộ Nhớ Đệm Cache
           </button>
         </div>
       </div>
@@ -926,12 +1532,130 @@ function doPost(e) {
 
   </main>
 
-  <div class="toast-msg" id="toastMsg">Thông báo</div>
+  <!-- ============================================== -->
+  <!-- MODAL: THÊM KHÁCH MỜI MỚI (TOUCH-FRIENDLY) -->
+  <!-- ============================================== -->
+  <div class="modal-overlay" id="addGuestModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>➕ Thêm Khách Mời</h3>
+        <button type="button" class="modal-close-btn" id="closeAddGuestModalBtn">✕</button>
+      </div>
 
+      <form id="addGuestForm">
+        <div class="form-group">
+          <label for="newGuestName">HỌ VÀ TÊN KHÁCH MỜI (*)</label>
+          <input type="text" id="newGuestName" class="form-control" placeholder="Ví dụ: Anh Nguyễn Văn An" required />
+        </div>
+
+        <div class="form-group">
+          <label for="newGuestPhone">SỐ ĐIỆN THOẠI (ĐỂ LIÊN LẠC / ZALO)</label>
+          <input type="tel" id="newGuestPhone" class="form-control" placeholder="Ví dụ: 0912345678" />
+        </div>
+
+        <div class="form-group">
+          <label>PHÍA QUAN HỆ</label>
+          <div style="display: flex; gap: 8px;">
+            <label style="flex: 1; display: flex; align-items: center; gap: 6px; padding: 8px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.85rem; cursor: pointer;">
+              <input type="radio" name="newGuestSide" value="groom" checked /> 🤵 Nhà Trai
+            </label>
+            <label style="flex: 1; display: flex; align-items: center; gap: 6px; padding: 8px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.85rem; cursor: pointer;">
+              <input type="radio" name="newGuestSide" value="bride" /> 👰 Nhà Gái
+            </label>
+            <label style="flex: 1; display: flex; align-items: center; gap: 6px; padding: 8px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.85rem; cursor: pointer;">
+              <input type="radio" name="newGuestSide" value="both" /> 👥 Chung
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="newGuestEvent">BUỔI LỄ THAM DỰ</label>
+          <select id="newGuestEvent" class="form-control">
+            <option value="tiecruou">Tiệc Rượu Thân Mật (25.11 · Nhà Văn Hóa Thôn Dùng II)</option>
+            <option value="thanhhon">Lễ Thành Hôn (25.11 · Nhà Trai)</option>
+            <option value="vuquy">Lễ Vu Quy (24.11 · Nhà Gái)</option>
+            <option value="all">Trọn vẹn các buổi lễ</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>SỐ NGƯỜI THAM DỰ (TÍNH CẢ KHÁCH &amp; ĐI KÈM)</label>
+          <div class="stepper-wrap">
+            <button type="button" class="stepper-btn" id="stepperMinus">-</button>
+            <div class="stepper-val" id="stepperDisplay">1</div>
+            <button type="button" class="stepper-btn" id="stepperPlus">+</button>
+            <span style="font-size: 0.85rem; color: var(--ink-light);">người</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="newGuestWish">GHI CHÚ / LỜI CHÚC (TÙY CHỌN)</label>
+          <textarea id="newGuestWish" class="form-control" rows="2" style="height: auto;" placeholder="Ghi chú chỗ ngồi hoặc lời chúc..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <button type="button" class="btn-nav" id="cancelAddGuestBtn" style="flex: 1; justify-content: center;">
+            Hủy Bỏ
+          </button>
+          <button type="submit" class="btn-nav primary" style="flex: 2; justify-content: center;">
+            ✓ LƯU KHÁCH MỜI
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: VIẾT LỜI CHÚC MỚI -->
+  <!-- ============================================== -->
+  <div class="modal-overlay" id="addWishModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>💌 Viết Lời Chúc Mới</h3>
+        <button type="button" class="modal-close-btn" id="closeAddWishModalBtn">✕</button>
+      </div>
+
+      <form id="addWishForm">
+        <div class="form-group">
+          <label for="wishSenderName">HỌ VÀ TÊN NGƯỜI GỬI (*)</label>
+          <input type="text" id="wishSenderName" class="form-control" placeholder="Ví dụ: Bác Minh &amp; Gia đình" required />
+        </div>
+
+        <div class="form-group">
+          <label for="wishSenderPhone">SỐ ĐIỆN THOẠI (TÙY CHỌN)</label>
+          <input type="tel" id="wishSenderPhone" class="form-control" placeholder="Ví dụ: 0912345678" />
+        </div>
+
+        <div class="form-group">
+          <label for="wishContent">NỘI DUNG LỜI CHÚC (*)</label>
+          <textarea id="wishContent" class="form-control" rows="4" style="height: auto;" placeholder="Gửi những lời chúc tốt đẹp nhất đến Văn Tiến &amp; Bảo Châu..." required></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <button type="button" class="btn-nav" id="cancelAddWishBtn" style="flex: 1; justify-content: center;">
+            Hủy
+          </button>
+          <button type="submit" class="btn-nav primary" style="flex: 2; justify-content: center;">
+            💌 GỬI VÀO SỔ LƯU BÚT
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-msg" id="toastMsg">
+    <span id="toastText">Thông báo</span>
+    <span style="font-size: 1.1rem; cursor: pointer;" onclick="document.getElementById('toastMsg').classList.remove('show');">✕</span>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- JAVASCRIPT LOGIC -->
+  <!-- ============================================== -->
   <script type="module">
     import { WeddingDB } from './src/wedding-db.js';
 
-    // --- 1. AUTHENTICATION (MÃ PIN) ---
+    // --- 1. AUTHENTICATION & PIN CODE ---
     const pinOverlay = document.getElementById('pinOverlay');
     const pinInput = document.getElementById('pinInput');
     const pinSubmitBtn = document.getElementById('pinSubmitBtn');
@@ -941,22 +1665,23 @@ function doPost(e) {
       const cfg = WeddingDB.loadConfig();
       const isAuth = sessionStorage.getItem('wedding_admin_auth') === 'true';
       if (isAuth) {
-        pinOverlay.style.display = 'none';
+        pinOverlay.classList.remove('is-open');
       } else {
-        pinOverlay.style.display = 'flex';
+        pinOverlay.classList.add('is-open');
         pinInput.value = '';
-        pinInput.focus();
+        setTimeout(() => pinInput.focus(), 150);
       }
     }
 
     pinSubmitBtn.addEventListener('click', () => {
       const cfg = WeddingDB.loadConfig();
-      if (pinInput.value.trim() === (cfg.adminPin || '2511')) {
+      const expectedPin = (cfg.adminPin || '2511').trim();
+      if (pinInput.value.trim() === expectedPin) {
         sessionStorage.setItem('wedding_admin_auth', 'true');
-        pinOverlay.style.display = 'none';
-        showToast('🔓 Đã mở khóa bảng điều khiển thành công!');
+        pinOverlay.classList.remove('is-open');
+        showToast('🔓 Đã mở khóa bảng quản trị thành công!');
       } else {
-        alert('Mã PIN không đúng. Vui lòng thử lại!');
+        alert('Mã PIN không đúng. Vui lòng nhập lại (Mặc định: 2511)!');
         pinInput.value = '';
         pinInput.focus();
       }
@@ -989,42 +1714,84 @@ function doPost(e) {
       });
     });
 
-    // --- 3. TOAST NOTIFICATION ---
+    // --- 3. TOAST NOTIFICATIONS ---
     const toastMsg = document.getElementById('toastMsg');
+    const toastText = document.getElementById('toastText');
     let toastTimeout = null;
+
     function showToast(text) {
-      if (!toastMsg) return;
-      toastMsg.textContent = text;
+      if (!toastMsg || !toastText) return;
+      toastText.textContent = text;
       toastMsg.classList.add('show');
       clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => toastMsg.classList.remove('show'), 2600);
+      toastTimeout = setTimeout(() => toastMsg.classList.remove('show'), 2800);
     }
 
-    // --- 4. RENDER GUESTS & METRICS ---
-    const guestsTableBody = document.getElementById('guestsTableBody');
-    const noGuestsMsg = document.getElementById('noGuestsMsg');
+    // --- 4. VIEW MODE SWITCHER (CARDS VS TABLE) ---
+    const btnViewCards = document.getElementById('btnViewCards');
+    const btnViewTable = document.getElementById('btnViewTable');
+    const guestsCardView = document.getElementById('guestsCardView');
+    const guestsTableView = document.getElementById('guestsTableView');
+
+    let currentViewMode = window.innerWidth >= 1024 ? 'table' : 'cards';
+    
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      if (mode === 'cards') {
+        btnViewCards.classList.add('is-active');
+        btnViewTable.classList.remove('is-active');
+        guestsCardView.style.display = 'grid';
+        guestsTableView.style.display = 'none';
+      } else {
+        btnViewTable.classList.add('is-active');
+        btnViewCards.classList.remove('is-active');
+        guestsTableView.style.display = 'block';
+        guestsCardView.style.display = 'none';
+      }
+    }
+    setViewMode(currentViewMode);
+
+    btnViewCards.addEventListener('click', () => setViewMode('cards'));
+    btnViewTable.addEventListener('click', () => setViewMode('table'));
+
+    // --- 5. DATA STATE & KPI COUNTS ---
+    let allRsvps = [];
+    let allWishes = [];
+
+    // Filter state
+    let activeFilterType = 'all'; // 'all', 'side', 'event', 'checkin', 'attendance'
+    let activeFilterVal = 'all';
+
     const guestSearchInput = document.getElementById('guestSearchInput');
-    const sideFilter = document.getElementById('sideFilter');
-    const eventFilter = document.getElementById('eventFilter');
-    const checkInFilter = document.getElementById('checkInFilter');
+    const searchClearBtn = document.getElementById('searchClearBtn');
+    const noGuestsMsg = document.getElementById('noGuestsMsg');
 
     // KPI Elements
     const kpiTotalGuests = document.getElementById('kpiTotalGuests');
     const kpiTotalSeats = document.getElementById('kpiTotalSeats');
+    const kpiCheckedInCount = document.getElementById('kpiCheckedInCount');
+    const kpiCheckInPercent = document.getElementById('kpiCheckInPercent');
     const kpiGroomSide = document.getElementById('kpiGroomSide');
     const kpiBrideSide = document.getElementById('kpiBrideSide');
     const kpiBanquet = document.getElementById('kpiBanquet');
     const kpiWishesCount = document.getElementById('kpiWishesCount');
-    const kpiDeclinedCount = document.getElementById('kpiDeclinedCount');
+    const kpiDeclinedSub = document.getElementById('kpiDeclinedSub');
     const tabGuestCountBadge = document.getElementById('tabGuestCountBadge');
     const tabWishCountBadge = document.getElementById('tabWishCountBadge');
 
-    let allRsvps = [];
-    let allWishes = [];
+    // Filter Chips counts
+    const chipCountAll = document.getElementById('chipCountAll');
+    const chipCountGroom = document.getElementById('chipCountGroom');
+    const chipCountBride = document.getElementById('chipCountBride');
+    const chipCountBanquet = document.getElementById('chipCountBanquet');
+    const chipCountChecked = document.getElementById('chipCountChecked');
+    const chipCountNotYet = document.getElementById('chipCountNotYet');
+    const chipCountDeclined = document.getElementById('chipCountDeclined');
 
     function updateKpis() {
       const attending = allRsvps.filter(r => r.attendance === 'yes');
       const declined = allRsvps.filter(r => r.attendance === 'no');
+      const checkedIn = allRsvps.filter(r => r.checkedIn);
       
       const totalSeats = attending.reduce((sum, r) => sum + (parseInt(r.guestCount, 10) || 1), 0);
       const groomSeats = attending.filter(r => r.side === 'groom' || r.eventChoice === 'thanhhon')
@@ -1034,95 +1801,213 @@ function doPost(e) {
       const banquetSeats = attending.filter(r => r.eventChoice === 'tiecruou' || r.eventChoice === 'all')
         .reduce((sum, r) => sum + (parseInt(r.guestCount, 10) || 1), 0);
 
+      const checkInPct = attending.length > 0 ? Math.round((checkedIn.length / attending.length) * 100) : 0;
+
       if (kpiTotalGuests) kpiTotalGuests.textContent = attending.length;
       if (kpiTotalSeats) kpiTotalSeats.textContent = `${totalSeats} người (gồm bạn & người đi kèm)`;
-      if (kpiGroomSide) kpiGroomSide.textContent = `${groomSeats} người`;
-      if (kpiBrideSide) kpiBrideSide.textContent = `${brideSeats} người`;
-      if (kpiBanquet) kpiBanquet.textContent = `${banquetSeats} người`;
+      if (kpiCheckedInCount) kpiCheckedInCount.textContent = checkedIn.length;
+      if (kpiCheckInPercent) kpiCheckInPercent.textContent = `${checkInPct}% trên tổng số khách tham dự`;
+      if (kpiGroomSide) kpiGroomSide.textContent = groomSeats;
+      if (kpiBrideSide) kpiBrideSide.textContent = brideSeats;
+      if (kpiBanquet) kpiBanquet.textContent = banquetSeats;
       if (kpiWishesCount) kpiWishesCount.textContent = allWishes.length;
-      if (kpiDeclinedCount) kpiDeclinedCount.textContent = declined.length;
+      if (kpiDeclinedSub) kpiDeclinedSub.textContent = `${declined.length} khách báo vắng lỡ hẹn`;
+      
       if (tabGuestCountBadge) tabGuestCountBadge.textContent = allRsvps.length;
       if (tabWishCountBadge) tabWishCountBadge.textContent = allWishes.length;
+
+      // Update chip counts
+      if (chipCountAll) chipCountAll.textContent = allRsvps.length;
+      if (chipCountGroom) chipCountGroom.textContent = allRsvps.filter(r => r.side === 'groom' || r.eventChoice === 'thanhhon').length;
+      if (chipCountBride) chipCountBride.textContent = allRsvps.filter(r => r.side === 'bride' || r.eventChoice === 'vuquy').length;
+      if (chipCountBanquet) chipCountBanquet.textContent = allRsvps.filter(r => r.eventChoice === 'tiecruou' || r.eventChoice === 'all').length;
+      if (chipCountChecked) chipCountChecked.textContent = checkedIn.length;
+      if (chipCountNotYet) chipCountNotYet.textContent = attending.filter(r => !r.checkedIn).length;
+      if (chipCountDeclined) chipCountDeclined.textContent = declined.length;
     }
 
-    function renderGuestsTable() {
+    // --- 6. RENDER GUESTS (CARDS & TABLE) ---
+    function getFilteredGuests() {
       const q = (guestSearchInput?.value || '').trim().toLowerCase();
-      const sFilter = sideFilter?.value || 'all';
-      const eFilter = eventFilter?.value || 'all';
-      const cFilter = checkInFilter?.value || 'all';
 
-      const filtered = allRsvps.filter(r => {
+      return allRsvps.filter(r => {
+        // Search filter
         if (q) {
           const matchName = (r.name || '').toLowerCase().includes(q);
           const matchPhone = (r.phone || '').toLowerCase().includes(q);
-          if (!matchName && !matchPhone) return false;
+          const matchWish = (r.wish || '').toLowerCase().includes(q);
+          if (!matchName && !matchPhone && !matchWish) return false;
         }
-        if (sFilter !== 'all' && r.side !== sFilter) return false;
-        if (eFilter !== 'all' && r.eventChoice !== eFilter) return false;
-        if (cFilter === 'checked' && !r.checkedIn) return false;
-        if (cFilter === 'not_yet' && r.checkedIn) return false;
+
+        // Chip filter
+        if (activeFilterType === 'side') {
+          if (activeFilterVal === 'groom') return r.side === 'groom' || r.eventChoice === 'thanhhon';
+          if (activeFilterVal === 'bride') return r.side === 'bride' || r.eventChoice === 'vuquy';
+        }
+        if (activeFilterType === 'event') {
+          if (activeFilterVal === 'tiecruou') return r.eventChoice === 'tiecruou' || r.eventChoice === 'all';
+        }
+        if (activeFilterType === 'checkin') {
+          if (activeFilterVal === 'checked') return r.checkedIn;
+          if (activeFilterVal === 'not_yet') return !r.checkedIn && r.attendance === 'yes';
+        }
+        if (activeFilterType === 'attendance') {
+          if (activeFilterVal === 'no') return r.attendance === 'no';
+        }
+
         return true;
       });
+    }
 
-      if (!guestsTableBody) return;
+    function renderGuests() {
+      const filtered = getFilteredGuests();
 
       if (filtered.length === 0) {
-        guestsTableBody.innerHTML = '';
+        if (guestsCardView) guestsCardView.innerHTML = '';
+        if (guestsTableBody) guestsTableBody.innerHTML = '';
         if (noGuestsMsg) noGuestsMsg.style.display = 'block';
         return;
       }
 
       if (noGuestsMsg) noGuestsMsg.style.display = 'none';
 
-      guestsTableBody.innerHTML = filtered.map(r => {
-        const sideBadge = r.side === 'groom' 
-          ? '<span class="badge-chip badge-groom">Nhà Trai</span>'
-          : r.side === 'bride'
-          ? '<span class="badge-chip badge-bride">Nhà Gái</span>'
-          : '<span class="badge-chip badge-both">Khách chung</span>';
+      // 1. RENDER CARDS VIEW (Ergonomic Touch-First)
+      if (guestsCardView) {
+        guestsCardView.innerHTML = filtered.map(r => {
+          const isAttending = r.attendance === 'yes';
+          const guestCount = parseInt(r.guestCount, 10) || 1;
+          const initials = (r.name || 'K').trim().split(' ').pop().slice(0, 2).toUpperCase();
 
-        const attendBadge = r.attendance === 'yes'
-          ? `<span class="badge-chip badge-yes">Đi (+${(r.guestCount || 1) - 1})</span>`
-          : '<span class="badge-chip badge-no">Báo vắng</span>';
+          const sideBadge = r.side === 'groom'
+            ? '<span class="badge-chip badge-groom">Nhà Trai</span>'
+            : r.side === 'bride'
+            ? '<span class="badge-chip badge-bride">Nhà Gái</span>'
+            : '<span class="badge-chip badge-both">Khách Chung</span>';
 
-        const phoneLink = r.phone 
-          ? `<a href="tel:${r.phone}">${r.phone}</a>` 
-          : '<span style="color:var(--ink-light);">-</span>';
+          const attendBadge = isAttending
+            ? `<span class="badge-chip badge-yes">✓ Đi (${guestCount > 1 ? `+${guestCount - 1}` : '1 mình'})</span>`
+            : '<span class="badge-chip badge-no">✕ Báo vắng</span>';
 
-        const checkInClass = r.checkedIn ? 'is-checked' : '';
-        const checkInText = r.checkedIn ? '✓ ĐÃ ĐẾN' : 'Chưa đến';
+          const checkInClass = r.checkedIn ? 'is-checked' : '';
+          const checkInText = r.checkedIn 
+            ? `✓ ĐÃ ĐẾN TIỆC ${r.checkedInAt ? `(${escapeHtml(r.checkedInAt)})` : ''}`
+            : '○ ĐIỂM DANH: CHƯA ĐẾN';
 
-        return `
-          <tr data-id="${r.id}">
-            <td>
-              <button type="button" class="checkin-btn ${checkInClass}" data-action="toggle-checkin" data-id="${r.id}">
-                ${checkInText}
-              </button>
-            </td>
-            <td class="guest-name-cell">
-              ${escapeHtml(r.name)}
-              <div style="margin-top:2px;">${attendBadge}</div>
-            </td>
-            <td class="guest-phone-cell">${phoneLink}</td>
-            <td>${sideBadge}</td>
-            <td><small style="font-family:var(--font-mono);">${WeddingDB.formatEventChoice(r.eventChoice)}</small></td>
-            <td style="font-weight:700; text-align:center;">${r.guestCount || 1}</td>
-            <td><small style="color:var(--ink-light);">${escapeHtml(r.createdAt || 'Mới đây')}</small></td>
-            <td style="max-width:240px; font-style:italic; font-size:0.9rem;">
-              ${escapeHtml(r.wish || '')}
-            </td>
-            <td>
-              <button type="button" class="btn-action-icon" data-action="delete-rsvp" data-id="${r.id}" title="Xóa khách này">
-                🗑️
-              </button>
-            </td>
-          </tr>
-        `;
-      }).join('');
+          const phoneDigits = (r.phone || '').replace(/\D/g, '');
+          const hasPhone = phoneDigits.length >= 9;
+
+          return `
+            <article class="guest-card ${r.checkedIn ? 'checked-in' : ''} ${!isAttending ? 'declined' : ''}" data-id="${r.id}">
+              <div class="guest-card-header">
+                <div class="guest-avatar">${initials}</div>
+                <div class="guest-title-wrap">
+                  <div class="guest-card-name">${escapeHtml(r.name)}</div>
+                  <div class="guest-badges-row">
+                    ${attendBadge}
+                    ${sideBadge}
+                    <span class="badge-chip badge-event">${WeddingDB.formatEventChoice(r.eventChoice)}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- NÚT ĐIỂM DANH HERO BUTTON -->
+              <div>
+                <button type="button" class="checkin-hero-btn ${checkInClass}" data-action="toggle-checkin" data-id="${r.id}">
+                  ${checkInText}
+                </button>
+              </div>
+
+              <!-- LIÊN HỆ GỌI ĐIỆN & ZALO -->
+              ${hasPhone ? `
+                <div class="contact-actions-row">
+                  <a href="tel:${phoneDigits}" class="btn-contact" title="Gọi điện cho khách">
+                    📞 Gọi ${phoneDigits}
+                  </a>
+                  <a href="https://zalo.me/${phoneDigits}" target="_blank" rel="noopener noreferrer" class="btn-contact zalo" title="Mở chat Zalo">
+                    💬 Zalo
+                  </a>
+                </div>
+              ` : `
+                <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-light); text-align: center;">
+                  (Chưa để lại số điện thoại)
+                </div>
+              `}
+
+              <!-- LỜI NHẮN HOẶC LỜI CHÚC KÈM -->
+              ${r.wish ? `
+                <div class="guest-note-box">
+                  💬 “${escapeHtml(r.wish)}”
+                </div>
+              ` : ''}
+
+              <!-- CARD FOOTER -->
+              <div class="guest-card-footer">
+                <span>🕒 ${escapeHtml(r.createdAt || 'Mới đây')}</span>
+                <div style="display: flex; gap: 8px;">
+                  <button type="button" class="btn-action-icon" data-action="delete-rsvp" data-id="${r.id}" title="Xóa khách này">
+                    🗑️
+                  </button>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join('');
+      }
+
+      // 2. RENDER TABLE VIEW (Desktop / Full Data)
+      if (guestsTableBody) {
+        guestsTableBody.innerHTML = filtered.map(r => {
+          const sideBadge = r.side === 'groom' 
+            ? '<span class="badge-chip badge-groom">Nhà Trai</span>'
+            : r.side === 'bride'
+            ? '<span class="badge-chip badge-bride">Nhà Gái</span>'
+            : '<span class="badge-chip badge-both">Khách Chung</span>';
+
+          const attendBadge = r.attendance === 'yes'
+            ? `<span class="badge-chip badge-yes">Đi (${r.guestCount || 1} người)</span>`
+            : '<span class="badge-chip badge-no">Báo vắng</span>';
+
+          const phoneDigits = (r.phone || '').replace(/\D/g, '');
+          const phoneLink = phoneDigits.length >= 9
+            ? `<a href="tel:${phoneDigits}" style="color:var(--vermilion); text-decoration:none; font-family:var(--font-mono); font-weight:700;">${phoneDigits}</a>
+               <a href="https://zalo.me/${phoneDigits}" target="_blank" rel="noopener noreferrer" style="margin-left:4px; font-size:0.75rem; text-decoration:none;">💬</a>`
+            : '<span style="color:var(--ink-light);">-</span>';
+
+          const checkInClass = r.checkedIn ? 'is-checked' : '';
+          const checkInText = r.checkedIn ? '✓ ĐÃ ĐẾN' : 'Chưa đến';
+
+          return `
+            <tr data-id="${r.id}" class="${r.checkedIn ? 'is-checked-row' : ''}">
+              <td>
+                <button type="button" class="checkin-hero-btn ${checkInClass}" style="height:34px; font-size:0.75rem;" data-action="toggle-checkin" data-id="${r.id}">
+                  ${checkInText}
+                </button>
+              </td>
+              <td>
+                <strong style="font-family:var(--font-ui); font-size:1.02rem; color:var(--ink-dark);">${escapeHtml(r.name)}</strong>
+                <div style="margin-top:2px;">${attendBadge}</div>
+              </td>
+              <td>${phoneLink}</td>
+              <td>${sideBadge}</td>
+              <td><small style="font-family:var(--font-mono); font-size:0.75rem;">${WeddingDB.formatEventChoice(r.eventChoice)}</small></td>
+              <td style="font-weight:700; text-align:center; font-family:var(--font-mono);">${r.guestCount || 1}</td>
+              <td><small style="color:var(--ink-light); font-family:var(--font-mono); font-size:0.72rem;">${escapeHtml(r.createdAt || 'Mới đây')}</small></td>
+              <td style="max-width:240px; font-style:italic; font-size:0.88rem; color:var(--ink-muted);">
+                ${escapeHtml(r.wish || '')}
+              </td>
+              <td style="text-align: center;">
+                <button type="button" class="btn-action-icon" data-action="delete-rsvp" data-id="${r.id}" title="Xóa khách này">
+                  🗑️
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
     }
 
-    // Event Delegation cho bảng khách mời
-    guestsTableBody?.addEventListener('click', (e) => {
+    // Event delegation cho Check-in và Xóa
+    function handleGuestAction(e) {
       const target = e.target.closest('[data-action]');
       if (!target) return;
       const action = target.getAttribute('data-action');
@@ -1137,37 +2022,75 @@ function doPost(e) {
           showToast('🗑️ Đã xóa thông tin khách!');
         }
       }
+    }
+
+    guestsCardView?.addEventListener('click', handleGuestAction);
+    guestsTableBody?.addEventListener('click', handleGuestAction);
+
+    // Search events
+    guestSearchInput?.addEventListener('input', () => {
+      if (searchClearBtn) {
+        searchClearBtn.style.display = guestSearchInput.value.length > 0 ? 'inline-flex' : 'none';
+      }
+      renderGuests();
     });
 
-    [guestSearchInput, sideFilter, eventFilter, checkInFilter].forEach(el => {
-      el?.addEventListener('input', renderGuestsTable);
-      el?.addEventListener('change', renderGuestsTable);
+    searchClearBtn?.addEventListener('click', () => {
+      guestSearchInput.value = '';
+      searchClearBtn.style.display = 'none';
+      guestSearchInput.focus();
+      renderGuests();
     });
 
-    // --- 5. RENDER SỔ LƯU BÚT ---
+    // Filter Chips events
+    const filterChipsBar = document.getElementById('filterChipsBar');
+    filterChipsBar?.addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip-btn');
+      if (!chip) return;
+      
+      document.querySelectorAll('.chip-btn').forEach(c => c.classList.remove('is-active'));
+      chip.classList.add('is-active');
+
+      activeFilterType = chip.getAttribute('data-filter-type') || 'all';
+      activeFilterVal = chip.getAttribute('data-filter-val') || 'all';
+
+      renderGuests();
+    });
+
+    // --- 7. RENDER SỔ LƯU BÚT (GUESTBOOK) ---
     const wishesAdminContainer = document.getElementById('wishesAdminContainer');
 
     function renderWishesAdmin() {
       if (!wishesAdminContainer) return;
       if (allWishes.length === 0) {
-        wishesAdminContainer.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--ink-light); font-style:italic;">Chưa có lời chúc nào trong sổ lưu bút.</div>';
+        wishesAdminContainer.innerHTML = `
+          <div class="empty-state" style="grid-column: 1/-1;">
+            <div class="empty-state-icon">💌</div>
+            <p style="font-weight: 600;">Chưa có lời chúc nào trong sổ lưu bút</p>
+          </div>
+        `;
         return;
       }
 
       wishesAdminContainer.innerHTML = allWishes.map(w => `
         <article class="wish-admin-card ${w.pinned ? 'is-pinned' : ''}" data-id="${w.id}">
           <div class="wish-top-line">
-            <div class="wish-sender-title">${escapeHtml(w.name)} ${w.pinned ? '📌' : ''}</div>
+            <div class="wish-sender-title">
+              ${escapeHtml(w.name)}
+              ${w.pinned ? '<span title="Đang ghim lên đầu" style="color:var(--gold-accent);">📌</span>' : ''}
+            </div>
             <div class="wish-time-tag">${escapeHtml(w.time || 'Vừa xong')}</div>
           </div>
+          
           <div class="wish-content-text">“${escapeHtml(w.wish)}”</div>
+          
           <div class="wish-card-footer">
             <span style="font-family:var(--font-mono); color:var(--ink-light); font-size:0.75rem;">
               ${w.phone ? `SĐT: ${escapeHtml(w.phone)}` : 'Lời chúc thiệp cưới'}
             </span>
             <div style="display:flex; gap:6px;">
               <button type="button" class="btn-nav" data-action="pin-wish" data-id="${w.id}" title="${w.pinned ? 'Bỏ ghim' : 'Ghim lên đầu'}">
-                ${w.pinned ? '📌 Đã ghim' : 'Ghim'}
+                ${w.pinned ? '📌 Bỏ ghim' : 'Ghim'}
               </button>
               <button type="button" class="btn-action-icon" data-action="delete-wish" data-id="${w.id}" title="Xóa lời chúc">
                 🗑️
@@ -1195,11 +2118,11 @@ function doPost(e) {
       }
     });
 
-    // --- 6. SUBSCRIBERS DỮ LIỆU THỜI GIAN THỰC ---
+    // --- 8. SUBSCRIBERS DỮ LIỆU REALTIME ---
     WeddingDB.onRsvpsChange((rsvps) => {
       allRsvps = rsvps;
       updateKpis();
-      renderGuestsTable();
+      renderGuests();
     });
 
     WeddingDB.onWishesChange((wishes) => {
@@ -1208,49 +2131,156 @@ function doPost(e) {
       renderWishesAdmin();
     });
 
-    // Xuất file CSV
+    // --- 9. NÚT ĐỒNG BỘ THỜI GIAN THỰC (MANUAL TRIGGER) ---
+    const syncNowBtn = document.getElementById('syncNowBtn');
+    const syncStatusDot = document.getElementById('syncStatusDot');
+    const connStatusText = document.getElementById('connStatusText');
+    const syncSpinner = document.getElementById('syncSpinner');
+
+    async function triggerManualSync() {
+      if (syncSpinner) syncSpinner.style.display = 'inline-block';
+      if (connStatusText) connStatusText.textContent = 'Đang đồng bộ...';
+      if (syncStatusDot) syncStatusDot.style.background = '#F39C12';
+
+      try {
+        const res = await WeddingDB.syncFromGoogleSheet();
+        if (res && res.success) {
+          const now = new Date();
+          const timeStr = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          if (connStatusText) connStatusText.textContent = `Đồng bộ: ${timeStr}`;
+          if (syncStatusDot) syncStatusDot.style.background = '#27AE60';
+          showToast(`✓ Đã đồng bộ thành công! (${res.rsvpsCount || 0} khách, ${res.wishesCount || 0} lời chúc)`);
+        } else {
+          if (connStatusText) connStatusText.textContent = 'Đã lưu cục bộ';
+          if (syncStatusDot) syncStatusDot.style.background = '#27AE60';
+          showToast('✓ Dữ liệu đã sẵn sàng!');
+        }
+      } catch (_) {
+        if (connStatusText) connStatusText.textContent = 'Đã lưu cục bộ';
+      } finally {
+        if (syncSpinner) syncSpinner.style.display = 'none';
+      }
+    }
+
+    syncNowBtn?.addEventListener('click', triggerManualSync);
+
+    // --- 10. MODAL: THÊM KHÁCH MỜI ---
+    const addGuestModal = document.getElementById('addGuestModal');
+    const openAddGuestModalBtn = document.getElementById('openAddGuestModalBtn');
+    const closeAddGuestModalBtn = document.getElementById('closeAddGuestModalBtn');
+    const cancelAddGuestBtn = document.getElementById('cancelAddGuestBtn');
+    const addGuestForm = document.getElementById('addGuestForm');
+
+    const stepperMinus = document.getElementById('stepperMinus');
+    const stepperPlus = document.getElementById('stepperPlus');
+    const stepperDisplay = document.getElementById('stepperDisplay');
+    let newGuestCount = 1;
+
+    function openGuestModal() {
+      newGuestCount = 1;
+      if (stepperDisplay) stepperDisplay.textContent = '1';
+      addGuestForm?.reset();
+      addGuestModal?.classList.add('is-open');
+      setTimeout(() => document.getElementById('newGuestName')?.focus(), 150);
+    }
+    function closeGuestModal() {
+      addGuestModal?.classList.remove('is-open');
+    }
+
+    openAddGuestModalBtn?.addEventListener('click', openGuestModal);
+    closeAddGuestModalBtn?.addEventListener('click', closeGuestModal);
+    cancelAddGuestBtn?.addEventListener('click', closeGuestModal);
+
+    stepperMinus?.addEventListener('click', () => {
+      if (newGuestCount > 1) {
+        newGuestCount--;
+        stepperDisplay.textContent = newGuestCount;
+      }
+    });
+    stepperPlus?.addEventListener('click', () => {
+      if (newGuestCount < 20) {
+        newGuestCount++;
+        stepperDisplay.textContent = newGuestCount;
+      }
+    });
+
+    addGuestForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('newGuestName')?.value.trim();
+      if (!name) return;
+      const phone = document.getElementById('newGuestPhone')?.value.trim();
+      const sideRadio = document.querySelector('input[name="newGuestSide"]:checked');
+      const side = sideRadio ? sideRadio.value : 'groom';
+      const eventChoice = document.getElementById('newGuestEvent')?.value || 'tiecruou';
+      const wish = document.getElementById('newGuestWish')?.value.trim();
+
+      await WeddingDB.submitRsvp({
+        name,
+        phone,
+        side,
+        attendance: 'yes',
+        guestCount: newGuestCount,
+        eventChoice,
+        wish: wish || 'Đăng ký trực tiếp tại bàn đón tiếp'
+      });
+
+      closeGuestModal();
+      showToast(`✓ Đã thêm khách ${name} thành công!`);
+    });
+
+    // --- 11. MODAL: VIẾT LỜI CHÚC MỚI ---
+    const addWishModal = document.getElementById('addWishModal');
+    const openAddWishModalBtn = document.getElementById('openAddWishModalBtn');
+    const closeAddWishModalBtn = document.getElementById('closeAddWishModalBtn');
+    const cancelAddWishBtn = document.getElementById('cancelAddWishBtn');
+    const addWishForm = document.getElementById('addWishForm');
+
+    function openWishModal() {
+      addWishForm?.reset();
+      addWishModal?.classList.add('is-open');
+      setTimeout(() => document.getElementById('wishSenderName')?.focus(), 150);
+    }
+    function closeWishModal() {
+      addWishModal?.classList.remove('is-open');
+    }
+
+    openAddWishModalBtn?.addEventListener('click', openWishModal);
+    closeAddWishModalBtn?.addEventListener('click', closeWishModal);
+    cancelAddWishBtn?.addEventListener('click', closeWishModal);
+
+    addWishForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('wishSenderName')?.value.trim();
+      const phone = document.getElementById('wishSenderPhone')?.value.trim();
+      const wish = document.getElementById('wishContent')?.value.trim();
+      if (!name || !wish) return;
+
+      await WeddingDB.addWish({ name, phone, wish });
+      closeWishModal();
+      showToast('💌 Đã gửi lời chúc mới vào sổ lưu bút thành công!');
+    });
+
+    // Đóng modal khi bấm ra ngoài vùng xám overlay
+    [addGuestModal, addWishModal].forEach(modal => {
+      modal?.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('is-open');
+      });
+    });
+
+    // --- 12. XUẤT FILE CSV ---
     document.getElementById('exportCsvBtn')?.addEventListener('click', () => {
       WeddingDB.exportRsvpsToCsv();
     });
 
-    // Thêm khách nhanh
-    document.getElementById('addQuickGuestBtn')?.addEventListener('click', async () => {
-      const name = prompt('Nhập họ và tên khách:');
-      if (!name || !name.trim()) return;
-      const phone = prompt('Nhập số điện thoại (tùy chọn):') || '';
-      const side = prompt('Phía nào? Nhập "groom" (Nhà trai), "bride" (Nhà gái), hoặc để trống:', 'both');
-      const count = parseInt(prompt('Số người tham dự:', '1') || '1', 10);
-      
-      await WeddingDB.submitRsvp({
-        name,
-        phone,
-        side: side === 'groom' || side === 'bride' ? side : 'both',
-        attendance: 'yes',
-        guestCount: count,
-        eventChoice: 'all',
-        wish: 'Đăng ký trực tiếp tại bàn lễ tân'
-      });
-      showToast(`✓ Đã thêm khách ${name} thành công!`);
-    });
-
-    // Viết lời chúc mới thủ công
-    document.getElementById('addWishBtn')?.addEventListener('click', async () => {
-      const name = prompt('Họ và tên người gửi lời chúc:');
-      if (!name || !name.trim()) return;
-      const wish = prompt('Nội dung lời chúc phúc:');
-      if (!wish || !wish.trim()) return;
-
-      await WeddingDB.addWish({ name, wish });
-      showToast('💌 Đã thêm lời chúc mới vào sổ lưu bút!');
-    });
-
-    // --- 7. CÀI ĐẶT HỆ THỐNG ---
+    // --- 13. CÀI ĐẶT HỆ THỐNG & GOOGLE SHEETS ---
     const cfgFirebaseUrl = document.getElementById('cfgFirebaseUrl');
     const cfgSheetUrl = document.getElementById('cfgSheetUrl');
     const cfgAdminPin = document.getElementById('cfgAdminPin');
     const saveSettingsBtn = document.getElementById('saveSettingsBtn');
     const seedDemoDataBtn = document.getElementById('seedDemoDataBtn');
     const clearDataBtn = document.getElementById('clearDataBtn');
+    const testSheetConnBtn = document.getElementById('testSheetConnBtn');
+    const copyAppsScriptBtn = document.getElementById('copyAppsScriptBtn');
 
     function loadSettingsToForm() {
       const cfg = WeddingDB.loadConfig();
@@ -1270,6 +2300,39 @@ function doPost(e) {
       showToast('💾 Đã lưu cấu hình đồng bộ thành công!');
     });
 
+    testSheetConnBtn?.addEventListener('click', async () => {
+      const url = cfgSheetUrl.value.trim();
+      if (!url) {
+        alert('Vui lòng nhập Google Apps Script Web App URL trước khi kiểm tra!');
+        return;
+      }
+      testSheetConnBtn.textContent = '⏳ Đang kiểm tra kết nối...';
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        const data = await res.json();
+        if (data && data.status === 'success') {
+          alert(`✓ KẾT NỐI THÀNH CÔNG!\n- Đọc được: ${data.rsvps ? data.rsvps.length : 0} khách mời\n- Đọc được: ${data.wishes ? data.wishes.length : 0} lời chúc\nHệ thống đồng bộ đang hoạt động hoàn hảo!`);
+        } else {
+          alert(`⚠️ Đã kết nối nhưng Google Apps Script chưa trả về cấu trúc chuẩn.\nKiểm tra lại xem bạn đã dán hàm doGet() và Tạo Phiên Bản Mới (New Version) chưa!`);
+        }
+      } catch (err) {
+        alert(`❌ Không thể kết nối đến Google Apps Script:\n${err.message}\n\nNguyên nhân thường gặp:\n1. Chưa chọn "Người có quyền truy cập: Bất kỳ ai" (Anyone)\n2. Chưa bấm "Tạo phiên bản mới (New version)" khi Triển khai lại`);
+      } finally {
+        testSheetConnBtn.textContent = '⚡ Kiểm Tra Kết Nối Google Sheets Ngay';
+      }
+    });
+
+    copyAppsScriptBtn?.addEventListener('click', () => {
+      const code = document.getElementById('appsScriptCodeText')?.innerText;
+      if (code) {
+        navigator.clipboard.writeText(code).then(() => {
+          showToast('📋 Đã sao chép mã Google Apps Script vào bộ nhớ tạm!');
+        }).catch(() => {
+          prompt('Nhấn Ctrl+C để sao chép mã:', code);
+        });
+      }
+    });
+
     seedDemoDataBtn?.addEventListener('click', async () => {
       if (!confirm('Nạp thêm 5 khách mẫu kiểm thử?')) return;
       const demoGuests = [
@@ -1286,8 +2349,9 @@ function doPost(e) {
     });
 
     clearDataBtn?.addEventListener('click', () => {
-      if (!confirm('BẠN CÓ CHẮC CHẮN MUỐN XÓA HẾT TOÀN BỘ KHÁCH ĐÃ ĐĂNG KÝ? Hành động này không thể hoàn tác!')) return;
+      if (!confirm('BẠN CÓ CHẮC CHẮN MUỐN XÓA TOÀN BỘ DỮ LIỆU ĐÃ LƯU TRÊN TRÌNH DUYỆT NÀY?')) return;
       localStorage.setItem('wedding_rsvps_tien_chau_v2', '[]');
+      localStorage.setItem('wedding_guestbook_tien_chau_v2', '[]');
       location.reload();
     });
 

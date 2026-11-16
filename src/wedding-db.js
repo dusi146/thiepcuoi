@@ -106,34 +106,47 @@ class WeddingDatabaseService {
   // --- 3. ĐỒNG BỘ 2 CHIỀU TỪ GOOGLE SHEET VỀ TẤT CẢ TRÌNH DUYỆT ---
   async syncFromGoogleSheet() {
     const sheetUrl = this.config.sheetUrl?.trim();
-    if (!sheetUrl || this.isSyncing) return;
+    if (!sheetUrl) return { success: false, reason: 'no_url' };
+    if (this.isSyncing) return { success: false, reason: 'busy' };
 
     this.isSyncing = true;
     try {
       // Dùng cache: 'no-store' để luôn lấy dữ liệu mới nhất
       const res = await fetch(sheetUrl, { cache: 'no-store' });
-      if (!res.ok) throw new Error('Sheet network error');
+      if (!res.ok) throw new Error('Sheet network error ' + res.status);
 
       const data = await res.json();
       if (data && data.status === 'success') {
+        let wishesCount = 0;
+        let rsvpsCount = 0;
         // Cập nhật Sổ lưu bút nếu có lời chúc thật từ Google Sheet
-        if (Array.isArray(data.wishes) && data.wishes.length > 0) {
-          try {
-            localStorage.setItem(STORAGE_KEYS.WISHES, JSON.stringify(data.wishes));
-          } catch (_) {}
-          this.notifyWishesListeners(data.wishes);
+        if (Array.isArray(data.wishes)) {
+          wishesCount = data.wishes.length;
+          if (wishesCount > 0) {
+            try {
+              localStorage.setItem(STORAGE_KEYS.WISHES, JSON.stringify(data.wishes));
+            } catch (_) {}
+            this.notifyWishesListeners(data.wishes);
+          }
         }
 
         // Cập nhật Danh sách khách mời nếu có
-        if (Array.isArray(data.rsvps) && data.rsvps.length > 0) {
-          try {
-            localStorage.setItem(STORAGE_KEYS.RSVPS, JSON.stringify(data.rsvps));
-          } catch (_) {}
-          this.notifyRsvpsListeners(data.rsvps);
+        if (Array.isArray(data.rsvps)) {
+          rsvpsCount = data.rsvps.length;
+          if (rsvpsCount > 0) {
+            try {
+              localStorage.setItem(STORAGE_KEYS.RSVPS, JSON.stringify(data.rsvps));
+            } catch (_) {}
+            this.notifyRsvpsListeners(data.rsvps);
+          }
         }
+        this.lastSyncTime = new Date();
+        return { success: true, wishesCount, rsvpsCount, timestamp: this.lastSyncTime };
       }
-    } catch (_) {
+      return { success: false, reason: 'invalid_format' };
+    } catch (err) {
       // Fallback êm ái sang LocalStorage nếu mạng offline
+      return { success: false, error: err.message };
     } finally {
       this.isSyncing = false;
     }
