@@ -1,9 +1,9 @@
 /**
- * wedding-db.js — Hệ thống quản trị dữ liệu thời gian thực (Realtime DB & Sheets Sync)
- * Hỗ trợ 3 tầng lưu trữ:
- * 1. Firebase Realtime Database (WebSocket / SSE - Miễn phí 100%, đồng bộ tức thì)
- * 2. Google Sheets Webhook (Tự động lưu vào Google Trang tính để quản lý trên điện thoại)
- * 3. LocalStorage Fallback (Đảm bảo hoạt động ngoại tuyến, không bao giờ mất dữ liệu)
+ * wedding-db.js — Hệ thống quản trị dữ liệu thời gian thực (Realtime DB & Google Sheets Sync)
+ * Hỗ trợ 2 chiều đọc / ghi:
+ * 1. Google Sheets Web App (Đọc danh sách lời chúc & khách mời về mọi trình duyệt / Ghi danh khi gửi)
+ * 2. Firebase Realtime Database (Tùy chọn kết nối thêm nếu cần sub-second WebSocket)
+ * 3. LocalStorage Cache (Nạp tức thì 0ms, không phụ thuộc mạng, tự cập nhật khi có dữ liệu mới)
  */
 
 const STORAGE_KEYS = {
@@ -13,15 +13,14 @@ const STORAGE_KEYS = {
   ADMIN_AUTH: 'wedding_admin_authenticated'
 };
 
-// Cấu hình mặc định
+// Cấu hình mặc định liên kết trực tiếp với Google Apps Script của Văn Tiến & Bảo Châu
 const DEFAULT_CONFIG = {
-  // Chú rể / Cô dâu có thể dán link Firebase hoặc Google Sheet vào trang quan-ly.html
-  firebaseUrl: 'https://thiepcuoi-tienchau-default-rtdb.asia-southeast1.firebasedatabase.app',
+  firebaseUrl: '',
   sheetUrl: 'https://script.google.com/macros/s/AKfycby7AiQwSnKqV4-F-vf0Y3qP--mbv67iGsMwnleex4CJPaMViwgk5aajYejxTg7cP6Os/exec',
   adminPin: '2511' // Ngày cưới chính lễ 25.11
 };
 
-// Lời chúc mẫu ban đầu (khi chưa có ai gửi)
+// Lời chúc dự phòng ban đầu nếu chưa tải được từ Google Sheet
 const INITIAL_DEFAULT_WISHES = [
   {
     id: 'wish_init_1',
@@ -53,8 +52,24 @@ class WeddingDatabaseService {
     this.rsvpsListeners = new Set();
     this.wishesEventSource = null;
     this.rsvpsEventSource = null;
+    this.isSyncing = false;
+
     this.initDefaultData();
     this.setupRealtimeListeners();
+
+    // 1. Đồng bộ ngay từ Google Sheet khi vừa mở web
+    this.syncFromGoogleSheet();
+
+    // 2. Định kỳ thăm dò cập nhật mới mỗi 12 giây trong nền
+    setInterval(() => this.syncFromGoogleSheet(), 12000);
+
+    // 3. Khi người dùng quay lại tab trình duyệt, tự động làm mới
+    if (typeof document !== 'undefined') {
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) this.syncFromGoogleSheet();
+      });
+      window.addEventListener('focus', () => this.syncFromGoogleSheet());
+    }
   }
 
   // --- 1. CẤU HÌNH ---
@@ -72,21 +87,15 @@ class WeddingDatabaseService {
     try {
       localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(this.config));
     } catch (_) {}
-    // Khởi động lại SSE nếu đổi URL
     this.setupRealtimeListeners();
+    this.syncFromGoogleSheet();
   }
 
   // --- 2. KHỞI TẠO DỮ LIỆU BAN ĐẦU ---
   initDefaultData() {
     try {
       if (!localStorage.getItem(STORAGE_KEYS.WISHES)) {
-        // Kiểm tra xem có dữ liệu từ version trước không
-        const legacy = localStorage.getItem('wedding_guestbook_tien_chau');
-        if (legacy) {
-          localStorage.setItem(STORAGE_KEYS.WISHES, legacy);
-        } else {
-          localStorage.setItem(STORAGE_KEYS.WISHES, JSON.stringify(INITIAL_DEFAULT_WISHES));
-        }
+        localStorage.setItem(STORAGE_KEYS.WISHES, JSON.stringify(INITIAL_DEFAULT_WISHES));
       }
       if (!localStorage.getItem(STORAGE_KEYS.RSVPS)) {
         localStorage.setItem(STORAGE_KEYS.RSVPS, JSON.stringify([]));
@@ -94,7 +103,43 @@ class WeddingDatabaseService {
     } catch (_) {}
   }
 
-  // --- 3. ĐỒNG BỘ THỜI GIAN THỰC (REALTIME SSE / POLLING) ---
+  // --- 3. ĐỒNG BỘ 2 CHIỀU TỪ GOOGLE SHEET VỀ TẤT CẢ TRÌNH DUYỆT ---
+  async syncFromGoogleSheet() {
+    const sheetUrl = this.config.sheetUrl?.trim();
+    if (!sheetUrl || this.isSyncing) return;
+
+    this.isSyncing = true;
+    try {
+      // Dùng cache: 'no-store' để luôn lấy dữ liệu mới nhất
+      const res = await fetch(sheetUrl, { cache: 'no-store' });
+      if (!res.ok) throw new Error('Sheet network error');
+
+      const data = await res.json();
+      if (data && data.status === 'success') {
+        // Cập nhật Sổ lưu bút nếu có lời chúc thật từ Google Sheet
+        if (Array.isArray(data.wishes) && data.wishes.length > 0) {
+          try {
+            localStorage.setItem(STORAGE_KEYS.WISHES, JSON.stringify(data.wishes));
+          } catch (_) {}
+          this.notifyWishesListeners(data.wishes);
+        }
+
+        // Cập nhật Danh sách khách mời nếu có
+        if (Array.isArray(data.rsvps) && data.rsvps.length > 0) {
+          try {
+            localStorage.setItem(STORAGE_KEYS.RSVPS, JSON.stringify(data.rsvps));
+          } catch (_) {}
+          this.notifyRsvpsListeners(data.rsvps);
+        }
+      }
+    } catch (_) {
+      // Fallback êm ái sang LocalStorage nếu mạng offline
+    } finally {
+      this.isSyncing = false;
+    }
+  }
+
+  // --- 4. FIREBASE REALTIME SSE (NẾU CÓ CẤU HÌNH) ---
   setupRealtimeListeners() {
     if (this.wishesEventSource) {
       try { this.wishesEventSource.close(); } catch (_) {}
@@ -106,15 +151,10 @@ class WeddingDatabaseService {
     }
 
     const fbUrl = this.config.firebaseUrl?.trim().replace(/\/$/, '');
-    if (!fbUrl || fbUrl.includes('placeholder')) {
-      return;
-    }
+    if (!fbUrl || fbUrl.includes('placeholder')) return;
 
-    // Kết nối Firebase SSE cho Lời Chúc (Wishes)
     try {
-      const wishesSseUrl = `${fbUrl}/wishes.json`;
-      this.wishesEventSource = new EventSource(wishesSseUrl);
-
+      this.wishesEventSource = new EventSource(`${fbUrl}/wishes.json`);
       this.wishesEventSource.addEventListener('put', (e) => {
         try {
           const payload = JSON.parse(e.data);
@@ -122,43 +162,17 @@ class WeddingDatabaseService {
             const remoteWishes = typeof payload.data === 'object' 
               ? Object.entries(payload.data).map(([key, val]) => ({ ...val, id: val.id || key }))
               : [];
-            if (remoteWishes.length > 0) {
-              this.mergeWishesFromRemote(remoteWishes);
-            }
+            if (remoteWishes.length > 0) this.mergeWishesFromRemote(remoteWishes);
           }
         } catch (_) {}
       });
-
-      this.wishesEventSource.onerror = () => {
-        // Fallback im lặng sang chế độ offline nếu Firebase endpoint chưa mở quyền read
-      };
-    } catch (_) {}
-
-    // Kết nối Firebase SSE cho RSVP (Xác nhận tham dự)
-    try {
-      const rsvpSseUrl = `${fbUrl}/rsvps.json`;
-      this.rsvpsEventSource = new EventSource(rsvpSseUrl);
-
-      this.rsvpsEventSource.addEventListener('put', (e) => {
-        try {
-          const payload = JSON.parse(e.data);
-          if (payload && payload.data) {
-            const remoteRsvps = typeof payload.data === 'object'
-              ? Object.entries(payload.data).map(([key, val]) => ({ ...val, id: val.id || key }))
-              : [];
-            if (remoteRsvps.length > 0) {
-              this.mergeRsvpsFromRemote(remoteRsvps);
-            }
-          }
-        } catch (_) {}
-      });
+      this.wishesEventSource.onerror = () => {};
     } catch (_) {}
   }
 
   mergeWishesFromRemote(remoteWishes) {
     const local = this.getWishes();
     const map = new Map();
-    // Ưu tiên local trước
     local.forEach(w => map.set(w.id || `${w.name}_${w.timestamp}`, w));
     remoteWishes.forEach(w => {
       const key = w.id || `${w.name}_${w.timestamp}`;
@@ -171,22 +185,7 @@ class WeddingDatabaseService {
     this.notifyWishesListeners(merged);
   }
 
-  mergeRsvpsFromRemote(remoteRsvps) {
-    const local = this.getRsvps();
-    const map = new Map();
-    local.forEach(r => map.set(r.id || `${r.phone}_${r.name}`, r));
-    remoteRsvps.forEach(r => {
-      const key = r.id || `${r.phone}_${r.name}`;
-      map.set(key, { ...map.get(key), ...r });
-    });
-    const merged = Array.from(map.values()).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-    try {
-      localStorage.setItem(STORAGE_KEYS.RSVPS, JSON.stringify(merged));
-    } catch (_) {}
-    this.notifyRsvpsListeners(merged);
-  }
-
-  // --- 4. QUẢN LÝ LỜI CHÚC (WISHES / GUESTBOOK) ---
+  // --- 5. QUẢN LÝ LỜI CHÚC (WISHES / GUESTBOOK) ---
   getWishes() {
     try {
       const raw = localStorage.getItem(STORAGE_KEYS.WISHES);
@@ -207,7 +206,7 @@ class WeddingDatabaseService {
       pinned: false
     };
 
-    // 1. Lưu LocalStorage ngay lập tức
+    // 1. Lưu LocalStorage ngay lập tức để người gửi thấy ngay
     const list = this.getWishes();
     list.unshift(newEntry);
     try {
@@ -215,7 +214,32 @@ class WeddingDatabaseService {
     } catch (_) {}
     this.notifyWishesListeners(list);
 
-    // 2. Gửi bất đồng bộ lên Firebase Realtime Database
+    // 2. Gửi đồng thời về Google Sheet để mọi trình duyệt khác cũng thấy
+    const sheetUrl = this.config.sheetUrl?.trim();
+    if (sheetUrl) {
+      try {
+        const formData = new URLSearchParams();
+        formData.append('createdAt', new Date().toLocaleString('vi-VN'));
+        formData.append('name', newEntry.name);
+        formData.append('phone', newEntry.phone);
+        formData.append('attendance', 'Gửi lời chúc');
+        formData.append('guestCount', '1');
+        formData.append('eventChoice', 'Sổ lưu bút');
+        formData.append('side', 'Khách quý');
+        formData.append('wish', newEntry.wish);
+
+        fetch(sheetUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: formData.toString()
+        }).catch(() => {});
+
+        setTimeout(() => this.syncFromGoogleSheet(), 1000);
+      } catch (_) {}
+    }
+
+    // 3. Gửi Firebase nếu có
     const fbUrl = this.config.firebaseUrl?.trim().replace(/\/$/, '');
     if (fbUrl) {
       try {
@@ -231,16 +255,27 @@ class WeddingDatabaseService {
   }
 
   deleteWish(wishId) {
+    const target = this.getWishes().find(w => w.id === wishId);
     let list = this.getWishes().filter(w => w.id !== wishId);
     try {
       localStorage.setItem(STORAGE_KEYS.WISHES, JSON.stringify(list));
     } catch (_) {}
     this.notifyWishesListeners(list);
 
-    const fbUrl = this.config.firebaseUrl?.trim().replace(/\/$/, '');
-    if (fbUrl) {
+    // Gửi xóa lên Google Sheet nếu có rowIndex
+    const sheetUrl = this.config.sheetUrl?.trim();
+    if (sheetUrl && target && target.rowIndex) {
       try {
-        fetch(`${fbUrl}/wishes/${wishId}.json`, { method: 'DELETE' }).catch(() => {});
+        const formData = new URLSearchParams();
+        formData.append('action', 'delete_row');
+        formData.append('rowIndex', target.rowIndex);
+        fetch(sheetUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: formData.toString()
+        }).catch(() => {});
+        setTimeout(() => this.syncFromGoogleSheet(), 1000);
       } catch (_) {}
     }
   }
@@ -254,20 +289,9 @@ class WeddingDatabaseService {
       localStorage.setItem(STORAGE_KEYS.WISHES, JSON.stringify(list));
     } catch (_) {}
     this.notifyWishesListeners(list);
-
-    const target = list.find(w => w.id === wishId);
-    const fbUrl = this.config.firebaseUrl?.trim().replace(/\/$/, '');
-    if (fbUrl && target) {
-      try {
-        fetch(`${fbUrl}/wishes/${wishId}/pinned.json`, {
-          method: 'PUT',
-          body: JSON.stringify(target.pinned)
-        }).catch(() => {});
-      } catch (_) {}
-    }
   }
 
-  // --- 5. QUẢN LÝ XÁC NHẬN THAM DỰ (RSVP) ---
+  // --- 6. QUẢN LÝ XÁC NHẬN THAM DỰ (RSVP) ---
   getRsvps() {
     try {
       const raw = localStorage.getItem(STORAGE_KEYS.RSVPS);
@@ -282,10 +306,10 @@ class WeddingDatabaseService {
       id: `rsvp_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
       name: rsvpData.name.trim(),
       phone: (rsvpData.phone || '').trim(),
-      attendance: rsvpData.attendance || 'yes', // 'yes' hoặc 'no'
+      attendance: rsvpData.attendance || 'yes',
       guestCount: parseInt(rsvpData.guestCount || '1', 10),
-      eventChoice: rsvpData.eventChoice || 'all', // 'all', 'thanhhon', 'vuquy', 'tiecruou'
-      side: rsvpData.side || 'both', // 'groom', 'bride', 'both'
+      eventChoice: rsvpData.eventChoice || 'all',
+      side: rsvpData.side || 'both',
       wish: (rsvpData.wish || '').trim(),
       checkedIn: false,
       timestamp: Date.now(),
@@ -300,33 +324,29 @@ class WeddingDatabaseService {
     } catch (_) {}
     this.notifyRsvpsListeners(list);
 
-    // 2. Nếu có gửi kèm lời chúc, tự động lưu vào Sổ Lưu Bút
+    // 2. Nếu có lời chúc, tự động thêm vào Sổ lưu bút
     if (newEntry.wish) {
-      await this.addWish({
+      const wishList = this.getWishes();
+      wishList.unshift({
+        id: `wish_${newEntry.id}`,
         name: newEntry.name,
         phone: newEntry.phone,
-        wish: newEntry.wish
+        wish: newEntry.wish,
+        time: 'Vừa xong',
+        timestamp: Date.now(),
+        pinned: false
       });
-    }
-
-    // 3. Gửi lên Firebase Realtime Database
-    const fbUrl = this.config.firebaseUrl?.trim().replace(/\/$/, '');
-    if (fbUrl) {
       try {
-        fetch(`${fbUrl}/rsvps/${newEntry.id}.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newEntry)
-        }).catch(() => {});
+        localStorage.setItem(STORAGE_KEYS.WISHES, JSON.stringify(wishList));
       } catch (_) {}
+      this.notifyWishesListeners(wishList);
     }
 
-    // 4. Gửi đồng thời về Google Sheets (nếu đã cấu hình Webhook Apps Script)
+    // 3. Gửi đồng thời về Google Sheet (để đổ về file Excel của bạn và hiển thị trên mọi trình duyệt)
     const sheetUrl = this.config.sheetUrl?.trim();
     if (sheetUrl) {
       try {
         const formData = new URLSearchParams();
-        formData.append('id', newEntry.id);
         formData.append('createdAt', newEntry.createdAt);
         formData.append('name', newEntry.name);
         formData.append('phone', newEntry.phone);
@@ -342,6 +362,9 @@ class WeddingDatabaseService {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: formData.toString()
         }).catch(() => {});
+
+        // Sau 1s tự động đồng bộ lại từ Google Sheet
+        setTimeout(() => this.syncFromGoogleSheet(), 1000);
       } catch (_) {}
     }
 
@@ -349,28 +372,40 @@ class WeddingDatabaseService {
   }
 
   deleteRsvp(rsvpId) {
+    const target = this.getRsvps().find(r => r.id === rsvpId);
     let list = this.getRsvps().filter(r => r.id !== rsvpId);
     try {
       localStorage.setItem(STORAGE_KEYS.RSVPS, JSON.stringify(list));
     } catch (_) {}
     this.notifyRsvpsListeners(list);
 
-    const fbUrl = this.config.firebaseUrl?.trim().replace(/\/$/, '');
-    if (fbUrl) {
+    const sheetUrl = this.config.sheetUrl?.trim();
+    if (sheetUrl && target && target.rowIndex) {
       try {
-        fetch(`${fbUrl}/rsvps/${rsvpId}.json`, { method: 'DELETE' }).catch(() => {});
+        const formData = new URLSearchParams();
+        formData.append('action', 'delete_row');
+        formData.append('rowIndex', target.rowIndex);
+        fetch(sheetUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: formData.toString()
+        }).catch(() => {});
+        setTimeout(() => this.syncFromGoogleSheet(), 1000);
       } catch (_) {}
     }
   }
 
   toggleCheckIn(rsvpId, status) {
+    let target = null;
     const list = this.getRsvps().map(r => {
       if (r.id === rsvpId) {
-        return { 
+        target = { 
           ...r, 
           checkedIn: status !== undefined ? status : !r.checkedIn,
           checkedInAt: (!r.checkedIn) ? new Date().toLocaleTimeString('vi-VN') : null
         };
+        return target;
       }
       return r;
     });
@@ -379,19 +414,24 @@ class WeddingDatabaseService {
     } catch (_) {}
     this.notifyRsvpsListeners(list);
 
-    const target = list.find(r => r.id === rsvpId);
-    const fbUrl = this.config.firebaseUrl?.trim().replace(/\/$/, '');
-    if (fbUrl && target) {
+    const sheetUrl = this.config.sheetUrl?.trim();
+    if (sheetUrl && target && target.rowIndex) {
       try {
-        fetch(`${fbUrl}/rsvps/${rsvpId}/checkedIn.json`, {
-          method: 'PUT',
-          body: JSON.stringify(target.checkedIn)
+        const formData = new URLSearchParams();
+        formData.append('action', 'toggle_checkin');
+        formData.append('rowIndex', target.rowIndex);
+        fetch(sheetUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: formData.toString()
         }).catch(() => {});
+        setTimeout(() => this.syncFromGoogleSheet(), 1000);
       } catch (_) {}
     }
   }
 
-  // --- 6. EVENT SUBSCRIBERS ---
+  // --- 7. EVENT SUBSCRIBERS ---
   onWishesChange(callback) {
     this.wishesListeners.add(callback);
     callback(this.getWishes());
@@ -416,7 +456,7 @@ class WeddingDatabaseService {
     });
   }
 
-  // --- 7. XUẤT FILE EXCEL / CSV TIẾNG VIỆT CHUẨN ---
+  // --- 8. XUẤT FILE EXCEL / CSV TIẾNG VIỆT CHUẨN ---
   exportRsvpsToCsv() {
     const list = this.getRsvps();
     if (list.length === 0) {
@@ -462,7 +502,6 @@ class WeddingDatabaseService {
     URL.revokeObjectURL(url);
   }
 
-  // --- HELPERS FORMAT ---
   formatSide(side) {
     switch (side) {
       case 'groom': return 'Nhà Trai (Chú rể)';

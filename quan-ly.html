@@ -803,29 +803,102 @@
             <li>Vào menu <strong>Tiện ích mở rộng (Extensions) → Apps Script</strong>, xóa hết mã cũ và dán đoạn mã bên dưới vào:</li>
           </ol>
           <div class="code-box">
-<pre id="appsScriptCode">function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  var p = e.parameter;
-  // Tạo tiêu đề nếu trang tính còn trống
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow(["Thời gian", "Họ và tên", "Số điện thoại", "Tham dự", "Số người", "Buổi lễ", "Phía", "Lời chúc"]);
+<pre id="appsScriptCode">// 1. Hàm ĐỌC danh sách khách & lời chúc về hiển thị trên TẤT CẢ các thiết bị / trình duyệt
+function doGet(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var rows = sheet.getDataRange().getValues();
+    if (!rows || rows.length &lt;= 1) {
+      return ContentService.createTextOutput(JSON.stringify({ status: "success", wishes: [], rsvps: [] })).setMimeType(ContentService.MimeType.JSON);
+    }
+    var rsvps = [];
+    var wishes = [];
+    for (var i = 1; i &lt; rows.length; i++) {
+      var r = rows[i];
+      var createdAt = r[0] ? String(r[0]) : "";
+      var name = r[1] ? String(r[1]) : "";
+      var phone = r[2] ? String(r[2]) : "";
+      var attendance = r[3] ? String(r[3]) : "Có tham dự";
+      var guestCount = parseInt(r[4], 10) || 1;
+      var eventChoice = r[5] ? String(r[5]) : "";
+      var side = r[6] ? String(r[6]) : "";
+      var wishText = r[7] ? String(r[7]) : "";
+      var checkedIn = (r[8] && String(r[8]).indexOf("ĐÃ ĐẾN") !== -1) || false;
+      
+      var item = {
+        id: "sheet_rsvp_" + (i + 1),
+        rowIndex: i + 1,
+        createdAt: createdAt,
+        name: name,
+        phone: phone,
+        attendance: (attendance.indexOf("vắng") !== -1 || attendance.indexOf("no") !== -1) ? "no" : "yes",
+        guestCount: guestCount,
+        eventChoice: eventChoice,
+        side: side,
+        wish: wishText,
+        checkedIn: checkedIn
+      };
+      rsvps.unshift(item);
+      if (wishText && wishText.toString().trim().length &gt; 0) {
+        wishes.unshift({
+          id: "sheet_wish_" + (i + 1),
+          rowIndex: i + 1,
+          name: name || "Khách quý",
+          phone: phone,
+          wish: wishText.toString().trim(),
+          time: createdAt || "Vừa xong",
+          timestamp: Date.now() - (rows.length - i) * 60000,
+          pinned: false
+        });
+      }
+    }
+    return ContentService.createTextOutput(JSON.stringify({ status: "success", wishes: wishes, rsvps: rsvps })).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() })).setMimeType(ContentService.MimeType.JSON);
   }
-  sheet.appendRow([
-    p.createdAt || new Date().toLocaleString("vi-VN"),
-    p.name || "",
-    p.phone || "",
-    p.attendance || "",
-    p.guestCount || 1,
-    p.eventChoice || "",
-    p.side || "",
-    p.wish || ""
-  ]);
-  return ContentService.createTextOutput("SUCCESS");
+}
+
+// 2. Hàm GHI danh khách và lời chúc mới vào bảng tính
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var p = (e && e.parameter) ? e.parameter : {};
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(["Thời gian", "Họ và tên", "Số điện thoại", "Tham dự", "Số người", "Buổi lễ", "Phía", "Lời chúc", "Điểm danh"]);
+    }
+    // Xử lý Check-in
+    if (p.action === "toggle_checkin" && p.rowIndex) {
+      var rIdx = parseInt(p.rowIndex, 10);
+      var currentVal = sheet.getRange(rIdx, 9).getValue();
+      sheet.getRange(rIdx, 9).setValue((String(currentVal).indexOf("ĐÃ ĐẾN") !== -1) ? "Chưa đến" : "✓ ĐÃ ĐẾN TIỆC");
+      return ContentService.createTextOutput("CHECKIN_UPDATED");
+    }
+    // Xử lý Xóa dòng
+    if (p.action === "delete_row" && p.rowIndex) {
+      sheet.deleteRow(parseInt(p.rowIndex, 10));
+      return ContentService.createTextOutput("DELETED");
+    }
+    // Mặc định: Thêm dòng mới
+    sheet.appendRow([
+      p.createdAt || new Date().toLocaleString("vi-VN"),
+      p.name || "Khách quý",
+      p.phone || "",
+      p.attendance || "Có tham dự",
+      p.guestCount || 1,
+      p.eventChoice || "Trọn vẹn hai buổi lễ",
+      p.side || "Khách chung",
+      p.wish || "",
+      "Chưa đến"
+    ]);
+    return ContentService.createTextOutput("SUCCESS");
+  } catch (err) {
+    return ContentService.createTextOutput("ERROR: " + err.toString());
+  }
 }</pre>
           </div>
           <ol start="3" style="margin-left: 20px; font-size: 0.92rem; color: var(--ink-muted); line-height: 1.6;">
-            <li>Bấm <strong>Triển khai (Deploy) → Tùy chọn triển khai mới (New deployment) → Chọn loại: Ứng dụng web (Web App)</strong>.</li>
-            <li><strong style="color: var(--vermilion);">⚠️ QUAN TRỌNG:</strong> Mục <em>Ai có quyền truy cập (Who has access)</em>, bạn <strong>bắt buộc phải chọn "Bất kỳ ai" (Anyone)</strong> để khách gửi thiệp không bị Google chặn quyền truy cập (lỗi 404).</li>
+            <li>Bấm <strong>Triển khai (Deploy) → Quản lý các tùy chọn triển khai (Manage deployments)</strong>.</li>
+            <li>Bấm vào biểu tượng <strong>Chiếc bút chì ✏️ (Chỉnh sửa)</strong> → Mục <em>Phiên bản (Version)</em> chọn <strong>Phiên bản mới (New version)</strong> → Bấm <strong>Triển khai (Deploy)</strong>.</li>
           </ol>
         </div>
 
